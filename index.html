@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bremo — Sign-up bonuses worth claiming</title>
+  <meta name="description" content="Curated sign-up bonuses and offers from fintech brands we actually use." />
+  <link rel="stylesheet" href="/assets/style.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="site">
+      <div class="brand">Bremo</div>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/#offers">Offers</a>
+      </nav>
+    </header>
+
+    <h1>Sign-up bonuses worth claiming.</h1>
+    <p class="lede">We only feature offers we'd use ourselves. No fluff.</p>
+
+    <h2 id="offers">Featured offer</h2>
+    <div class="card">
+      <span class="bonus-badge">$20 BONUS</span>
+      <h2 style="margin-top:12px">KOHO — Get $20 when you sign up</h2>
+      <p>Canada's popular prepaid spending account. Use promo code <strong>BREMO2026</strong> at sign-up to claim your bonus.</p>
+      <p><a href="#" class="cta" id="koho-cta">See the KOHO offer →</a></p>
+      <p class="disclosure">Bremo earns a commission when you sign up through our links. T&amp;Cs apply.</p>
+    </div>
+
+    <footer class="site">
+      &copy; 2026 Bremo. Affiliate disclosures in each offer.
+    </footer>
+  </div>
+
+  <script src="/assets/config.js"></script>
+  <script src="/assets/ab-test.js"></script>
+  <script>
+    document.getElementById("koho-cta").addEventListener("click", function (e) {
+      e.preventDefault();
+      window.BremoAB.routeToKoho();
+    });
+  </script>
+</body>
+</html>

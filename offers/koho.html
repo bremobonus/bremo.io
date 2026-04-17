@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>KOHO $20 Sign-Up Bonus — Claim with BREMO2026 | Bremo</title>
+  <meta name="description" content="Open a KOHO account with promo code BREMO2026 and get a $20 sign-up bonus. Canadian spending + savings in one app." />
+  <link rel="stylesheet" href="/assets/style.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="site">
+      <div class="brand">Bremo</div>
+      <nav>
+        <a href="/">Home</a>
+      </nav>
+    </header>
+
+    <section class="offer-hero">
+      <div>
+        <span class="bonus-badge">EXCLUSIVE · $20 BONUS</span>
+        <h1 style="margin-top:14px">Get $20 free when you sign up for KOHO.</h1>
+        <p class="lede">
+          Canada's all-in-one spending, saving, and earning account — and a welcome bonus on us when you use promo code <strong>BREMO2026</strong>.
+        </p>
+
+        <div style="margin: 24px 0;">
+          <a href="#" class="cta" id="koho-cta">Claim $20 bonus →</a>
+        </div>
+
+        <div class="promo-code">
+          Promo code: <strong>BREMO2026</strong>
+        </div>
+      </div>
+    </section>
+
+    <h2>How to get your $20</h2>
+    <ol class="steps">
+      <li>Tap <em>Claim $20 bonus</em> above to start your KOHO application.</li>
+      <li>Enter promo code <strong>BREMO2026</strong> during sign-up.</li>
+      <li>Fund your account and complete the qualifying activity outlined in KOHO's T&amp;Cs.</li>
+      <li>Watch your $20 bonus land in your KOHO account.</li>
+    </ol>
+
+    <h2>Why KOHO?</h2>
+    <div class="card">
+      <ul>
+        <li><strong>No monthly fees</strong> on the free plan.</li>
+        <li><strong>Earn cash back</strong> on everyday spending categories.</li>
+        <li><strong>High-interest earnings</strong> on your balance with eligible plans.</li>
+        <li><strong>Instant transfers</strong> and a clean mobile app built in Canada.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="text-align:center;">
+      <h2 style="margin-top:0">Ready to claim your $20?</h2>
+      <p>Takes about 3 minutes. Cancel any time.</p>
+      <a href="#" class="cta" id="koho-cta-bottom">Sign up with KOHO</a>
+      <p class="disclosure" style="margin-top:16px">
+        <strong>Disclosure:</strong> Bremo earns a commission when you sign up through our link — at no extra cost to you.
+        $20 sign-up bonus is offered by KOHO; terms &amp; conditions apply, including qualifying-activity and eligibility requirements.
+        See KOHO's site for full T&amp;Cs. Offer subject to change.
+      </p>
+    </div>
+
+    <p class="variant-tag" style="margin-top:24px">B / TREATMENT</p>
+
+    <footer class="site">
+      &copy; 2026 Bremo. Affiliate disclosures in each offer.
+    </footer>
+  </div>
+
+  <script src="/assets/config.js"></script>
+  <script src="/assets/ab-test.js"></script>
+  <script>
+    var cfg = window.BREMO_CONFIG.koho;
+    ["koho-cta", "koho-cta-bottom"].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      el.href = cfg.affiliateUrl;
+      el.addEventListener("click", function () {
+        window.BremoAB.trackClick("treatment");
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>KOHO $20 Sign-Up Bonus | Bremo</title>
+  <meta name="description" content="Get a $20 sign-up bonus with KOHO. Use promo code BREMO2026." />
+  <link rel="stylesheet" href="/assets/style.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="site">
+      <div class="brand">Bremo</div>
+      <nav>
+        <a href="/">Home</a>
+      </nav>
+    </header>
+
+    <h1>
+      KOHO $20 Sign-Up Bonus
+      <span class="variant-tag">A / CONTROL</span>
+    </h1>
+    <p class="lede">Sign up with KOHO and get $20 when you use our promo code.</p>
+
+    <div class="card">
+      <p>Use promo code <strong>BREMO2026</strong> at sign-up.</p>
+      <p>
+        <a href="#" class="cta" id="koho-cta">Sign up with KOHO</a>
+      </p>
+      <p class="disclosure">
+        Bremo may earn a commission when you sign up through our link. $20 bonus T&amp;Cs apply; see KOHO for full terms.
+      </p>
+    </div>
+
+    <footer class="site">
+      &copy; 2026 Bremo.
+    </footer>
+  </div>
+
+  <script src="/assets/config.js"></script>
+  <script src="/assets/ab-test.js"></script>
+  <script>
+    var cfg = window.BREMO_CONFIG.koho;
+    var cta = document.getElementById("koho-cta");
+    cta.href = cfg.affiliateUrl;
+    cta.addEventListener("click", function () {
+      window.BremoAB.trackClick("control");
+    });
+  </script>
+</body>
+</html>
