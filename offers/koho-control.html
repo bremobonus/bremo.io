@@ -25,7 +25,10 @@
     <div class="card">
       <p>Use promo code <strong>BREMO2026</strong> at sign-up.</p>
       <p>
-        <a href="#" class="cta" id="koho-cta">Sign up with KOHO</a>
+        <a href="#" class="cta" id="koho-cta" target="_blank" rel="sponsored noopener noreferrer">Sign up with KOHO</a>
+      </p>
+      <p id="copied-msg" style="display:none; color: var(--accent); font-size: 14px;">
+        Promo code copied — paste it at sign-up.
       </p>
       <p class="disclosure">
         Bremo may earn a commission when you sign up through our link. $20 bonus T&amp;Cs apply; see KOHO for full terms.
@@ -42,9 +45,13 @@
   <script>
     var cfg = window.BREMO_CONFIG.koho;
     var cta = document.getElementById("koho-cta");
+    var msg = document.getElementById("copied-msg");
     cta.href = cfg.affiliateUrl;
     cta.addEventListener("click", function () {
       window.BremoAB.trackClick("control");
+      window.BremoAB.copyPromo(cfg.promoCode).then(function (ok) {
+        if (ok && msg) msg.style.display = "block";
+      });
     });
   </script>
 </body>

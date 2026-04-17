@@ -18,9 +18,15 @@
     } catch (e) {}
   }
 
+  function copyPromo(code) {
+    if (!navigator.clipboard || !code) return Promise.resolve(false);
+    return navigator.clipboard.writeText(code).then(function () { return true; }, function () { return false; });
+  }
+
   window.BremoAB = {
     getVariant: assign,
     trackClick: trackClick,
+    copyPromo: copyPromo,
     routeToKoho: function () {
       var v = assign();
       var target = v === "treatment" ? "/offers/koho.html" : "/offers/koho-control.html";

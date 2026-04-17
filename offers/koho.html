@@ -25,8 +25,11 @@
         </p>
 
         <div style="margin: 24px 0;">
-          <a href="#" class="cta" id="koho-cta">Claim $20 bonus →</a>
+          <a href="#" class="cta" id="koho-cta" target="_blank" rel="sponsored noopener noreferrer">Claim $20 bonus →</a>
         </div>
+        <p id="copied-msg" style="display:none; color: var(--accent); font-size: 14px; margin-top: -8px;">
+          Promo code copied to clipboard — paste <strong>BREMO2026</strong> at sign-up.
+        </p>
 
         <div class="promo-code">
           Promo code: <strong>BREMO2026</strong>
@@ -55,7 +58,7 @@
     <div class="card" style="text-align:center;">
       <h2 style="margin-top:0">Ready to claim your $20?</h2>
       <p>Takes about 3 minutes. Cancel any time.</p>
-      <a href="#" class="cta" id="koho-cta-bottom">Sign up with KOHO</a>
+      <a href="#" class="cta" id="koho-cta-bottom" target="_blank" rel="sponsored noopener noreferrer">Sign up with KOHO</a>
       <p class="disclosure" style="margin-top:16px">
         <strong>Disclosure:</strong> Bremo earns a commission when you sign up through our link — at no extra cost to you.
         $20 sign-up bonus is offered by KOHO; terms &amp; conditions apply, including qualifying-activity and eligibility requirements.
@@ -74,12 +77,16 @@
   <script src="/assets/ab-test.js"></script>
   <script>
     var cfg = window.BREMO_CONFIG.koho;
+    var msg = document.getElementById("copied-msg");
     ["koho-cta", "koho-cta-bottom"].forEach(function (id) {
       var el = document.getElementById(id);
       if (!el) return;
       el.href = cfg.affiliateUrl;
       el.addEventListener("click", function () {
         window.BremoAB.trackClick("treatment");
+        window.BremoAB.copyPromo(cfg.promoCode).then(function (ok) {
+          if (ok && msg) msg.style.display = "block";
+        });
       });
     });
   </script>

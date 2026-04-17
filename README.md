@@ -13,10 +13,16 @@ assets/ab-test.js             50/50 split, persisted per visitor in localStorage
 assets/style.css              Shared styles
 ```
 
+## Attribution
+
+Attribution runs through the **promo code `BREMO2026`** entered during KOHO sign-up. CTAs send visitors to `https://www.koho.ca/` and auto-copy the promo code to their clipboard on click, so pasting it at sign-up is one tap.
+
+If an Impact tracking URL is provisioned later, swap `affiliateUrl` in `assets/config.js`.
+
 ## Before shipping
 
-1. Open `assets/config.js` and replace `affiliateUrl` with the live Impact tracking URL from the KOHO dashboard.
-2. Serve the static files (any static host works — Netlify, Cloudflare Pages, S3, etc.).
+1. Serve the static files (any static host works — Netlify, Cloudflare Pages, S3, etc.).
+2. Replace the localStorage click log with real analytics (GA4, PostHog, etc.).
 
 ## A/B test
 
