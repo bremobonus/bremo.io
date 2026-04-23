@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /offers/koho-control.html
+
+Sitemap: https://bremo.io/sitemap.xml
