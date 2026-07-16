@@ -1,8 +1,25 @@
-/* Bremo Care — shared behaviour. No dependencies, degrades gracefully. */
+/* Bremo — shared behaviour. No dependencies, degrades gracefully. */
 (function () {
   "use strict";
+  var root = document.documentElement;
 
-  // Mobile nav toggle
+  /* Theme: follow the system, let the viewer override, remember the choice. */
+  try {
+    var saved = localStorage.getItem("bremo_theme");
+    if (saved) root.setAttribute("data-theme", saved);
+  } catch (e) {}
+  var themeBtn = document.querySelector(".theme-btn");
+  if (themeBtn) {
+    themeBtn.addEventListener("click", function () {
+      var isDark = (root.getAttribute("data-theme") ||
+        (matchMedia("(prefers-color-scheme:dark)").matches ? "dark" : "light")) === "dark";
+      var next = isDark ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      try { localStorage.setItem("bremo_theme", next); } catch (e) {}
+    });
+  }
+
+  /* Mobile nav */
   var toggle = document.querySelector(".nav-toggle");
   var nav = document.getElementById("primary-nav");
   if (toggle && nav) {
@@ -12,11 +29,28 @@
     });
   }
 
-  // Progressive-enhancement form handler.
-  // Until a real backend/form endpoint is wired up (see README), we store the
-  // submission locally and show a confirmation, so nothing is silently lost.
-  // Set data-endpoint on the <form> to POST to a real collector (Formspree,
-  // your own API, etc.) and the same success UI is shown.
+  /* Hairline appears on the header only once you leave the top */
+  var header = document.querySelector(".site-header");
+  if (header) {
+    var onScroll = function () { header.classList.toggle("scrolled", window.scrollY > 8); };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+  }
+
+  /* Quiet reveal on scroll */
+  var reveals = document.querySelectorAll(".reveal");
+  if (reveals.length && "IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
+      });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
+    reveals.forEach(function (el) { io.observe(el); });
+  } else {
+    reveals.forEach(function (el) { el.classList.add("in"); });
+  }
+
+  /* Forms — POST to the endpoint, fall back to localStorage so a lead is never lost */
   document.querySelectorAll("form[data-care-form]").forEach(function (form) {
     form.addEventListener("submit", function (e) {
       e.preventDefault();
@@ -35,7 +69,7 @@
 
       if (endpoint) {
         var btn = form.querySelector("button[type=submit]");
-        if (btn) { btn.disabled = true; btn.dataset.label = btn.textContent; btn.textContent = "Sending…"; }
+        if (btn) { btn.disabled = true; btn.textContent = "Sending…"; }
         fetch(endpoint, {
           method: "POST",
           headers: { "Content-Type": "application/json", "Accept": "application/json" },
@@ -43,11 +77,7 @@
         }).then(function (res) {
           if (!res.ok) throw new Error("HTTP " + res.status);
           done();
-        }).catch(function () {
-          // Endpoint unreachable or errored — don't lose the lead.
-          storeLocally(form, data);
-          done();
-        });
+        }).catch(function () { storeLocally(form, data); done(); });
       } else {
         storeLocally(form, data);
         done();
@@ -61,7 +91,7 @@
       var log = JSON.parse(localStorage.getItem(key) || "[]");
       log.push({ data: data, ts: new Date().toISOString() });
       localStorage.setItem(key, JSON.stringify(log));
-    } catch (err) { /* storage unavailable — fail quietly */ }
+    } catch (err) {}
   }
 
   function showSuccess(form) {
@@ -75,7 +105,6 @@
     }
   }
 
-  // Footer year
   var y = document.getElementById("year");
   if (y) y.textContent = new Date().getFullYear();
 })();
