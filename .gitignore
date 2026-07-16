@@ -1,0 +1,3 @@
+# Runtime lead data — never commit real people's submissions.
+/api/data/*.csv
+/api/data/rate_*.json

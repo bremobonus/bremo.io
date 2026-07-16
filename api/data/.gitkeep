@@ -1,0 +1,2 @@
+# Keeps this directory in git. Lead CSVs and rate-limit files are written here
+# at runtime and must NOT be committed. See .gitignore at the repo root.

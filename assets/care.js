@@ -34,12 +34,19 @@
       var done = function () { showSuccess(form); };
 
       if (endpoint) {
+        var btn = form.querySelector("button[type=submit]");
+        if (btn) { btn.disabled = true; btn.dataset.label = btn.textContent; btn.textContent = "Sending…"; }
         fetch(endpoint, {
           method: "POST",
           headers: { "Content-Type": "application/json", "Accept": "application/json" },
           body: JSON.stringify(data)
-        }).then(done).catch(function () {
-          storeLocally(form, data); done();
+        }).then(function (res) {
+          if (!res.ok) throw new Error("HTTP " + res.status);
+          done();
+        }).catch(function () {
+          // Endpoint unreachable or errored — don't lose the lead.
+          storeLocally(form, data);
+          done();
         });
       } else {
         storeLocally(form, data);

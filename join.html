@@ -55,7 +55,10 @@
         </div>
 
         <div style="margin-top:20px">
-          <form class="form-wrap" data-care-form="provider" novalidate aria-label="Provider application">
+          <form class="form-wrap" data-care-form="provider" data-endpoint="/api/provider.php" novalidate aria-label="Provider application">
+            <div aria-hidden="true" style="position:absolute;left:-9999px" tabindex="-1">
+              <label>Leave this field empty<input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
+            </div>
             <div class="field">
               <label for="p_name">Full name <span class="required">*</span></label>
               <input type="text" id="p_name" name="name" required autocomplete="name" />
