@@ -3,54 +3,196 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Bremo — Sign-up bonuses worth claiming</title>
-  <meta name="description" content="Curated sign-up bonuses and offers from fintech brands we actually use." />
+  <title>Bremo Care — Get matched with the right care professional</title>
+  <meta name="description" content="Bremo Care uses guided, AI-assisted intake to match you with licensed, verified care professionals — therapists, dietitians, social workers, family therapists and more." />
   <link rel="canonical" href="https://bremo.io/" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Bremo — Sign-up bonuses worth claiming" />
-  <meta property="og:description" content="Curated sign-up bonuses and offers from fintech brands we actually use." />
+  <meta property="og:title" content="Bremo Care — Get matched with the right care professional" />
+  <meta property="og:description" content="Guided, AI-assisted matching to licensed, verified care professionals." />
   <meta property="og:url" content="https://bremo.io/" />
-  <meta property="og:site_name" content="Bremo" />
+  <meta property="og:site_name" content="Bremo Care" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Bremo — Sign-up bonuses worth claiming" />
-  <meta name="twitter:description" content="Curated sign-up bonuses and offers from fintech brands we actually use." />
-  <link rel="stylesheet" href="/assets/style.css" />
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/assets/care.css" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
-  <div class="container" id="main">
-    <header class="site">
-      <div class="brand">Bremo</div>
-      <nav>
-        <a href="/">Home</a>
-        <a href="/#offers">Offers</a>
-      </nav>
-    </header>
 
-    <h1>Sign-up bonuses worth claiming.</h1>
-    <p class="lede">We only feature offers we'd use ourselves. No fluff.</p>
-
-    <h2 id="offers">Featured offer</h2>
-    <div class="card">
-      <span class="bonus-badge">$20 BONUS</span>
-      <h2 style="margin-top:12px">KOHO — Get $20 when you sign up</h2>
-      <p>Canada's popular prepaid spending account. Use promo code <strong>BREMO2026</strong> at sign-up to claim your bonus.</p>
-      <p><a href="#" class="cta" id="koho-cta" rel="sponsored">See the KOHO offer →</a></p>
-      <p class="disclosure">Bremo earns a commission when you sign up through our links. T&amp;Cs apply.</p>
+  <!-- Crisis safety bar — always present on a care site -->
+  <div class="crisis-bar" role="region" aria-label="Crisis support">
+    <div class="container">
+      <span><strong>In crisis or thinking about suicide?</strong> Bremo is not an emergency service.</span>
+      <span>Call or text <a href="tel:988">988</a> (Canada &amp; US) &middot; emergencies call <a href="tel:911">911</a> &middot; <a href="/crisis.html">More help</a></span>
     </div>
-
-    <footer class="site">
-      &copy; 2026 Bremo. Affiliate disclosures in each offer.
-    </footer>
   </div>
 
-  <script src="/assets/config.js"></script>
-  <script src="/assets/ab-test.js"></script>
-  <script>
-    document.getElementById("koho-cta").addEventListener("click", function (e) {
-      e.preventDefault();
-      window.BremoAB.routeToKoho();
-    });
-  </script>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="/"><span class="mark" aria-hidden="true">B</span> Bremo Care</a>
+      <button class="nav-toggle" aria-label="Menu" aria-controls="primary-nav" aria-expanded="false">☰</button>
+      <nav class="nav" id="primary-nav" aria-label="Primary">
+        <a href="/services.html">Find care</a>
+        <a href="/how-it-works.html">How it works</a>
+        <a href="/join.html">For providers</a>
+        <a href="/about.html">About</a>
+        <a class="btn" href="/find-care.html">Get matched</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container">
+        <span class="eyebrow">Care that meets you where you are</span>
+        <h1>The right care professional,<br>matched to you.</h1>
+        <p class="lede">Tell us what you're facing. Our guided intake understands your needs and connects you with a licensed, verified professional — dietitians, psychotherapists, social workers, family and couples therapists, and more.</p>
+        <div class="hero-cta">
+          <a class="btn btn-lg" href="/find-care.html">Get matched with care →</a>
+          <a class="btn btn-outline btn-lg" href="/how-it-works.html">See how it works</a>
+        </div>
+        <div class="hero-trust">
+          <span><span class="tick">✓</span> Licensed &amp; credential-verified professionals</span>
+          <span><span class="tick">✓</span> Private &amp; confidential intake</span>
+          <span><span class="tick">✓</span> No cost to get matched</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services -->
+    <section class="section" id="services">
+      <div class="container">
+        <h2>Whatever you're carrying, there's care for it</h2>
+        <p class="lede">One intake. The whole spectrum of care and therapy.</p>
+        <div class="grid grid-3" style="margin-top:28px">
+          <a class="card service-card" href="/services.html#mental-health">
+            <div class="ico" aria-hidden="true">🧠</div>
+            <h3>Mental health &amp; therapy</h3>
+            <p>Psychotherapists, counsellors and psychologists for anxiety, depression, trauma, grief and burnout.</p>
+            <span class="tag">Explore →</span>
+          </a>
+          <a class="card service-card" href="/services.html#nutrition">
+            <div class="ico" aria-hidden="true">🥗</div>
+            <h3>Nutrition &amp; dietetics</h3>
+            <p>Registered dietitians for chronic conditions, disordered eating, gut health and everyday wellbeing.</p>
+            <span class="tag">Explore →</span>
+          </a>
+          <a class="card service-card" href="/services.html#family">
+            <div class="ico" aria-hidden="true">👨‍👩‍👧</div>
+            <h3>Family &amp; couples therapy</h3>
+            <p>Relationship, marriage and family therapists to help you reconnect and communicate.</p>
+            <span class="tag">Explore →</span>
+          </a>
+          <a class="card service-card" href="/services.html#social-work">
+            <div class="ico" aria-hidden="true">🤝</div>
+            <h3>Social work &amp; support</h3>
+            <p>Registered social workers for navigation, advocacy, case support and life transitions.</p>
+            <span class="tag">Explore →</span>
+          </a>
+          <a class="card service-card" href="/services.html#child-youth">
+            <div class="ico" aria-hidden="true">🌱</div>
+            <h3>Child &amp; youth</h3>
+            <p>Specialists in child development, youth counselling and parenting support.</p>
+            <span class="tag">Explore →</span>
+          </a>
+          <a class="card service-card" href="/services.html#coaching">
+            <div class="ico" aria-hidden="true">🧭</div>
+            <h3>Wellness &amp; coaching</h3>
+            <p>Sleep, stress, addiction recovery support and health coaching for lasting change.</p>
+            <span class="tag">Explore →</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="section band">
+      <div class="container">
+        <h2 class="center">How Bremo matches you</h2>
+        <div class="grid grid-3" style="margin-top:36px">
+          <div class="step">
+            <div class="num">1</div>
+            <h3>Share what's going on</h3>
+            <p class="muted">A short, private intake — in your own words. No jargon, no judgement. Takes about 3 minutes.</p>
+          </div>
+          <div class="step">
+            <div class="num">2</div>
+            <h3>We find your fit</h3>
+            <p class="muted">Our matching understands your needs, preferences, language and availability, then shortlists verified professionals.</p>
+          </div>
+          <div class="step">
+            <div class="num">3</div>
+            <h3>Connect &amp; begin</h3>
+            <p class="muted">Meet your match, confirm the fit, and start care — online or in person. Not right? We'll re-match, no charge.</p>
+          </div>
+        </div>
+        <p class="center" style="margin-top:32px">
+          <a class="btn btn-lg" href="/find-care.html">Start your intake</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- Trust -->
+    <section class="section">
+      <div class="container">
+        <div class="grid grid-2" style="align-items:center; gap:36px">
+          <div>
+            <span class="pill">Why Bremo</span>
+            <h2 style="margin-top:14px">Care you can actually trust</h2>
+            <p class="muted">Anyone can call themselves a "coach." We verify that the people you meet are who they say they are — licensed, in good standing, and right for your needs.</p>
+          </div>
+          <div class="grid" style="gap:14px">
+            <div class="card"><h3>✅ Every professional is credential-verified</h3><p>We confirm licensing and registration with the relevant regulatory college or board before anyone joins the network.</p></div>
+            <div class="card"><h3>🔒 Private by design</h3><p>Your intake is confidential and handled in line with Canadian privacy law (PIPEDA/PHIPA). You control what's shared.</p></div>
+            <div class="card"><h3>🎯 Matched, not just listed</h3><p>You don't scroll endless directories. You tell us once, and we do the finding.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Provider CTA -->
+    <section class="section band-brand">
+      <div class="container center">
+        <span class="pill" style="background:rgba(255,255,255,.16); color:#fff; border-color:rgba(255,255,255,.3)">For care professionals</span>
+        <h2 style="margin-top:14px">Join our founding network of providers</h2>
+        <p style="max-width:60ch; margin:0 auto 22px; opacity:.95">We're building a network that sends you well-matched clients — not cold leads — so you can spend your time on care, not marketing. Set your own scope, hours and rates.</p>
+        <a class="btn btn-lg" href="/join.html">Apply to join →</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a class="brand" href="/"><span class="mark" aria-hidden="true">B</span> Bremo Care</a>
+          <p class="muted" style="margin-top:12px; font-size:.92rem">Guided matching to licensed, verified care professionals. Bremo helps you find care — it does not itself provide medical or emergency services.</p>
+        </div>
+        <div>
+          <h4>Care</h4>
+          <a href="/find-care.html">Get matched</a>
+          <a href="/services.html">Browse services</a>
+          <a href="/how-it-works.html">How it works</a>
+        </div>
+        <div>
+          <h4>Providers</h4>
+          <a href="/join.html">Apply to join</a>
+          <a href="/about.html#for-providers">Why Bremo</a>
+        </div>
+        <div>
+          <h4>Company</h4>
+          <a href="/about.html">About</a>
+          <a href="/crisis.html">Crisis resources</a>
+          <a href="/privacy.html">Privacy</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; <span id="year">2026</span> Bremo Care.</span>
+        <span>Not a substitute for emergency care. In an emergency call 911.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/assets/care.js"></script>
 </body>
 </html>

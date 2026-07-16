@@ -1,31 +1,60 @@
-# bremo.io
+# Bremo Care
 
-Static site for Bremo, running a KOHO affiliate offer with an A/B test.
+An AI-assisted care-matching platform that connects people with **licensed, verified**
+care professionals — psychotherapists, registered dietitians, social workers, family
+and couples therapists, child &amp; youth specialists, and wellness coaches.
 
-## Structure
+People describe what they need once, in plain language; Bremo interprets the intake and
+matches them to a professional who genuinely fits. Care is delivered by licensed humans —
+AI does the finding, not the caring.
+
+## Site structure (static, no build step)
 
 ```
-index.html                    Homepage — routes clicks into the A/B test
-offers/koho-control.html      Variant A (control) — minimal CTA baseline
-offers/koho.html              Variant B (treatment) — new landing page
-assets/config.js              Affiliate URL + promo code (single source of truth)
-assets/ab-test.js             50/50 split, persisted per visitor in localStorage
-assets/style.css              Shared styles
+index.html          Landing — value prop, services, how it works, provider CTA
+find-care.html      Seeker intake form (the demand side)
+join.html           Provider application form (the supply side) — collects licensing details
+services.html       The full spectrum of care we match
+how-it-works.html   Process + safety + where AI helps vs. where humans stay in charge
+about.html          Mission and principles
+crisis.html         Crisis resources (Canada + fallback) — always one click away
+privacy.html        Plain-language privacy notice (TEMPLATE — needs legal review)
+404.html            Friendly not-found page
+assets/care.css     Design system (light + dark, responsive, accessible)
+assets/care.js      Nav + progressive-enhancement form handling
+assets/favicon.svg  Brand mark
 ```
 
-## Attribution
+The previous KOHO affiliate offer still lives under `offers/` and `assets/config.js` /
+`assets/ab-test.js`; it is unchanged and preserved in git history.
 
-Attribution runs through the **promo code `BREMO2026`** entered during KOHO sign-up. CTAs send visitors to `https://www.koho.ca/` and auto-copy the promo code to their clipboard on click, so pasting it at sign-up is one tap.
+## How the forms work today
 
-If an Impact tracking URL is provisioned later, swap `affiliateUrl` in `assets/config.js`.
+Both intake and provider forms use progressive enhancement (`assets/care.js`):
 
-## Before shipping
+- With **no backend wired up**, a submission is validated, stored in `localStorage`,
+  and the user sees a confirmation — so nothing is silently lost during early testing.
+- Add `data-endpoint="https://…"` to a `<form>` to POST the submission as JSON to a real
+  collector (Formspree, a serverless function, your own API). The same success UI shows.
 
-1. Serve the static files (any static host works — Netlify, Cloudflare Pages, S3, etc.).
-2. Replace the localStorage click log with real analytics (GA4, PostHog, etc.).
+**This localStorage fallback is for prototyping only.** Intake data is sensitive health
+information and must go to a secure, access-controlled backend before real users submit it.
 
-## A/B test
+## Before this touches a real person — required, not optional
 
-- Visitors are assigned `control` or `treatment` on first click and remembered via `localStorage`.
-- Click events are stored locally under `bremo_koho_clicks`. Wire this to a real analytics pipeline (PostHog, GA4, etc.) before running the test for real — the localStorage log is a placeholder.
-- Promo code `BREMO2026` and $20 bonus T&Cs appear on both variants.
+1. **Legal + privacy review.** `privacy.html` is a template. Health-adjacent data in
+   Canada is governed by PIPEDA and provincial health-privacy law (e.g. Ontario PHIPA).
+   Have counsel finalise the privacy notice, terms of service, and provider agreements.
+2. **A secure backend** for intake and provider data (encrypted at rest/in transit,
+   access-controlled, audit-logged) — replacing the localStorage fallback.
+3. **Real credential verification** for every provider (licence + standing confirmed with
+   the relevant regulatory college/board) before any profile is matched.
+4. **Crisis handling** reviewed by a clinician — the intake must reliably route apparent
+   risk to 988/911 rather than into a matching queue.
+5. **Verify crisis phone numbers** in `crisis.html` are current for each region served.
+
+## Deploying
+
+It's a plain static site — serve the folder from any static host (the repo's own host,
+Netlify, Cloudflare Pages, S3, etc.). No build step, no server code required for the
+marketing/intake site as-is.
