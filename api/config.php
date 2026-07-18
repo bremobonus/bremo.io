@@ -10,8 +10,8 @@ return [
     'notify_email' => 'plasmadonatecanada@gmail.com',
 
     // The "From" address shown on notification emails. For best deliverability
-    // this should be an address on your own domain (e.g. no-reply@bremo.io).
-    'from_email'   => 'no-reply@bremo.io',
+    // this should be an address on your own domain (e.g. no-reply@bremo.space).
+    'from_email'   => 'no-reply@bremo.space',
 
     // Site name used in email subjects.
     'site_name'    => 'Bremo Care',

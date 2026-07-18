@@ -52,7 +52,7 @@ rate limit block basic spam.
 
 1. Upload the whole repo to your site's web root via SFTP/SSH.
 2. Edit **`api/config.php`** → set `notify_email` to your inbox and `from_email` to an
-   address on your own domain (e.g. `no-reply@bremo.io`) for deliverability.
+   address on your own domain (e.g. `no-reply@bremo.space`) for deliverability.
 3. Ensure `api/data/` is writable by the web server (`chmod 750 api/data`).
 4. Submit a test lead and confirm the email arrives and a row appears in `api/data/intake.csv`.
 5. Gmail can spam-filter PHP `mail()`. For reliable delivery, point `from_email` at a real
