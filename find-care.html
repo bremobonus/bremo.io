@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Begin — Bremo</title>
+  <meta name="description" content="Tell us what's on your mind. A short, private note, and we'll help you find the right professional to talk to." />
+  <link rel="canonical" href="https://bremo.space/find-care.html" />
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/assets/care.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><circle class="enso" cx="16" cy="16" r="12" pathLength="100" stroke-dasharray="88 100" transform="rotate(125 16 16)"></circle></svg>
+        Bremo
+      </a>
+      <button class="nav-toggle" aria-label="Menu" aria-controls="primary-nav" aria-expanded="false">≡</button>
+      <nav class="nav" id="primary-nav" aria-label="Primary">
+        <a href="/services.html">Areas of care</a>
+        <a href="/how-it-works.html">Our approach</a>
+        <a href="/join.html">For practitioners</a>
+        <a href="/about.html">About</a>
+        <button class="theme-btn" aria-label="Switch light or dark">☾</button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="section" style="padding-top:clamp(56px,9vh,90px)">
+      <div class="wrap">
+        <div class="measure">
+          <span class="eyebrow">Begin</span>
+          <h1>Tell us what's on your mind.</h1>
+          <p class="lede" style="margin-top:1.2rem">In your own words. There are no wrong answers, and you can skip anything you're not ready to share. It takes a few minutes, and it's free.</p>
+          <p class="calm-note" style="margin-top:1.8rem">Bremo is for everyday, non-urgent care. If you need help urgently, <a href="/crisis.html">support is available any time</a>.</p>
+        </div>
+
+        <form class="form" data-care-form="intake" data-endpoint="/api/intake.php" novalidate aria-label="Find care" style="margin-top:3rem">
+          <div class="hp" aria-hidden="true"><label>Leave this empty<input type="text" name="website" tabindex="-1" autocomplete="off" /></label></div>
+
+          <div class="field">
+            <label for="care_type">What would you like support with? <span class="required">*</span></label>
+            <select id="care_type" name="care_type" required>
+              <option value="">Choose what's closest…</option>
+              <option>Talking things through</option>
+              <option>Relationships &amp; family</option>
+              <option>Food &amp; body</option>
+              <option>Work &amp; burnout</option>
+              <option>Sleep, focus &amp; habits</option>
+              <option>Guidance &amp; support</option>
+              <option>I'm not sure yet</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="situation">What's going on? <span class="required">*</span></label>
+            <p class="hint">A sentence or two is plenty.</p>
+            <textarea id="situation" name="situation" required placeholder="e.g. Work has felt overwhelming lately and I'd like someone to talk to."></textarea>
+          </div>
+
+          <div class="field">
+            <label>How would you prefer to meet?</label>
+            <div class="choice-grid">
+              <label class="choice"><input type="radio" name="modality" value="Online" checked> Online</label>
+              <label class="choice"><input type="radio" name="modality" value="In person"> In person</label>
+              <label class="choice"><input type="radio" name="modality" value="Either"> Either is fine</label>
+              <label class="choice"><input type="radio" name="modality" value="Not sure"> Not sure yet</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="location">Where are you based?</label>
+            <input type="text" id="location" name="location" placeholder="City or region" autocomplete="address-level2" />
+            <p class="hint">So we can match the right licensing, and an in-person option if you'd like one.</p>
+          </div>
+
+          <div class="field">
+            <label for="preferences">Anything that matters for your match?</label>
+            <p class="hint">Budget, language, gender preference, or anything else — optional.</p>
+            <textarea id="preferences" name="preferences" placeholder="Optional"></textarea>
+          </div>
+
+          <hr class="rule" style="margin:2.4rem 0" />
+
+          <div class="field">
+            <label for="name">Your name <span class="required">*</span></label>
+            <input type="text" id="name" name="name" required autocomplete="name" placeholder="First name is fine" />
+          </div>
+          <div class="field">
+            <label for="email">Email <span class="required">*</span></label>
+            <input type="email" id="email" name="email" required autocomplete="email" placeholder="you@example.com" />
+          </div>
+          <div class="field">
+            <label for="phone">Phone <span class="stone" style="font-weight:400">(optional)</span></label>
+            <input type="tel" id="phone" name="phone" autocomplete="tel" />
+          </div>
+
+          <div class="field">
+            <label class="choice" style="align-items:flex-start">
+              <input type="checkbox" name="consent" required style="margin-top:3px" />
+              <span>I'm happy for Bremo to use this to help find me care, and I've read the <a href="/privacy.html" target="_blank" rel="noopener">privacy notice</a>. <span class="required">*</span></span>
+            </label>
+          </div>
+
+          <button class="btn" type="submit">Find my match</button>
+          <p class="form-note">Bremo helps you find care and is not a medical or emergency service. Getting matched is free; professionals set their own fees, shown before you commit.</p>
+        </form>
+
+        <div class="form-success" role="status" aria-live="polite">
+          <span class="eyebrow">Received</span>
+          <h2>Thank you.</h2>
+          <p class="lede" style="margin-top:1rem">Your note is with us. A Bremo coordinator will look it over and email you with a match, usually within one to two working days.</p>
+          <p class="stone" style="margin-top:1rem">If anything feels urgent in the meantime, please don't wait on us — <a href="/crisis.html">support is available any time</a>.</p>
+          <p style="margin-top:1.8rem"><a class="link-arrow" href="/">Back to home <span class="a">→</span></a></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-support" style="margin-top:0;border-top:0;padding-top:0">
+        <span class="quiet">&copy; <span id="year">2026</span> Bremo. Not a substitute for emergency care.</span>
+        <a class="link-arrow" href="/crisis.html">Find urgent support <span class="a">→</span></a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/assets/care.js"></script>
+</body>
+</html>

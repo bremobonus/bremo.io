@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>For practitioners — Bremo</title>
+  <meta name="description" content="Join Bremo. We introduce you to people you're genuinely suited to help, and leave the care to you. Set your own scope, hours and fees." />
+  <link rel="canonical" href="https://bremo.space/join.html" />
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/assets/care.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><circle class="enso" cx="16" cy="16" r="12" pathLength="100" stroke-dasharray="88 100" transform="rotate(125 16 16)"></circle></svg>
+        Bremo
+      </a>
+      <button class="nav-toggle" aria-label="Menu" aria-controls="primary-nav" aria-expanded="false">≡</button>
+      <nav class="nav" id="primary-nav" aria-label="Primary">
+        <a href="/services.html">Areas of care</a>
+        <a href="/how-it-works.html">Our approach</a>
+        <a href="/join.html" class="active">For practitioners</a>
+        <a href="/about.html">About</a>
+        <button class="theme-btn" aria-label="Switch light or dark">☾</button>
+        <a class="btn" href="/find-care.html">Begin</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="wrap measure">
+        <span class="eyebrow">For practitioners</span>
+        <h1>Practise with intention.</h1>
+        <p class="lede">We introduce you to people you're genuinely suited to help — thoughtful, ready introductions, not cold leads — and leave the care to you.</p>
+        <div class="hero-cta"><a class="btn" href="#apply">Apply to join</a></div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:0">
+      <div class="wrap">
+        <div class="steps reveal" style="margin-top:0">
+          <div class="step"><div class="idx">Well suited</div><h3>Introductions that fit</h3><p>People matched to your specialty, approach and availability — so first sessions start on the right foot.</p></div>
+          <div class="step"><div class="idx">Your practice</div><h3>Your scope, your terms</h3><p>Online or in person, your caseload, your hours, your own fees. Bremo never sets your rates.</p></div>
+          <div class="step"><div class="idx">Trusted</div><h3>A verified network</h3><p>Every practitioner's licence is confirmed before joining, so people arrive already trusting who they meet.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section band">
+      <div class="wrap">
+        <div class="measure reveal">
+          <span class="eyebrow">Apply</span>
+          <h2>Join Bremo.</h2>
+          <p class="stone" style="margin-top:1rem">We confirm your registration with your college or licensing body before activating your profile, so please have your details to hand.</p>
+        </div>
+
+        <form class="form" data-care-form="provider" data-endpoint="/api/provider.php" novalidate aria-label="Practitioner application" style="margin-top:2.6rem" id="apply">
+          <div class="hp" aria-hidden="true"><label>Leave this empty<input type="text" name="website" tabindex="-1" autocomplete="off" /></label></div>
+
+          <div class="field"><label for="p_name">Full name <span class="required">*</span></label><input type="text" id="p_name" name="name" required autocomplete="name" /></div>
+          <div class="field"><label for="p_email">Email <span class="required">*</span></label><input type="email" id="p_email" name="email" required autocomplete="email" /></div>
+          <div class="field"><label for="p_phone">Phone <span class="stone" style="font-weight:400">(optional)</span></label><input type="tel" id="p_phone" name="phone" autocomplete="tel" /></div>
+
+          <div class="field">
+            <label for="p_profession">Profession <span class="required">*</span></label>
+            <select id="p_profession" name="profession" required>
+              <option value="">Choose one…</option>
+              <option>Psychotherapist / Counsellor</option>
+              <option>Psychologist</option>
+              <option>Registered Dietitian</option>
+              <option>Registered Social Worker</option>
+              <option>Marriage &amp; Family Therapist</option>
+              <option>Child / Youth Specialist</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="p_regulator">College or licensing body <span class="required">*</span></label>
+            <input type="text" id="p_regulator" name="regulator" required placeholder="The body you're registered with" />
+            <p class="hint">We confirm your standing here before your profile goes live.</p>
+          </div>
+          <div class="field"><label for="p_license">Registration or licence number <span class="required">*</span></label><input type="text" id="p_license" name="license_number" required /></div>
+          <div class="field"><label for="p_region">Where are you licensed to practise? <span class="required">*</span></label><input type="text" id="p_region" name="region" required placeholder="Region or state/province" /></div>
+
+          <div class="field">
+            <label for="p_specialty">Who do you help best, and how?</label>
+            <p class="hint">This is what guides your introductions.</p>
+            <textarea id="p_specialty" name="specialties" placeholder="e.g. Anxiety and burnout in adults, warm and practical, CBT-informed."></textarea>
+          </div>
+
+          <div class="field">
+            <label>How do you see people?</label>
+            <div class="choice-grid">
+              <label class="choice"><input type="checkbox" name="modality" value="Online"> Online</label>
+              <label class="choice"><input type="checkbox" name="modality" value="In person"> In person</label>
+            </div>
+          </div>
+
+          <div class="field"><label for="p_availability">Current availability</label><input type="text" id="p_availability" name="availability" placeholder="e.g. A few new clients each month" /></div>
+
+          <div class="field">
+            <label class="choice" style="align-items:flex-start">
+              <input type="checkbox" name="attest" required style="margin-top:3px" />
+              <span>I hold a valid licence in good standing, and I'm happy for Bremo to verify it. <span class="required">*</span></span>
+            </label>
+          </div>
+
+          <button class="btn" type="submit">Submit application</button>
+          <p class="form-note">Applications are reviewed and licence-verified before activation. Submitting doesn't create a client relationship or guarantee acceptance.</p>
+        </form>
+
+        <div class="form-success" role="status" aria-live="polite">
+          <span class="eyebrow">Received</span>
+          <h2>Thank you.</h2>
+          <p class="lede" style="margin-top:1rem">We're glad you'd like to build this with us. We'll verify your registration and be in touch by email with next steps.</p>
+          <p style="margin-top:1.8rem"><a class="link-arrow" href="/">Back to home <span class="a">→</span></a></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div>
+          <a class="brand" href="/">
+            <svg viewBox="0 0 32 32" aria-hidden="true"><circle class="enso" cx="16" cy="16" r="12" pathLength="100" stroke-dasharray="88 100" transform="rotate(125 16 16)"></circle></svg>
+            Bremo
+          </a>
+          <p class="stone" style="margin-top:14px;max-width:34ch;font-size:.95rem">Care, found with care. Bremo helps you find a licensed professional to talk to — it does not itself provide medical or emergency services.</p>
+        </div>
+        <div><h4>Care</h4><a href="/find-care.html">Begin</a><a href="/services.html">Areas of care</a><a href="/how-it-works.html">Our approach</a></div>
+        <div><h4>Practitioners</h4><a href="/join.html">Join Bremo</a></div>
+        <div><h4>Bremo</h4><a href="/about.html">About</a><a href="/privacy.html">Privacy</a></div>
+      </div>
+      <div class="footer-support">
+        <span class="quiet">If you need support right now, help is available any time.</span>
+        <a class="link-arrow" href="/crisis.html">Find urgent support <span class="a">→</span></a>
+      </div>
+      <div class="footer-bottom">&copy; <span id="year">2026</span> Bremo. Not a substitute for emergency care.</div>
+    </div>
+  </footer>
+
+  <script src="/assets/care.js"></script>
+</body>
+</html>
