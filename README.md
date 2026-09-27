@@ -6,12 +6,26 @@ Static site for Bremo, running a KOHO affiliate offer with an A/B test.
 
 ```
 index.html                    Homepage — routes clicks into the A/B test
+gameplay.html                 Same playable page as dreamhost/gameplay.html
+gameplay.php                  DreamHost slug file — reads gameplay.html
+dreamhost/                    Drop-in for the live DreamHost docroot
 offers/koho-control.html      Variant A (control) — minimal CTA baseline
 offers/koho.html              Variant B (treatment) — new landing page
 assets/config.js              Affiliate URL + promo code (single source of truth)
 assets/ab-test.js             50/50 split, persisted per visitor in localStorage
 assets/style.css              Shared styles
+GAMEPLAY.md                   Pointer to the DreamHost deploy notes
 ```
+
+## /gameplay
+
+This repository is not the live DreamHost site. A missing one-word URL on bremo.io returns `Creator page not found.` The playable Bremo God page, brain JSON, and upload steps are in [`dreamhost/README.md`](dreamhost/README.md).
+
+You play **Bremo God** (strategy tile `#9F7AEA`, 4:30pm ET). Tap the accountability card he names. Impact paid stays UNKNOWN. Handoffs are not revenue.
+
+## /company
+
+`dreamhost/company/` is a full-screen office. Eleven people walk, type, carry, and meet. Tap one, then walk them or give an order. Rally is Bremo God’s button. Upload notes are in [`dreamhost/company/README.md`](dreamhost/company/README.md).
 
 ## Attribution
 

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="bremo-release" content="bremo-company-sims-20260927-v4">
+<meta name="description" content="Full-screen Bremo office. Tap a person, walk them, give an order. Handoffs are not revenue. Impact paid is UNKNOWN.">
+<title>Company — Bremo office</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<canvas id="world" aria-label="Bremo office. Tap a person, then tap the floor or use arrow keys to move them."></canvas>
+<div class="mark">Bremo office</div>
+<div id="hud">
+  <div id="who">Tap a person</div>
+  <div id="queue">They wander, type, carry, and meet until you give an order.</div>
+  <button type="button" id="btn-work" disabled>Work</button>
+  <button type="button" id="btn-carry" disabled>Carry</button>
+  <button type="button" id="btn-meet" disabled>Meeting</button>
+  <button type="button" id="btn-brief" disabled>Brief Analytics</button>
+  <button type="button" id="rally" disabled>Rally</button>
+  <div id="paid">Impact paid: UNKNOWN</div>
+</div>
+<p id="live" class="sr" aria-live="polite"></p>
+<script src="app.js"></script>
+</body>
+</html>

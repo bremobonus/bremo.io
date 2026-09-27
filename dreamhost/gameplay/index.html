@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gameplay — Bremo God</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="bremo-release" content="bremo-gameplay-20260927-v2">
+<meta name="description" content="Play the 4:30 round as Bremo God. Today's judgment, seven accountability cards, and speak lines for Analytics. Click-outs are not paid. Impact is UNKNOWN.">
+<link rel="canonical" href="https://bremo.io/gameplay">
+<style>
+:root{
+  --cream:#FAF6EE; --cream-2:#F2EBDA; --paper:#fff;
+  --ink:#1F1A13; --ink-soft:#5B5142; --ink-mute:#9C9080;
+  --line:rgba(31,26,19,.10); --god:#9F7AEA; --god-deep:#7C3AED;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--cream);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.55}
+body{padding:28px 22px 80px;min-height:100vh}
+.wrap{max-width:920px;margin:0 auto}
+a{color:var(--god-deep)}
+.eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:800;color:var(--god);margin-bottom:10px}
+h1{font-size:clamp(2rem,4vw,2.9rem);font-weight:700;letter-spacing:-.03em;line-height:1.05;margin-bottom:8px}
+.tag{font-size:15px;color:var(--ink-soft);margin-bottom:8px;max-width:40rem}
+.hero{display:flex;gap:16px;align-items:flex-start;margin-bottom:14px}
+.avatar{width:64px;height:64px;border-radius:18px;background:linear-gradient(145deg,var(--god),var(--god-deep));box-shadow:0 8px 24px rgba(159,122,234,.35);flex-shrink:0;position:relative}
+.avatar::after{content:"";position:absolute;left:50%;top:-8px;transform:translateX(-50%);width:28px;height:12px;background:var(--ink);clip-path:polygon(0 100%,0 40%,18% 72%,34% 0,50% 72%,66% 0,84% 72%,100% 40%,100% 100%)}
+.sched{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 10px;margin-bottom:18px}
+.sched i{width:8px;height:8px;border-radius:50%;background:var(--god);display:block}
+.boards{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.boards a{font-size:12px;font-weight:700;text-decoration:none;color:var(--ink-soft);background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 10px}
+.judgment{padding:24px 26px;background:linear-gradient(135deg,var(--paper),rgba(159,122,234,.07));border:2px solid var(--ink);border-radius:18px;margin:18px 0}
+.judgment .top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:12px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:800}
+.judgment .top .age{color:var(--ink-mute);font-weight:600;letter-spacing:.04em;text-transform:none}
+.judgment h2{font-size:1.35rem;font-weight:700;letter-spacing:-.015em;margin-bottom:10px;line-height:1.25}
+.judgment .why{font-size:14px;color:var(--ink-soft);margin-bottom:12px}
+.judgment .how{font-size:13px;white-space:pre-line;background:var(--cream);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.play{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:18px}
+.play-stats{display:grid;grid-template-columns:1.2fr 1.4fr .8fr;gap:8px;margin-bottom:12px}
+.stat{background:var(--cream);border-radius:12px;padding:8px 10px}
+.stat span{display:block;font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;color:var(--ink-mute)}
+.stat strong{font-size:1.15rem;letter-spacing:-.03em}
+.bar{height:8px;background:var(--cream-2);border-radius:99px;overflow:hidden;margin-top:8px}
+.bar i{display:block;height:100%;width:100%;background:var(--god);transform-origin:left center}
+.speech{font-size:1.05rem;font-weight:700;letter-spacing:-.02em;min-height:3.2em;margin:4px 0 12px}
+.orders{display:flex;flex-wrap:wrap;gap:8px}
+button.pri,button.sec,button.trap{font:inherit;cursor:pointer;border-radius:999px;padding:11px 16px;font-weight:700;font-size:14px}
+button.pri{background:var(--ink);color:var(--cream);border:0}
+button.sec{background:#fff;color:var(--ink);border:1px solid var(--line)}
+button.trap{background:#fff;color:var(--ink);border:1px dashed var(--ink);width:100%;margin-top:8px}
+button:disabled{opacity:.45;cursor:default}
+button:focus-visible,a:focus-visible{outline:3px solid var(--god-deep);outline-offset:3px}
+.sec-label{font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:800;color:var(--ink-mute);margin:8px 0 12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:14px 14px 12px;display:flex;flex-direction:column;gap:8px;min-height:168px}
+.card.pop{outline:3px solid var(--god)}
+.card.nope{outline:3px solid #C75550}
+.assign{display:flex;flex-direction:column;align-items:flex-start;gap:8px;text-align:left;background:transparent;border:0;padding:0;font:inherit;color:inherit;cursor:pointer;flex:1}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px;width:100%}
+.role{font-size:15px;font-weight:800;letter-spacing:-.01em}
+.badge{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:4px 8px;border-radius:999px;background:rgba(31,26,19,.06)}
+.job{font-size:12px;font-weight:800;color:var(--god-deep)}
+.dir{font-size:13.5px;color:var(--ink-soft)}
+.card .evidence{font-size:12.5px;font-weight:700;text-decoration:none}
+.feed{margin-top:16px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px 14px;max-height:180px;overflow:auto}
+.feed p{font-size:13px;margin:0 0 6px}
+.foot{margin-top:22px;font-size:12px;color:var(--ink-mute);max-width:40rem}
+.end{display:none;margin-top:10px;font-weight:800}
+.end.show{display:block}
+@media(max-width:640px){
+  body{padding:16px 14px 48px}
+  .hero{margin-bottom:8px}
+  .tag{margin-bottom:0}
+  .sched,.boards{margin-bottom:10px}
+  .play{padding:12px}
+  .play-stats{grid-template-columns:1fr 1fr}
+  .play-stats .wide{grid-column:1 / -1}
+  .judgment{padding:16px}
+  button.pri,button.sec{width:100%}
+  .speech{min-height:0}
+}
+@media(prefers-reduced-motion:reduce){
+  .bar i{transition:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap" id="bremo-gameplay" data-bremo-page="/gameplay" data-bremo-channel="bremo:gameplay" data-impact-paid="UNKNOWN" data-character-id="4885dc27" data-speaker="Bremo God">
+  <div class="eyebrow">Bremo · Gameplay</div>
+  <div class="hero">
+    <div class="avatar" aria-hidden="true"></div>
+    <div>
+      <h1>Bremo God</h1>
+      <p class="tag" id="blurb">Supreme overseer. You play this character. Tap the card that owns the job.</p>
+    </div>
+  </div>
+  <div class="sched"><i></i><span id="sched">Strategy tile · 4:30pm ET · #9F7AEA</span></div>
+  <nav class="boards" aria-label="Sister boards">
+    <a href="/strategy">Strategy</a>
+    <a href="/money">Money</a>
+    <a href="/analytics/">Analytics</a>
+    <a href="/dealsanalytics/">Deals</a>
+    <a href="/content/">Content</a>
+    <a href="/dailyprogress/">Daily progress</a>
+    <a href="/company/">Sims HQ</a>
+    <a href="/crew/">Crew map</a>
+  </nav>
+
+  <section class="play" id="play" aria-label="Playable round">
+    <div class="sec-label">Play the 4:30 round</div>
+    <div class="play-stats">
+      <div class="stat"><span>Clean handoffs</span><strong id="score">0 / 5</strong></div>
+      <div class="stat wide"><span>Visitor patience</span><div class="bar" aria-hidden="true"><i id="bar"></i></div></div>
+      <div class="stat"><span>Impact paid</span><strong id="paid">UNKNOWN</strong></div>
+    </div>
+    <p class="speech" id="speech" aria-live="polite">Press start. Bremo God will name a job. Tap the matching card. A handoff is not paid.</p>
+    <div class="orders">
+      <button type="button" class="pri" id="start">Start the round</button>
+      <button type="button" class="sec" id="brief">Brief Analytics</button>
+      <button type="button" class="sec" id="mark-unknown">Mark Impact UNKNOWN</button>
+    </div>
+    <p class="end" id="end"></p>
+  </section>
+
+  <div class="sec-label">Seven accountability cards</div>
+  <div class="grid" id="grid"></div>
+  <button type="button" class="trap" id="trap">Call this handoff revenue</button>
+
+  <section class="judgment" aria-label="Today's judgment">
+    <div class="top"><span id="j-kicker">Today's judgment</span><span class="age" id="j-age">4:30pm ET</span></div>
+    <h2 id="j-headline">Ship playable HQ and protect the path</h2>
+    <p class="why" id="j-why">Click-outs are not paid. Impact is UNKNOWN until a real receipt lands.</p>
+    <div class="how" id="j-how"></div>
+  </section>
+
+  <div class="feed" id="feed" aria-live="polite" aria-relevant="additions"></div>
+  <p class="foot" id="foot">Rules: never invent paid or Impact figures. A click-out is not revenue. A handoff is not revenue. Impact paid stays UNKNOWN until a real receipt. Release <code>bremo-gameplay-20260927-v2</code>.</p>
+</div>
+
+<script type="application/json" id="brain-god-fallback">{
+  "schemaVersion": "bremo.gameplay.brain.v1",
+  "characterId": "4885dc27",
+  "fullId": "4885dc27-bremo-god",
+  "name": "Bremo God",
+  "title": "Bremo God",
+  "shortName": "God",
+  "role": "OVERSEER",
+  "strategyTile": "BREMO GOD",
+  "color": "#9F7AEA",
+  "colorDeep": "#7C3AED",
+  "schedule": "4:30pm ET",
+  "zone": "throne",
+  "playable": true,
+  "aliases": ["god"],
+  "blurb": "Supreme overseer of the Bremo assistants. Confident and urgent, in plain words. Pushes partner handoffs. A click-out is not revenue. A handoff is not revenue. Impact paid stays UNKNOWN until Payouts has a real receipt.",
+  "coordinates": ["Growth", "Conversion", "Analytics", "Product", "Content", "Partnerships", "Payouts"],
+  "alsoOnTheFloor": ["Grok Analytics", "Markets", "CEO Allastair"],
+  "rules": [
+    "A click-out is not revenue.",
+    "A handoff is not revenue.",
+    "Impact paid stays UNKNOWN until a real receipt lands."
+  ],
+  "speak": {
+    "endpoint": "/api/gameplay-speak.php",
+    "method": "POST",
+    "characterId": "4885dc27",
+    "characterName": "Bremo God",
+    "target": "analytics",
+    "page": "https://bremo.io/gameplay",
+    "clientEvent": "bremo:gameplay"
+  },
+  "openingLine": "Bremo God. The 4:30 round is live. I hold Growth, Conversion, Analytics, Product, Content, Partnerships, and Payouts to the job. Push the handoff. Do not call it revenue. Impact paid is UNKNOWN."
+}</script>
+<script type="application/json" id="brain-acc-fallback">{
+  "schemaVersion": "bremo.gameplay.accountability.v1",
+  "impactPaid": "UNKNOWN",
+  "judgment": {
+    "kicker": "Today's judgment",
+    "headline": "Ship playable HQ and protect the path",
+    "why": "The creator catch-all was eating /gameplay. Soft bank, KOHO, and All Bonuses capture v4 stay locked. Click-outs are not paid. Impact is UNKNOWN until a real receipt lands.",
+    "steps": [
+      "Keep this /gameplay page and Sims /company live.",
+      "Score Simplii through Sep 30 and Tangerine enroll outs fairly. Outs are not paid.",
+      "Blog cream pack waits on the DreamHost remount. Do not claim those posts are live.",
+      "Never invent a paid figure."
+    ]
+  },
+  "cards": [
+    {
+      "id": "growth",
+      "name": "Growth",
+      "status": "ON",
+      "statusColor": "#3AAE66",
+      "job": "Fill the door",
+      "directive": "Fair-score lander visits and outs for Simplii, Tangerine enroll, Neo, Questrade, Starlink, Wealthsimple. Outs are not paid.",
+      "evidence": "https://bremo.io/grokanalytics/",
+      "ask": "The door is thin. Who fair-scores the visits and the outs?",
+      "line": "Growth has the door. Those outs are not paid.",
+      "briefing": "Growth owns fair-scoring visits and outs on /gameplay. Outs are not paid. Impact paid is UNKNOWN."
+    },
+    {
+      "id": "conversion",
+      "name": "Conversion",
+      "status": "WATCH",
+      "statusColor": "#D29128",
+      "job": "Walk the handoff",
+      "directive": "Hold Soft, KOHO, and All Bonuses capture v4. Score the welcome path on the next clean receipt day.",
+      "evidence": "https://bremo.io/all-bonuses",
+      "ask": "Someone is ready for the partner. Who walks the handoff?",
+      "line": "Conversion is walking the handoff. That is not paid.",
+      "briefing": "Conversion owns the partner handoff. Do not call it revenue. Impact paid is UNKNOWN."
+    },
+    {
+      "id": "analytics",
+      "name": "Analytics",
+      "status": "ARMED",
+      "statusColor": "#6B5B95",
+      "job": "Log the beat",
+      "directive": "Poll gameplay speak lines as untrusted character signals. Do not invent Impact or paid.",
+      "evidence": "https://bremo.io/analytics/",
+      "ask": "This beat needs a log. Who tells Analytics?",
+      "line": "Analytics has the beat. Brief the crew. Impact paid stays UNKNOWN.",
+      "briefing": "Analytics should store this /gameplay line and brief the crew. Impact paid is UNKNOWN."
+    },
+    {
+      "id": "product",
+      "name": "Product",
+      "status": "SHIPPING",
+      "statusColor": "#9F7AEA",
+      "job": "Ship the page",
+      "directive": "Gameplay page plus Sims company. Blog stays staged until the remount. Soft, KOHO, and All Bonuses stay untouched.",
+      "evidence": "https://bremo.io/company/",
+      "ask": "The page has to exist or the creator page 404s. Who ships it?",
+      "line": "Product ships the page. The creator catch-all does not get this slug.",
+      "briefing": "Product owns /gameplay.php and /gameplay.html so the creator router cannot 404 the slug."
+    },
+    {
+      "id": "content",
+      "name": "Content",
+      "status": "READY",
+      "statusColor": "#3AAE66",
+      "job": "Plain words",
+      "directive": "Cream blog posts are staged for the remount. Keep lander titles honest. Verify on the partner page.",
+      "evidence": "https://bremo.io/content/",
+      "ask": "They do not understand the words. Who says it plainly?",
+      "line": "Content has them. Plain words. Still not a receipt.",
+      "briefing": "Content owns plain language on /gameplay. No paid figure was written."
+    },
+    {
+      "id": "partnerships",
+      "name": "Partnerships",
+      "status": "HOLD_SENDS",
+      "statusColor": "#D29128",
+      "job": "Partner path",
+      "directive": "Wave-1 cards are ready. Send only after the landers match the one-screen bar. No invented payouts.",
+      "evidence": "https://bremo.io/partnerships-wave1",
+      "ask": "Who receives this handoff? Hold the send until the page is honest.",
+      "line": "Partnerships has the path. Hold the send. No invented payout.",
+      "briefing": "Partnerships owns the partner path. Handoff is not revenue. Impact paid is UNKNOWN."
+    },
+    {
+      "id": "payouts",
+      "name": "Payouts",
+      "status": "UNKNOWN",
+      "statusColor": "#9C9080",
+      "job": "Receipt check",
+      "directive": "Track real receipts only. Click-outs and handoffs are not revenue.",
+      "evidence": "https://bremo.io/strategy",
+      "ask": "Did a receipt land? Who is allowed to answer?",
+      "line": "Payouts checked. No receipt. Impact paid stays UNKNOWN.",
+      "briefing": "Payouts Tracker: Impact paid is UNKNOWN until a real receipt. Do not convert this handoff into a paid number."
+    }
+  ]
+}</script>
+<script>
+(function () {
+  var IMPACT = "UNKNOWN";
+  var GOAL = 5;
+  var PATIENCE = 14;
+  var godEl = document.getElementById("brain-god-fallback");
+  var accEl = document.getElementById("brain-acc-fallback");
+  var god = JSON.parse(godEl.textContent);
+  var board = JSON.parse(accEl.textContent);
+  var root = document.getElementById("bremo-gameplay");
+  var grid = document.getElementById("grid");
+  var speech = document.getElementById("speech");
+  var scoreEl = document.getElementById("score");
+  var barEl = document.getElementById("bar");
+  var feed = document.getElementById("feed");
+  var endEl = document.getElementById("end");
+  var queue = [];
+  var listeners = [];
+  var mode = "title";
+  var handoffs = 0;
+  var fouls = 0;
+  var misses = 0;
+  var visitor = null;
+  var lastId = "";
+  var left = PATIENCE;
+  var lastTs = 0;
+  var looping = false;
+
+  function paintBoard() {
+    document.getElementById("blurb").textContent = god.blurb;
+    document.getElementById("sched").textContent = "Strategy tile " + god.strategyTile + " · " + god.schedule + " · " + god.color;
+    var j = board.judgment;
+    document.getElementById("j-kicker").textContent = j.kicker;
+    document.getElementById("j-headline").textContent = j.headline;
+    document.getElementById("j-why").textContent = j.why;
+    document.getElementById("j-how").textContent = j.steps.map(function (s, i) { return (i + 1) + ") " + s; }).join("\n");
+    document.getElementById("paid").textContent = board.impactPaid || IMPACT;
+    grid.textContent = "";
+    board.cards.forEach(function (card) {
+      var art = document.createElement("article");
+      art.className = "card";
+      art.dataset.role = card.id;
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "assign";
+      btn.id = "assign-" + card.id;
+      btn.setAttribute("aria-label", card.name + ". " + card.job);
+      var row = document.createElement("span");
+      row.className = "row";
+      var role = document.createElement("span");
+      role.className = "role";
+      role.textContent = card.name;
+      var badge = document.createElement("span");
+      badge.className = "badge";
+      badge.style.color = card.statusColor;
+      badge.textContent = card.status;
+      row.appendChild(role);
+      row.appendChild(badge);
+      var job = document.createElement("span");
+      job.className = "job";
+      job.textContent = card.job;
+      var dir = document.createElement("span");
+      dir.className = "dir";
+      dir.textContent = card.directive;
+      btn.appendChild(row);
+      btn.appendChild(job);
+      btn.appendChild(dir);
+      btn.addEventListener("click", function () { assign(card.id); });
+      art.appendChild(btn);
+      if (card.evidence) {
+        var a = document.createElement("a");
+        a.className = "evidence";
+        a.href = card.evidence;
+        a.textContent = "Evidence →";
+        art.appendChild(a);
+      }
+      grid.appendChild(art);
+    });
+  }
+
+  function cardById(id) {
+    for (var i = 0; i < board.cards.length; i++) if (board.cards[i].id === id) return board.cards[i];
+    return null;
+  }
+
+  function flash(id, bad) {
+    var art = grid.querySelector('[data-role="' + id + '"]');
+    if (!art) return;
+    art.classList.remove("pop", "nope");
+    void art.offsetWidth;
+    art.classList.add(bad ? "nope" : "pop");
+  }
+
+  function emit(eventName, fields) {
+    var msg = {
+      v: 1,
+      page: "/gameplay",
+      channel: "bremo:gameplay",
+      event: eventName,
+      characterId: god.characterId,
+      speaker: { id: god.characterId, name: god.name, title: god.title, role: god.role },
+      impactPaid: IMPACT,
+      ts: new Date().toISOString(),
+      lineId: fields.lineId || "",
+      text: fields.text || "",
+      briefing: fields.briefing || fields.text || "",
+      mentions: fields.mentions || [],
+      score: { cleanHandoffs: handoffs, misses: misses, fouls: fouls }
+    };
+    queue.push(msg);
+    if (queue.length > 40) queue.shift();
+    try { localStorage.setItem("bremo_gameplay_briefing", JSON.stringify(queue)); } catch (e) {}
+    root.dataset.lastEvent = eventName;
+    root.dataset.lineId = msg.lineId;
+    try { window.dispatchEvent(new CustomEvent("bremo:gameplay", { detail: msg })); } catch (e) {}
+    try {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: "bremo_gameplay",
+        gameplay_event: eventName,
+        line_id: msg.lineId,
+        speaker_id: god.characterId,
+        page: "/gameplay",
+        impact_paid: IMPACT
+      });
+    } catch (e) {}
+    listeners.forEach(function (fn) { try { fn(msg); } catch (e) {} });
+    var line = document.createElement("p");
+    line.textContent = god.name + ": " + msg.text;
+    feed.insertBefore(line, feed.firstChild);
+    return msg;
+  }
+
+  function speak(text, lineId, mentions, briefing, eventName) {
+    speech.textContent = text;
+    var msg = emit(eventName || "dialogue", {
+      text: text,
+      lineId: lineId,
+      mentions: mentions || [],
+      briefing: briefing || text
+    });
+    var body = {
+      characterId: god.speak.characterId,
+      characterName: god.speak.characterName,
+      message: text.slice(0, 220),
+      target: god.speak.target,
+      page: god.speak.page
+    };
+    try {
+      fetch(god.speak.endpoint, {
+        method: "POST",
+        credentials: "same-origin",
+        keepalive: true,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      }).catch(function () {});
+    } catch (e) {}
+    return msg;
+  }
+
+  window.BremoGameplay = {
+    version: 2,
+    page: "/gameplay",
+    channel: "bremo:gameplay",
+    impactPaid: IMPACT,
+    characterId: god.characterId,
+    brain: god,
+    accountability: board,
+    queue: queue,
+    onBriefing: function (fn) {
+      listeners.push(fn);
+      return function () {
+        var i = listeners.indexOf(fn);
+        if (i >= 0) listeners.splice(i, 1);
+      };
+    },
+    latest: function () { return queue.length ? queue[queue.length - 1] : null; }
+  };
+
+  function pickCard() {
+    var pool = board.cards.filter(function (c) { return c.id !== lastId; });
+    var card = pool[Math.floor(Math.random() * pool.length)];
+    lastId = card.id;
+    return card;
+  }
+
+  function spawn() {
+    if (mode !== "play") return;
+    visitor = pickCard();
+    left = PATIENCE;
+    barEl.style.width = "100%";
+    speak(visitor.ask, "bg.need." + visitor.id, [visitor.id], visitor.briefing, "visitor_spawn");
+  }
+
+  function hud() {
+    scoreEl.textContent = handoffs + " / " + GOAL;
+    document.getElementById("paid").textContent = IMPACT;
+    var pct = Math.max(0, Math.min(100, (left / PATIENCE) * 100));
+    barEl.style.width = pct + "%";
+  }
+
+  function finish(kind) {
+    mode = "end";
+    visitor = null;
+    barEl.style.width = "0%";
+    endEl.classList.add("show");
+    if (kind === "win") {
+      endEl.textContent = "Round clear. Clean handoffs are in. Impact paid is still UNKNOWN.";
+      speak("Round clear. Analytics, brief the crew. Impact paid is still UNKNOWN.", "bg.win", ["analytics"], "4:30 round won on /gameplay. Clean handoffs only. Impact paid is UNKNOWN.", "shift_win");
+    } else {
+      endEl.textContent = "Time on that visitor ran out too often. Impact paid stays UNKNOWN.";
+      speak("Round over. Run it again. Impact paid stays UNKNOWN.", "bg.lose", ["analytics"], "4:30 round ended on /gameplay before five clean handoffs. Impact paid is UNKNOWN.", "shift_lose");
+    }
+    document.getElementById("start").textContent = "Play again";
+    document.getElementById("start").disabled = false;
+  }
+
+  function assign(id) {
+    if (mode !== "play" || !visitor) {
+      speak("Start the round, then tap the card that owns the job.", "bg.need_round", [], "No visitor is in the round yet.", "need_round");
+      return;
+    }
+    if (id === "paid-stamp") {
+      fouls += 1;
+      flash(visitor.id, true);
+      speak("Stop. A handoff is not paid. Impact paid stays UNKNOWN until a real receipt.", "bg.foul", ["payouts"], "Refused a paid stamp on /gameplay. Impact paid remains UNKNOWN.", "foul_paid_stamp");
+      hud();
+      return;
+    }
+    if (id === visitor.id) {
+      var done = visitor;
+      visitor = null;
+      handoffs += 1;
+      flash(done.id, false);
+      hud();
+      speak(done.line, "bg.deliver." + done.id, [done.id], done.briefing, "deliver_ok");
+      if (handoffs >= GOAL) finish("win");
+      else spawn();
+      return;
+    }
+    misses += 1;
+    flash(id, true);
+    var who = cardById(id);
+    speak("Wrong card. " + (who ? who.name : "That desk") + " does not own this. Look again.", "bg.wrong." + id, [visitor.id, id], "Wrong card on /gameplay. Visitor still needs " + visitor.name + ".", "deliver_wrong");
+    hud();
+  }
+
+  function frame(ts) {
+    if (!looping) return;
+    if (!lastTs) lastTs = ts;
+    var dt = Math.min(0.05, (ts - lastTs) / 1000);
+    lastTs = ts;
+    if (mode === "play" && visitor) {
+      left -= dt;
+      if (left <= 0) {
+        misses += 1;
+        visitor = null;
+        hud();
+        speak("They left. Too slow. Next one.", "bg.drop", [], "A visitor left /gameplay before the handoff.", "visitor_drop");
+        if (misses >= 4 && handoffs < GOAL) finish("lose");
+        else spawn();
+      } else hud();
+    }
+    requestAnimationFrame(frame);
+  }
+
+  function startRound() {
+    mode = "play";
+    handoffs = 0;
+    fouls = 0;
+    misses = 0;
+    lastId = "";
+    visitor = null;
+    endEl.classList.remove("show");
+    endEl.textContent = "";
+    document.getElementById("start").disabled = true;
+    hud();
+    speak(god.openingLine, "bg.shift_start", board.cards.map(function (c) { return c.id; }), god.openingLine, "shift_start");
+    spawn();
+    if (!looping) {
+      looping = true;
+      lastTs = 0;
+      requestAnimationFrame(frame);
+    }
+  }
+
+  document.getElementById("start").addEventListener("click", startRound);
+  document.getElementById("brief").addEventListener("click", function () {
+    speak(god.openingLine, "bg.brief", ["analytics"], god.openingLine, "crew_brief");
+  });
+  document.getElementById("mark-unknown").addEventListener("click", function () {
+    speak("Payouts, mark it. No receipt. Impact paid stays UNKNOWN.", "bg.mark_unknown", ["payouts"], "Impact paid marked UNKNOWN on /gameplay. No receipt. No invented figure.", "mark_unknown");
+  });
+  document.getElementById("trap").addEventListener("click", function () { assign("paid-stamp"); });
+
+  function tryFetch(urls) {
+    function step(i) {
+      if (i >= urls.length) return Promise.reject(new Error("miss"));
+      return fetch(urls[i], { cache: "no-store" }).then(function (r) {
+        if (!r.ok) throw new Error("status");
+        return r.json();
+      }).catch(function () { return step(i + 1); });
+    }
+    return step(0);
+  }
+
+  paintBoard();
+  emit("gameplay_ready", {
+    text: god.openingLine,
+    lineId: "bg.ready",
+    briefing: god.openingLine,
+    mentions: board.cards.map(function (c) { return c.id; })
+  });
+  speech.textContent = "Press start. Bremo God will name a job. Tap the matching card. A handoff is not paid.";
+
+  Promise.all([
+    tryFetch(["brains/bremo-god.json", "../brains/bremo-god.json", "/brains/bremo-god.json"]),
+    tryFetch(["brains/accountability.json", "../brains/accountability.json", "/brains/accountability.json"])
+  ]).then(function (pair) {
+    if (mode !== "title") return;
+    god = pair[0];
+    board = pair[1];
+    window.BremoGameplay.brain = god;
+    window.BremoGameplay.accountability = board;
+    window.BremoGameplay.characterId = god.characterId;
+    paintBoard();
+  }).catch(function () {});
+})();
+</script>
+<noscript>This round needs JavaScript. Bremo God still says: a handoff is not paid, and Impact paid is UNKNOWN.</noscript>
+</body>
+</html>
