@@ -1,0 +1,172 @@
+{
+  "schemaVersion": "empire-v1",
+  "updatedAt": "2026-09-26 22:13 EDT",
+  "timezone": "America/Toronto",
+  "sites": [
+    {
+      "id": "bremo.io",
+      "name": "bremo.io",
+      "url": "https://bremo.io/",
+      "role": "Money · flagship",
+      "httpStatus": 200,
+      "finalUrl": "https://bremo.io/",
+      "latencyMs": 307,
+      "error": null,
+      "ok": true,
+      "phase": "live",
+      "note": "Responding"
+    },
+    {
+      "id": "bremo.website",
+      "name": "bremo.website",
+      "url": "https://bremo.website/",
+      "role": "Network directory",
+      "httpStatus": 200,
+      "finalUrl": "https://bremo.website/",
+      "latencyMs": 271,
+      "error": null,
+      "ok": true,
+      "phase": "live",
+      "note": "Responding"
+    },
+    {
+      "id": "bremo.tech",
+      "name": "bremo.tech",
+      "url": "https://bremo.tech/",
+      "role": "Tech / crypto",
+      "httpStatus": 200,
+      "finalUrl": "https://bremo.tech/",
+      "latencyMs": 334,
+      "error": null,
+      "ok": true,
+      "phase": "launch",
+      "note": "Responding"
+    },
+    {
+      "id": "bremo.blog",
+      "name": "bremo.blog",
+      "url": "https://bremo.blog/",
+      "role": "Editorial",
+      "httpStatus": 200,
+      "finalUrl": "https://bremo.blog/",
+      "latencyMs": 317,
+      "error": null,
+      "ok": true,
+      "phase": "building",
+      "note": "Responding"
+    },
+    {
+      "id": "bremo.store",
+      "name": "bremo.store",
+      "url": "https://bremo.store/",
+      "role": "Digital products",
+      "httpStatus": 200,
+      "finalUrl": "https://bremo.store/",
+      "latencyMs": 347,
+      "error": null,
+      "ok": true,
+      "phase": "building",
+      "note": "Responding"
+    },
+    {
+      "id": "bremo.shop",
+      "name": "bremo.shop",
+      "url": "https://bremo.shop/",
+      "role": "Merchandise",
+      "httpStatus": 200,
+      "finalUrl": "https://bremo.shop/",
+      "latencyMs": 330,
+      "error": null,
+      "ok": true,
+      "phase": "building",
+      "note": "Responding"
+    },
+    {
+      "id": "bremo.tv",
+      "name": "bremo.tv",
+      "url": "https://bremo.tv/",
+      "role": "Video",
+      "httpStatus": 200,
+      "finalUrl": "https://bremo.tv/",
+      "latencyMs": 320,
+      "error": null,
+      "ok": true,
+      "phase": "building",
+      "note": "Responding"
+    },
+    {
+      "id": "bremo.fun",
+      "name": "bremo.fun",
+      "url": "https://bremo.fun/",
+      "role": "Browser games",
+      "httpStatus": 200,
+      "finalUrl": "https://bremo.fun/",
+      "latencyMs": 283,
+      "error": null,
+      "ok": true,
+      "phase": "building",
+      "note": "Responding"
+    },
+    {
+      "id": "bremo.click",
+      "name": "bremo.click",
+      "url": "https://bremo.click/",
+      "role": "Clicker games",
+      "httpStatus": 200,
+      "finalUrl": "https://bremo.click/",
+      "latencyMs": 333,
+      "error": null,
+      "ok": true,
+      "phase": "building",
+      "note": "Responding"
+    },
+    {
+      "id": "bremo.me",
+      "name": "bremo.me",
+      "url": "https://bremo.me/",
+      "role": "Network identity",
+      "httpStatus": 200,
+      "finalUrl": "https://bremo.me/",
+      "latencyMs": 256,
+      "error": null,
+      "ok": true,
+      "phase": "building",
+      "note": "Responding"
+    },
+    {
+      "id": "bremo.uk",
+      "name": "bremo.uk",
+      "url": "https://bremo.uk/",
+      "role": "UK money",
+      "httpStatus": 200,
+      "finalUrl": "https://bremo.uk/",
+      "latencyMs": 310,
+      "error": null,
+      "ok": true,
+      "phase": "building",
+      "note": "Responding"
+    },
+    {
+      "id": "bremo.space",
+      "name": "bremo.space",
+      "url": "https://bremo.space/",
+      "role": "Reserved",
+      "httpStatus": 200,
+      "finalUrl": "https://bremo.io/?utm_source=bremo.space&utm_medium=parked&utm_campaign=sibling_redirect",
+      "latencyMs": 662,
+      "error": null,
+      "ok": true,
+      "phase": "reserved",
+      "note": "Parked — redirects to bremo.io"
+    }
+  ],
+  "labels": {
+    "helper": "Live reachability of every Bremo network site. Not visitor counts.",
+    "truth": "These numbers are HTTP checks from the empire board. They are not traffic or revenue."
+  },
+  "summary": {
+    "total": 12,
+    "up": 12,
+    "down": 0
+  }
+}
