@@ -1,0 +1,6 @@
+# bremo-company-sims-20260927-v5
+# Only this directory. Does not change Soft, KOHO, All Bonuses, or other site roots.
+<IfModule mod_headers.c>
+  Header set Cache-Control "no-cache, no-store, must-revalidate"
+  Header set X-Robots-Tag "noindex, nofollow"
+</IfModule>
