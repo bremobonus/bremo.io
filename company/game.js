@@ -1,36 +1,38 @@
 /* Bremo Company Sims HQ
- * Release marker: bremo-company-sims-20260927-v2
+ * Release marker: bremo-company-sims-20260927-v5
  *
- * Speak endpoint contract — proved against the live host on 2026-09-27
- * -------------------------------------------------------------------
+ * Speak endpoint contract — gameplay character signals
+ * ----------------------------------------------------
  * POST /api/gameplay-speak.php
  * Content-Type: application/json
  *
- * Body (exactly these fields; message must be a non-empty string):
+ * Body (player orders and the talk box only — idle wandering does not post):
  *   {
- *     "character": "Growth",
- *     "message": "Growth worked the desk. Click-outs are not paid. Impact UNKNOWN.",
- *     "source": "company-sims"
+ *     "characterId": "4885dc27",
+ *     "characterName": "Bremo God",
+ *     "message": "Short line. Click-outs are not paid. Impact UNKNOWN.",
+ *     "target": "analytics",
+ *     "page": "https://bremo.io/company/"
  *   }
  *
- * Observed responses on https://bremo.io:
- *   200 {"ok":true,"queued":true}      accepted
+ * characterId values match the crew map. Grok Analytics is e5335dff.
+ * A message that contains "$" is refused in the client. Never invent paid dollars.
+ *
+ * Observed on https://bremo.io (2026-09-27) for this JSON shape and for a
+ * non-empty message generally:
+ *   200 {"ok":true,"queued":true}
  *   4xx {"error":"bad_message"}        missing or empty message
  *   405 {"error":"method_not_allowed"} GET is rejected
- *   OPTIONS 204
  *   Access-Control-Allow-Origin: https://bremo.io
- *   Access-Control-Allow-Methods: POST, OPTIONS
- *   Access-Control-Allow-Headers: Content-Type
  *
- * This page is deployed same-origin at https://bremo.io/company/ and posts
- * to the relative URL /api/gameplay-speak.php. Lines are untrusted character
- * signals for Analytics. They are not Impact receipts. Click-outs are not
- * paid. Impact stays UNKNOWN. Never invent paid dollars.
+ * Same-origin from https://bremo.io/company/ via the relative URL.
+ * Lines are untrusted character signals. Click-outs are not paid.
+ * Impact stays UNKNOWN.
  */
 (() => {
-  const RELEASE = 'bremo-company-sims-20260927-v2';
+  const RELEASE = 'bremo-company-sims-20260927-v5';
   const SPEAK_URL = '/api/gameplay-speak.php';
-  const SPEAK_SOURCE = 'company-sims';
+  const SPEAK_PAGE = 'https://bremo.io/company/';
 
   const TW = 64;
   const TH = 32;
@@ -70,16 +72,17 @@
   };
 
   const CAST = [
-    { id: 'god', name: 'Bremo God', role: 'Judgment', color: '#9F7AEA', pants: '#4c1d95', skin: '#f3d2b0', hair: '#f6e7c1', hairStyle: 'crown', outfit: 'robe', scale: 1.14, beard: true, home: { x: 3, y: 4 }, energy: 0.86, mood: 0.9 },
-    { id: 'ceo', name: 'CEO', role: 'Direction', color: '#C084FC', pants: '#3b0764', skin: '#f0c7a4', hair: '#2a2118', hairStyle: 'slick', outfit: 'suit', scale: 1.06, home: { x: 7, y: 4 }, energy: 0.78, mood: 0.74 },
-    { id: 'growth', name: 'Growth', role: 'Leads', color: '#FB7185', pants: '#3f2a44', skin: '#e0aa84', hair: '#1c140f', hairStyle: 'spiky', outfit: 'blazer', scale: 1, home: { x: 13, y: 4 }, energy: 0.7, mood: 0.8 },
-    { id: 'markets', name: 'Markets', role: 'Macro', color: '#22D3EE', pants: '#1e3a4c', skin: '#c68642', hair: '#1a120c', hairStyle: 'afro', outfit: 'shirt', scale: 1.02, home: { x: 17, y: 4 }, energy: 0.64, mood: 0.66 },
-    { id: 'product', name: 'Product', role: 'Ships', color: '#34D399', pants: '#1f2937', skin: '#8d5524', hair: '#111', hairStyle: 'beanie', outfit: 'tee', scale: 1, home: { x: 3, y: 9 }, energy: 0.58, mood: 0.72 },
-    { id: 'content', name: 'Content', role: 'Words', color: '#F472B6', pants: '#3b2f4a', skin: '#f1c7a0', hair: '#4a2c1a', hairStyle: 'pony', outfit: 'sweater', scale: 0.98, home: { x: 5, y: 11 }, energy: 0.76, mood: 0.84 },
-    { id: 'partnerships', name: 'Partnerships', role: 'Partners', color: '#FB923C', pants: '#3f2e22', skin: '#d9a07a', hair: '#2b1a10', hairStyle: 'quiff', outfit: 'blazer', scale: 1.03, home: { x: 3, y: 14 }, energy: 0.62, mood: 0.6 },
-    { id: 'conversion', name: 'Conversion', role: 'Funnels', color: '#F59E0B', pants: '#3a3228', skin: '#f0c9a0', hair: '#3a2414', hairStyle: 'side', outfit: 'suit', scale: 1, glasses: true, home: { x: 17, y: 9 }, energy: 0.8, mood: 0.55 },
-    { id: 'analytics', name: 'Analytics', role: 'Signals', color: '#38BDF8', pants: '#1e293b', skin: '#f6d3b4', hair: '#2a231c', hairStyle: 'short', outfit: 'hoodie', scale: 1, headphones: true, home: { x: 17, y: 11 }, energy: 0.72, mood: 0.7 },
-    { id: 'payouts', name: 'Payouts', role: 'Receipts', color: '#10B981', pants: '#14261f', skin: '#6b3e26', hair: '#140e0c', hairStyle: 'short', outfit: 'vest', scale: 1, home: { x: 17, y: 13 }, energy: 0.5, mood: 0.48 },
+    { id: 'god', signalId: '4885dc27', name: 'Bremo God', role: 'Judgment', color: '#9F7AEA', pants: '#4c1d95', skin: '#f3d2b0', hair: '#f6e7c1', hairStyle: 'crown', outfit: 'robe', scale: 1.14, beard: true, home: { x: 3, y: 4 }, energy: 0.86, mood: 0.9 },
+    { id: 'ceo', signalId: '76d83076', name: 'CEO', role: 'Direction', color: '#C084FC', pants: '#3b0764', skin: '#f0c7a4', hair: '#2a2118', hairStyle: 'slick', outfit: 'suit', scale: 1.06, home: { x: 7, y: 4 }, energy: 0.78, mood: 0.74 },
+    { id: 'growth', signalId: 'ef52739b', name: 'Growth', role: 'Leads', color: '#FB7185', pants: '#3f2a44', skin: '#e0aa84', hair: '#1c140f', hairStyle: 'spiky', outfit: 'blazer', scale: 1, home: { x: 13, y: 4 }, energy: 0.7, mood: 0.8 },
+    { id: 'markets', signalId: '5136a60e', name: 'Markets', role: 'Macro', color: '#22D3EE', pants: '#1e3a4c', skin: '#c68642', hair: '#1a120c', hairStyle: 'afro', outfit: 'shirt', scale: 1.02, home: { x: 17, y: 4 }, energy: 0.64, mood: 0.66 },
+    { id: 'product', signalId: 'a88143a7', name: 'Product', role: 'Ships', color: '#34D399', pants: '#1f2937', skin: '#8d5524', hair: '#111', hairStyle: 'beanie', outfit: 'tee', scale: 1, home: { x: 3, y: 9 }, energy: 0.58, mood: 0.72 },
+    { id: 'content', signalId: '8fac036f', name: 'Content', role: 'Words', color: '#F472B6', pants: '#3b2f4a', skin: '#f1c7a0', hair: '#4a2c1a', hairStyle: 'pony', outfit: 'sweater', scale: 0.98, home: { x: 5, y: 11 }, energy: 0.76, mood: 0.84 },
+    { id: 'partnerships', signalId: 'd7699914', name: 'Partnerships', role: 'Partners', color: '#FB923C', pants: '#3f2e22', skin: '#d9a07a', hair: '#2b1a10', hairStyle: 'quiff', outfit: 'blazer', scale: 1.03, home: { x: 3, y: 14 }, energy: 0.62, mood: 0.6 },
+    { id: 'conversion', signalId: 'a698bde5', name: 'Conversion', role: 'Funnels', color: '#F59E0B', pants: '#3a3228', skin: '#f0c9a0', hair: '#3a2414', hairStyle: 'side', outfit: 'suit', scale: 1, glasses: true, home: { x: 17, y: 9 }, energy: 0.8, mood: 0.55 },
+    { id: 'analytics', signalId: '83b9baff', name: 'Analytics', role: 'Signals', color: '#38BDF8', pants: '#1e293b', skin: '#f6d3b4', hair: '#2a231c', hairStyle: 'short', outfit: 'hoodie', scale: 1, headphones: true, home: { x: 17, y: 11 }, energy: 0.72, mood: 0.7 },
+    { id: 'e5335dff', signalId: 'e5335dff', name: 'Grok Analytics', role: 'Charts', color: '#8B5CF6', pants: '#2e1065', skin: '#e7b48a', hair: '#1e1b4b', hairStyle: 'quiff', outfit: 'hoodie', scale: 1, glasses: true, home: { x: 19, y: 9 }, energy: 0.74, mood: 0.77 },
+    { id: 'payouts', signalId: 'f658cc75', name: 'Payouts', role: 'Receipts', color: '#10B981', pants: '#14261f', skin: '#6b3e26', hair: '#140e0c', hairStyle: 'short', outfit: 'vest', scale: 1, home: { x: 17, y: 13 }, energy: 0.5, mood: 0.48 },
   ];
 
   const PROPS = [
@@ -124,6 +127,8 @@
     { type: 'plant', x: 13, y: 8, pot: '#7d9a62' },
     { type: 'desk', x: 16, y: 8, screen: 'funnel', owner: 'conversion' },
     { type: 'chair', x: 17, y: 9 },
+    { type: 'desk', x: 18, y: 8, screen: 'grok', owner: 'e5335dff' },
+    { type: 'chair', x: 19, y: 9 },
     { type: 'desk', x: 16, y: 10, screen: 'signals', owner: 'analytics' },
     { type: 'chair', x: 17, y: 11 },
     { type: 'desk', x: 16, y: 12, screen: 'ledger', owner: 'payouts' },
@@ -143,6 +148,11 @@
     { x: 8, y: 10 }, { x: 8, y: 11 }, { x: 12, y: 10 }, { x: 12, y: 11 },
     { x: 9, y: 9 }, { x: 10, y: 9 }, { x: 11, y: 9 },
     { x: 9, y: 12 }, { x: 10, y: 12 }, { x: 11, y: 12 },
+    { x: 13, y: 11 }, { x: 8, y: 12 },
+  ];
+  const CARRY = [
+    { x: 13, y: 9, face: 'w' }, { x: 13, y: 10, face: 'w' },
+    { x: 8, y: 9, face: 'e' }, { x: 14, y: 10, face: 'w' },
   ];
 
   const ACTIONS = [
@@ -189,7 +199,11 @@
   const keys = new Set();
   let selectedId = 'god';
   let hoverId = null;
-  let cam = { scale: 1, viewCx: 0, viewCy: 0, cx: 0, cy: 0 };
+  let cam = {
+    scale: 1, viewCx: 0, viewCy: 0, cx: 0, cy: 0,
+    zoomed: false, dragging: false, hold: false, ready: false,
+  };
+  let pointer = null;
   let bounds = null;
   let stateT = 0;
   let hintUntil = 0;
@@ -344,6 +358,7 @@
     COFFEE.forEach((t, i) => goals.push(['coffee ' + i, t]));
     SPEAK.forEach((t, i) => goals.push(['speak ' + i, t]));
     HUDDLE.forEach((t, i) => goals.push(['huddle ' + i, t]));
+    CARRY.forEach((t, i) => goals.push(['carry ' + i, t]));
     goals.forEach(([name, g]) => {
       if (!walkable(g.x, g.y)) problems.push(name + ' blocked ' + g.x + ',' + g.y);
       else if (!astar(10, 9, g.x, g.y)) problems.push(name + ' unreachable');
@@ -362,6 +377,8 @@
     if (kind === 'partner') return PHONES;
     if (kind === 'content') return BOARDS;
     if (kind === 'coffee') return COFFEE;
+    if (kind === 'carry') return CARRY;
+    if (kind === 'meet') return HUDDLE.map((t) => ({ ...t, face: 's' }));
     if (kind === 'analytics') {
       if (sim.id === 'analytics') return [{ ...sim.home, face: 's' }];
       return SPEAK;
@@ -410,6 +427,7 @@
         partnerships: 'Partnerships worked the partner desk and held the send. No payout was invented.',
         conversion: 'Conversion worked the funnel watch. Soft / KOHO / All Bonuses capture v4 stays locked. No paid dollars invented.',
         analytics: 'Analytics worked the signal desk and read speak lines as untrusted character signals. Impact UNKNOWN.',
+        e5335dff: 'Grok Analytics read the log in plain words. Impact UNKNOWN. No paid figure.',
         payouts: 'Payouts worked the receipt desk. Nothing new is paid. Impact UNKNOWN.',
       },
       funnel: n + ' checked the funnel board. Visits and outs are not paid. Impact UNKNOWN.',
@@ -430,6 +448,8 @@
     if (kind === 'content') return 'honest copy';
     if (kind === 'analytics') return sim.pendingLine ? sim.pendingLine.slice(0, 72) : 'telling Analytics';
     if (kind === 'coffee') return 'ahh, coffee';
+    if (kind === 'carry') return 'carrying this over';
+    if (kind === 'meet') return 'quick meet';
     if (kind === 'rally') return 'huddle!';
     return '…';
   }
@@ -437,10 +457,14 @@
   const speakQueue = [];
   let speakPumping = false;
 
-  function postSpeak(character, message) {
+  function postSpeak(sim, message) {
     const text = (message || '').trim();
-    if (!text) return;
-    speakQueue.push({ character, message: text.slice(0, 400) });
+    if (!text || !sim) return;
+    if (/\$/.test(text)) {
+      toast('No dollar amounts. Impact UNKNOWN.', true);
+      return;
+    }
+    speakQueue.push({ sim: sim, message: text.slice(0, 400) });
     pumpSpeak();
   }
 
@@ -449,16 +473,30 @@
     speakPumping = true;
     while (speakQueue.length) {
       const job = speakQueue.shift();
-      await sendSpeak(job.character, job.message);
+      await sendSpeak(job.sim, job.message);
       await new Promise((r) => setTimeout(r, 140));
     }
     speakPumping = false;
   }
 
-  async function sendSpeak(character, message) {
-    /* Live contract: JSON { character, message, source: "company-sims" }
+  async function sendSpeak(sim, message) {
+    /* Player-order contract only. Idle walk/type/carry/meet must not call this.
+       POST /api/gameplay-speak.php
+       {
+         "characterId": "<crew id, Grok is e5335dff>",
+         "characterName": "<display name>",
+         "message": "<non-empty, no $>",
+         "target": "analytics",
+         "page": "https://bremo.io/company/"
+       }
        200 {"ok":true,"queued":true} · empty message {"error":"bad_message"} */
-    const body = { character: character, message: message, source: SPEAK_SOURCE };
+    const body = {
+      characterId: sim.signalId,
+      characterName: sim.name,
+      message: message,
+      target: 'analytics',
+      page: SPEAK_PAGE,
+    };
     try {
       const res = await fetch(SPEAK_URL, {
         method: 'POST',
@@ -467,7 +505,7 @@
       });
       let data = null;
       try { data = await res.json(); } catch (e) { data = null; }
-      if (res.ok && data && data.ok) toast(character + ' → Analytics queued', false);
+      if (res.ok && data && data.ok) toast(sim.name + ' → Analytics queued', false);
       else toast('Not queued' + (data && data.error ? ' (' + data.error + ')' : ''), true);
     } catch (err) {
       toast('Speak network error', true);
@@ -484,11 +522,11 @@
   }
 
   function animFor(kind) {
-    return { work: 'type', funnel: 'point', partner: 'phone', content: 'type', analytics: 'talk', coffee: 'drink', rally: 'cheer' }[kind] || 'idle';
+    return { work: 'type', funnel: 'point', partner: 'phone', content: 'type', analytics: 'talk', coffee: 'drink', rally: 'cheer', carry: 'carry', meet: 'meet' }[kind] || 'idle';
   }
 
   function durationFor(kind) {
-    return { work: Infinity, funnel: 5.6, partner: 6.1, content: 6.4, analytics: 4.6, coffee: 5.4, rally: 2.8 }[kind] || 4;
+    return { work: Infinity, funnel: 5.6, partner: 6.1, content: 6.4, analytics: 4.6, coffee: 5.4, rally: 2.8, carry: 1.8, meet: 4.2 }[kind] || 4;
   }
 
   function startAct(sim) {
@@ -505,7 +543,7 @@
       const line = lineFor(sim, sim.order.kind);
       const bubble = preview ? preview.slice(0, 80) : bubbleFor(sim.order.kind, sim);
       sim.bubble = { text: bubble, until: stateT + 3.6 };
-      postSpeak(sim.order.kind === 'rally' ? 'Bremo God' : sim.name, line);
+      postSpeak(sim.order.kind === 'rally' ? simById('god') : sim, line);
     } else if (sim.order.silent) {
       sim.thought = { icon: sim.order.kind === 'coffee' ? 'cup' : 'work', until: stateT + 2.2 };
     }
@@ -518,12 +556,12 @@
     if (kind === 'rally') { beginRally(); return; }
     const dest = pickTile(destinations(kind, sim), sim);
     if (!dest || !walkable(dest.x, dest.y)) {
-      toast('That station is blocked', true);
+      if (!silent) toast('That station is blocked', true);
       return;
     }
     const path = findPath(sim, dest.x, dest.y);
     if (path === null) {
-      toast(sim.name + ' can’t reach that spot', true);
+      if (!silent) toast(sim.name + ' can’t reach that spot', true);
       return;
     }
     sim.order = {
@@ -535,7 +573,7 @@
       face: dest.face || 's',
     };
     sim.path = path;
-    sim.anim = path.length ? 'walk' : sim.anim;
+    sim.anim = path.length ? (kind === 'carry' ? 'carry' : 'walk') : sim.anim;
     if (!path.length) startAct(sim);
     pokeHint();
   }
@@ -569,7 +607,7 @@
     });
     if (god) {
       god.bubble = { text: 'Huddle up. Then back to work.', until: stateT + 3.8 };
-      postSpeak('Bremo God', lineFor(god, 'rally'));
+      postSpeak(god, lineFor(god, 'rally'));
     }
     pokeHint();
   }
@@ -657,7 +695,7 @@
           sim.y += (dy / dist) * step;
         }
         sim.facing = facingFromDelta(dx, dy);
-        sim.anim = 'walk';
+        sim.anim = sim.order && sim.order.kind === 'carry' ? 'carry' : 'walk';
         sim.phase += dt * (speed / 1.15);
       } else if (sim.order && sim.order.phase === 'walk') {
         sim.x = sim.order.dest.x;
@@ -685,18 +723,17 @@
             sim.idleIn = 1.6 + Math.random() * 2.5;
           }
         }
-      } else if (sim.id !== selectedId) {
-          sim.idleIn -= dt;
-          if (sim.idleIn <= 0) autonomy(sim);
-          else if (near(sim, sim.home) && Math.random() < 0.2) sim.anim = 'type';
-          else if (sim.anim === 'walk') sim.anim = 'idle';
-          sim.phase += dt;
-        } else {
-          if (sim.anim === 'walk') sim.anim = 'idle';
-          sim.phase += dt;
-          if (sim.energy < 0.28 && (!sim.thought || sim.thought.until < stateT)) {
-            sim.thought = { icon: 'cup', until: stateT + 3.2 };
-          }
+      } else if (sim.id === selectedId && moveKeys) {
+        sim.phase += dt;
+      } else {
+        sim.idleIn -= dt;
+        if (sim.idleIn <= 0) idleThink(sim);
+        else if (near(sim, sim.home) && Math.random() < 0.18) sim.anim = 'type';
+        else if (sim.anim === 'walk' || sim.anim === 'carry') sim.anim = 'idle';
+        sim.phase += dt;
+        if (sim.energy < 0.28 && (!sim.thought || sim.thought.until < stateT)) {
+          sim.thought = { icon: 'cup', until: stateT + 3.2 };
+        }
       }
 
       if ((sim.anim === 'type' || sim.anim === 'cheer') && Math.random() < dt * (sim.order && !sim.order.silent ? 8 : 2)) {
@@ -705,6 +742,7 @@
       if (sim.anim === 'drink' && Math.random() < dt * 6) spawnSteam(sim);
     });
 
+    followCam(dt);
     if (Math.random() < dt * 2.2) spawnCoffeeSteam();
 
     for (let i = particles.length - 1; i >= 0; i--) {
@@ -721,33 +759,51 @@
     return Math.hypot(sim.x - tile.x, sim.y - tile.y) < 0.35;
   }
 
-  function autonomy(sim) {
-    sim.idleIn = 4 + Math.random() * 5;
+  function idleThink(sim) {
+    sim.idleIn = 1.8 + Math.random() * 2.6;
     const roll = Math.random();
-    if (sim.energy < 0.34 && roll < 0.75) {
+    if (sim.energy < 0.34 && roll < 0.55) {
       command(sim, 'coffee', true);
       return;
     }
-    if (roll < 0.45) {
+    if (roll < 0.4) {
+      const room = tileAt(sim.home.x, sim.home.y);
+      const options = [];
+      for (let y = 1; y < MAP_H - 1; y++) {
+        for (let x = 1; x < MAP_W - 1; x++) {
+          if (tileAt(x, y) === room && walkable(x, y) && Math.abs(x - sim.x) + Math.abs(y - sim.y) <= 4 && Math.abs(x - sim.x) + Math.abs(y - sim.y) >= 1) {
+            options.push({ x, y, face: 's' });
+          }
+        }
+      }
+      if (!options.length) return;
+      const dest = options[Math.floor(Math.random() * options.length)];
+      const path = findPath(sim, dest.x, dest.y);
+      if (!path || !path.length) return;
+      sim.order = { kind: 'wander', phase: 'walk', dest: dest, silent: true, posted: false, face: 's', wander: true };
+      sim.path = path;
+      sim.anim = 'walk';
+      return;
+    }
+    if (roll < 0.7) {
       command(sim, 'work', true);
       return;
     }
-    const room = tileAt(sim.home.x, sim.home.y);
-    const options = [];
-    for (let y = 1; y < MAP_H - 1; y++) {
-      for (let x = 1; x < MAP_W - 1; x++) {
-        if (tileAt(x, y) === room && walkable(x, y) && Math.abs(x - sim.x) + Math.abs(y - sim.y) <= 4 && Math.abs(x - sim.x) + Math.abs(y - sim.y) >= 1) {
-          options.push({ x, y, face: 's' });
-        }
-      }
+    if (roll < 0.88) {
+      command(sim, 'carry', true);
+      return;
     }
-    if (!options.length) return;
-    const dest = options[Math.floor(Math.random() * options.length)];
-    const path = findPath(sim, dest.x, dest.y);
-    if (!path || !path.length) return;
-    sim.order = { kind: 'wander', phase: 'walk', dest: dest, silent: true, posted: false, face: 's', wander: true };
-    sim.path = path;
-    sim.anim = 'walk';
+    command(sim, 'meet', true);
+  }
+
+  function followCam(dt) {
+    if (!cam.zoomed || cam.dragging || cam.hold) return;
+    const focus = selected();
+    if (!focus) return;
+    const f = foot(focus);
+    const k = Math.min(1, dt * 3.5);
+    cam.cx += (f.x - cam.cx) * k;
+    cam.cy += (f.y - cam.cy) * k;
   }
 
   function directionFromKeys() {
@@ -1024,7 +1080,7 @@
     ctx2.closePath();
     ctx2.clip();
     const bars = mode === 'bars' || mode === 'funnel' || mode === 'signals';
-    const cols = mode === 'judgment' ? '#c4b5fd' : mode === 'code' ? '#6ee7b7' : mode === 'text' || mode === 'copy' ? '#f9a8d4' : mode === 'ledger' ? '#6ee7b7' : mode === 'news' ? '#67e8f9' : mode === 'phone' ? '#fdba74' : '#fde68a';
+    const cols = mode === 'judgment' || mode === 'grok' ? '#c4b5fd' : mode === 'code' ? '#6ee7b7' : mode === 'text' || mode === 'copy' ? '#f9a8d4' : mode === 'ledger' ? '#6ee7b7' : mode === 'news' ? '#67e8f9' : mode === 'phone' ? '#fdba74' : '#fde68a';
     for (let i = 0; i < 4; i++) {
       const v = 0.18 + i * 0.18;
       const width = bars ? 0.25 + ((i * 37 + Math.floor(stateT * 3)) % 5) * 0.1 : 0.62;
@@ -1196,7 +1252,8 @@
     ctx2.ellipse(0, 0, 12 * sc, 5 * sc, 0, 0, Math.PI * 2);
     ctx2.fill();
     const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const bob = reduced ? 0 : (sim.anim === 'walk' ? Math.sin(sim.phase * Math.PI * 2) * 1.6 : Math.sin(stateT * 2 + sim.seed) * 0.55);
+    const moving = sim.anim === 'walk' || sim.anim === 'carry';
+    const bob = reduced ? 0 : (moving ? Math.sin(sim.phase * Math.PI * 2) * 1.6 : Math.sin(stateT * 2 + sim.seed) * 0.55);
     ctx2.translate(0, bob);
     ctx2.scale(sc, sc);
     const facing = sim.facing || 's';
@@ -1204,7 +1261,7 @@
     const flip = facing === 'w' ? -1 : 1;
     if (facing === 'w' || facing === 'e') ctx2.scale(flip, 1);
     const typing = sim.anim === 'type';
-    const swing = sim.anim === 'walk' ? Math.sin(sim.phase * Math.PI * 2) : 0;
+    const swing = (sim.anim === 'walk' || sim.anim === 'carry') ? Math.sin(sim.phase * Math.PI * 2) : 0;
     const skin = sim.skin;
     const ink = '#2b241c';
 
@@ -1329,6 +1386,17 @@
       const tap = Math.sin(stateT * 16 + sim.seed) * 2.4;
       arm(-6, -28, -7, -18 + tap);
       arm(6, -28, 6, -18 - tap);
+    } else if (sim.anim === 'carry') {
+      arm(-6, -28, -9, -18 + swing * 3);
+      arm(6, -28, 6, -36);
+      roundRect(ctx2, 1, -42, 11, 8, 2);
+      fillStroke(ctx2, '#e7d3a1', 1.2);
+      ctx2.fillStyle = sim.color;
+      ctx2.fillRect(3, -40, 7, 2);
+    } else if (sim.anim === 'meet') {
+      const wave = Math.sin(stateT * 5 + sim.seed) * 2;
+      arm(-6, -28, -13, -36 + wave);
+      arm(6, -28, 13, -36 - wave);
     } else if (sim.anim === 'talk') {
       arm(-6, -28, -12, -24);
       arm(6, -28, 10, -30 + Math.sin(stateT * 6) * 2);
@@ -1642,19 +1710,58 @@
     return { minX, maxX, minY, maxY, w: maxX - minX, h: maxY - minY };
   }
 
-  function applyCamera(context, w, h) {
+  function layoutCamera(w, h) {
     const marginX = 20;
     const marginTop = 46;
     const marginBottom = Math.min(230, Math.max(150, h * 0.28));
-    const scale = Math.min((w - marginX * 2) / bounds.w, (h - marginTop - marginBottom) / bounds.h);
-    const cx = (bounds.minX + bounds.maxX) / 2;
-    const cy = (bounds.minY + bounds.maxY) / 2;
+    const fitScale = Math.min((w - marginX * 2) / bounds.w, (h - marginTop - marginBottom) / bounds.h);
+    const personPx = 72;
+    const zoomed = personPx * fitScale < 34;
+    const scale = zoomed ? Math.min(1.15, Math.max(fitScale, 46 / personPx)) : fitScale;
     const viewCx = w / 2;
     const viewCy = marginTop + (h - marginTop - marginBottom) / 2;
-    cam = { scale, viewCx, viewCy, cx, cy };
-    context.translate(viewCx, viewCy);
-    context.scale(scale, scale);
-    context.translate(-cx, -cy);
+    cam.scale = scale;
+    cam.viewCx = viewCx;
+    cam.viewCy = viewCy;
+    if (!cam.ready) {
+      const focus = selected();
+      const f = focus ? foot(focus) : { x: (bounds.minX + bounds.maxX) / 2, y: (bounds.minY + bounds.maxY) / 2 };
+      cam.cx = zoomed ? f.x : (bounds.minX + bounds.maxX) / 2;
+      cam.cy = zoomed ? f.y : (bounds.minY + bounds.maxY) / 2;
+      cam.ready = true;
+    } else if (!zoomed) {
+      cam.cx = (bounds.minX + bounds.maxX) / 2;
+      cam.cy = (bounds.minY + bounds.maxY) / 2;
+      cam.hold = false;
+    }
+    cam.zoomed = zoomed;
+    clampCam(w, h);
+    if (hintEl && !hintEl.dataset.mode) hintEl.dataset.mode = '';
+    const mode = zoomed ? 'zoom' : 'fit';
+    if (hintEl && hintEl.dataset.mode !== mode) {
+      hintEl.dataset.mode = mode;
+      hintEl.textContent = zoomed
+        ? 'Drag the floor to look around · tap a Sim · tap the carpet to walk'
+        : 'Click a Sim · WASD or arrows to walk · click the carpet to pathfind · keys 1–7 give orders';
+    }
+  }
+
+  function clampCam(w, h) {
+    const left = cam.viewCx / cam.scale;
+    const right = (w - cam.viewCx) / cam.scale;
+    const up = cam.viewCy / cam.scale;
+    const down = (h - cam.viewCy) / cam.scale;
+    if (left + right >= bounds.w) cam.cx = (bounds.minX + bounds.maxX) / 2;
+    else cam.cx = Math.max(bounds.minX + left, Math.min(bounds.maxX - right, cam.cx));
+    if (up + down >= bounds.h) cam.cy = (bounds.minY + bounds.maxY) / 2;
+    else cam.cy = Math.max(bounds.minY + up, Math.min(bounds.maxY - down, cam.cy));
+  }
+
+  function applyCamera(context, w, h) {
+    layoutCamera(w, h);
+    context.translate(cam.viewCx, cam.viewCy);
+    context.scale(cam.scale, cam.scale);
+    context.translate(-cam.cx, -cam.cy);
   }
 
   function clientToWorld(clientX, clientY) {
@@ -1844,10 +1951,10 @@
       return 'On the floor';
     }
     if (sim.order.phase === 'walk') {
-      const labels = { work: 'walking to the desk', funnel: 'walking to the funnel board', partner: 'walking to the partner phone', content: 'walking to the copy board', analytics: 'walking to Analytics', coffee: 'walking to coffee', rally: 'walking to the huddle', wander: 'wandering the carpet' };
+      const labels = { work: 'walking to the desk', funnel: 'walking to the funnel board', partner: 'walking to the partner phone', content: 'walking to the copy board', analytics: 'walking to Analytics', coffee: 'walking to coffee', rally: 'walking to the huddle', wander: 'wandering the carpet', carry: 'carrying a folder to the table', meet: 'walking into a meet' };
       return sim.name + ' is ' + (labels[sim.order.kind] || 'walking');
     }
-    const labels = { work: 'typing at the desk', funnel: 'reading the funnel', partner: 'on partner outreach', content: 'writing', analytics: 'speaking with Analytics', coffee: 'taking a coffee', rally: 'in the huddle' };
+    const labels = { work: 'typing at the desk', funnel: 'reading the funnel', partner: 'on partner outreach', content: 'writing', analytics: 'speaking with Analytics', coffee: 'taking a coffee', rally: 'in the huddle', carry: 'setting a folder down', meet: 'in a casual meet' };
     return sim.name + ' is ' + (labels[sim.order.kind] || 'busy');
   }
 
@@ -1878,7 +1985,7 @@
   function hitSim(clientX, clientY) {
     const wpt = clientToWorld(clientX, clientY);
     let best = null;
-    let bestD = 28;
+    let bestD = Math.max(28, 42 / (cam.scale || 1));
     sims.forEach((sim) => {
       const f = foot(sim);
       const dx = wpt.x - f.x;
@@ -1892,6 +1999,7 @@
   function select(id) {
     if (!simById(id)) return;
     selectedId = id;
+    cam.hold = false;
     pokeHint();
     renderHud();
   }
@@ -1925,19 +2033,23 @@
       const sim = selected();
       const text = talkInput.value.trim();
       if (!sim || !text) return;
+      if (/\$/.test(text)) {
+        toast('No dollar amounts. Impact UNKNOWN.', true);
+        return;
+      }
       sim.pendingLine = text;
       talkInput.value = '';
       command(sim, 'analytics', false);
     });
   }
 
-  canvas.addEventListener('pointerdown', (e) => {
-    const hit = hitSim(e.clientX, e.clientY);
+  function walkClick(clientX, clientY) {
+    const hit = hitSim(clientX, clientY);
     if (hit) {
       select(hit.id);
       return;
     }
-    const wpt = clientToWorld(e.clientX, e.clientY);
+    const wpt = clientToWorld(clientX, clientY);
     let tile = worldToTile(wpt.x, wpt.y);
     const sim = selected();
     if (!sim) return;
@@ -1961,12 +2073,47 @@
     sim.path = path;
     sim.anim = path.length ? 'walk' : 'idle';
     pokeHint();
-  });
+  }
 
+  canvas.addEventListener('pointerdown', (e) => {
+    if (e.button !== 0 && e.pointerType === 'mouse') return;
+    pointer = { id: e.pointerId, x: e.clientX, y: e.clientY, sx: e.clientX, sy: e.clientY, moved: false };
+    try { canvas.setPointerCapture(e.pointerId); } catch (err) { /* ignore */ }
+  });
   canvas.addEventListener('pointermove', (e) => {
+    if (pointer && e.pointerId === pointer.id) {
+      const dx = e.clientX - pointer.x;
+      const dy = e.clientY - pointer.y;
+      if (Math.hypot(e.clientX - pointer.sx, e.clientY - pointer.sy) > 8) pointer.moved = true;
+      if (pointer.moved && cam.zoomed) {
+        cam.dragging = true;
+        cam.hold = true;
+        cam.cx -= dx / cam.scale;
+        cam.cy -= dy / cam.scale;
+        canvas.style.cursor = 'grabbing';
+      }
+      pointer.x = e.clientX;
+      pointer.y = e.clientY;
+      return;
+    }
     const hit = hitSim(e.clientX, e.clientY);
     hoverId = hit ? hit.id : null;
-    canvas.style.cursor = hit ? 'pointer' : 'crosshair';
+    canvas.style.cursor = hit ? 'pointer' : (cam.zoomed ? 'grab' : 'crosshair');
+  });
+  function endPointer(e) {
+    if (!pointer || e.pointerId !== pointer.id) return;
+    const dragged = pointer.moved && cam.zoomed;
+    pointer = null;
+    cam.dragging = false;
+    if (dragged) return;
+    walkClick(e.clientX, e.clientY);
+  }
+  canvas.addEventListener('pointerup', endPointer);
+  canvas.addEventListener('pointercancel', (e) => {
+    if (pointer && e.pointerId === pointer.id) {
+      pointer = null;
+      cam.dragging = false;
+    }
   });
 
   window.addEventListener('keydown', (e) => {
@@ -2022,6 +2169,7 @@
     select: select,
     command: (id, kind) => command(simById(id), kind, false),
     navProblems: problems,
+    view: () => ({ zoomed: cam.zoomed, scale: cam.scale, cx: cam.cx, cy: cam.cy, hold: cam.hold }),
   };
   requestAnimationFrame(frame);
 })();
