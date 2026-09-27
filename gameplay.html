@@ -1,0 +1,1321 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Play Bremo God | Bremo</title>
+  <meta name="description" content="Play as Bremo God, supreme overseer of the Bremo crew. Walk visitors to the right desk. A handoff is not revenue. Impact paid stays UNKNOWN." />
+  <link rel="canonical" href="https://bremo.io/gameplay" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Play Bremo God | Bremo" />
+  <meta property="og:description" content="A playable shift. You are Bremo God. Walk visitors to the right desk. Impact paid stays UNKNOWN." />
+  <meta property="og:url" content="https://bremo.io/gameplay" />
+  <meta property="og:site_name" content="Bremo" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Play Bremo God | Bremo" />
+  <meta name="twitter:description" content="A playable shift. You are Bremo God. Walk visitors to the right desk. Impact paid stays UNKNOWN." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoGame",
+    "name": "Bremo God",
+    "url": "https://bremo.io/gameplay",
+    "playMode": "SinglePlayer",
+    "applicationCategory": "Game",
+    "operatingSystem": "Web",
+    "description": "Play as Bremo God and walk visitors to the right desk. A handoff is not revenue. Impact paid stays UNKNOWN until a real receipt.",
+    "publisher": { "@type": "Organization", "name": "Bremo", "url": "https://bremo.io/" }
+  }
+  </script>
+  <!--
+    Machine-readable briefing contract. Rendered text is the game.
+    Humans: see GAMEPLAY.md. Product/Analytics listen for bremo:gameplay.
+  -->
+  <script type="application/json" id="bremo-gameplay-contract">
+  {
+    "v": 1,
+    "page": "/gameplay",
+    "channel": "bremo:gameplay",
+    "dataLayerEvent": "bremo_gameplay",
+    "storageKey": "bremo_gameplay_briefing",
+    "endpoint": "/api/bremo-event.php",
+    "endpointEvent": "gameplay_briefing",
+    "impactPaid": "UNKNOWN",
+    "speaker": { "id": "bremo-god", "name": "Bremo God", "title": "Bremo God" },
+    "roster": [
+      { "id": "bremo-god", "name": "Bremo God", "title": "Bremo God", "role": "Supreme overseer" },
+      { "id": "growth", "name": "Growth", "role": "Fill the door" },
+      { "id": "conversion-daily", "name": "Conversion Daily", "role": "Walk the handoff" },
+      { "id": "analytics", "name": "Analytics", "role": "Log the beat" },
+      { "id": "grok-analytics", "name": "Grok Analytics", "role": "Read the log" },
+      { "id": "product", "name": "Product", "role": "Page works" },
+      { "id": "content", "name": "Content", "role": "Plain words" },
+      { "id": "partnerships", "name": "Partnerships", "role": "Partner path" },
+      { "id": "payouts-tracker", "name": "Payouts Tracker", "role": "Receipt check" },
+      { "id": "markets", "name": "Markets", "role": "What's live" },
+      { "id": "ceo-allastair", "name": "CEO Allastair", "role": "Make the call" }
+    ]
+  }
+  </script>
+  <style>
+    :root {
+      --mint: #9FE2C4;
+      --sky: #A8CCF2;
+      --lilac: #CBB8EA;
+      --blush: #F7C9D5;
+      --butter: #F8E9A6;
+      --peach: #F8D0B8;
+      --ink: #23252b;
+      --muted: #5c6370;
+      --cloud: #F6F9F8;
+      --line: #ececec;
+      --font: "Outfit", "Circular", -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: var(--font);
+      color: var(--ink);
+      background: var(--cloud);
+      line-height: 1.45;
+    }
+    a { color: inherit; }
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      top: 0;
+      background: var(--ink);
+      color: #fff;
+      padding: 8px 12px;
+      z-index: 100;
+      font-weight: 700;
+    }
+    .skip-link:focus { left: 0; }
+    .top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+    .logo {
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      text-decoration: none;
+      font-size: 1.35rem;
+    }
+    .top nav { display: flex; gap: 16px; }
+    .top nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .top nav a[aria-current="page"] { color: var(--ink); }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 16px 16px 40px;
+    }
+    .hud {
+      display: grid;
+      grid-template-columns: 1.3fr repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .stat {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 8px 12px;
+      min-width: 0;
+    }
+    .stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .stat strong {
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+    h1 {
+      margin: 0;
+      font-size: 1.35rem;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+    }
+    h1 small {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+    .speechbar {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 10px 14px;
+      margin-bottom: 12px;
+      min-height: 72px;
+    }
+    .mini-god {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: var(--butter);
+      border: 3px solid var(--ink);
+      flex: 0 0 auto;
+      position: relative;
+    }
+    .mini-god::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: -9px;
+      transform: translateX(-50%);
+      width: 22px;
+      height: 10px;
+      background: var(--ink);
+      clip-path: polygon(0 100%, 0 40%, 20% 75%, 35% 0, 50% 75%, 65% 0, 80% 75%, 100% 40%, 100% 100%);
+    }
+    .speechbar .who {
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    #speech {
+      margin: 0;
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .stage {
+      display: grid;
+      gap: 12px;
+    }
+    .floor-wrap { position: relative; }
+    .arena {
+      position: relative;
+      height: min(48vh, 440px);
+      min-height: 300px;
+      background:
+        radial-gradient(120px 80px at 18% 30%, rgba(159, 226, 196, 0.55), transparent 70%),
+        radial-gradient(140px 90px at 80% 22%, rgba(168, 204, 242, 0.5), transparent 70%),
+        radial-gradient(120px 90px at 70% 78%, rgba(203, 184, 234, 0.45), transparent 70%),
+        linear-gradient(180deg, #fff, var(--cloud));
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      overflow: hidden;
+      touch-action: none;
+      user-select: none;
+    }
+    .hint {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      right: 12px;
+      margin: 0;
+      text-align: center;
+      font-weight: 700;
+      color: var(--ink);
+      background: rgba(255, 255, 255, 0.88);
+      border-radius: 999px;
+      padding: 6px 12px;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .token {
+      position: absolute;
+      width: 72px;
+      height: 72px;
+      margin: 0;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      display: grid;
+      place-items: center;
+      z-index: 3;
+    }
+    .god {
+      background: var(--butter);
+      border: 3px solid var(--ink);
+      z-index: 4;
+    }
+    .visitor {
+      background: var(--sky);
+      border: 3px solid var(--ink);
+      width: 64px;
+      height: 64px;
+    }
+    .crown {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      width: 32px;
+      height: 14px;
+      transform: translateX(-50%);
+      background: var(--ink);
+      clip-path: polygon(0 100%, 0 45%, 18% 78%, 34% 0, 50% 78%, 66% 0, 84% 78%, 100% 45%, 100% 100%);
+    }
+    .face { display: flex; gap: 8px; }
+    .face i {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--ink);
+      display: block;
+    }
+    .token b, .visitor b {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: 11px;
+      white-space: nowrap;
+      font-weight: 800;
+    }
+    .patience {
+      position: absolute;
+      left: 8px;
+      right: 8px;
+      top: -8px;
+      height: 5px;
+      background: #fff;
+      border-radius: 99px;
+      overflow: hidden;
+      border: 1px solid var(--ink);
+    }
+    .patience i {
+      display: block;
+      height: 100%;
+      width: 100%;
+      background: var(--mint);
+    }
+    .patience.low i { background: var(--blush); }
+    .god.carrying::after {
+      content: "";
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--sky);
+      border: 2px solid var(--ink);
+      right: -4px;
+      top: -4px;
+    }
+    .pad {
+      position: absolute;
+      left: 8px;
+      bottom: 8px;
+      width: 148px;
+      height: 100px;
+      z-index: 5;
+      pointer-events: none;
+    }
+    .pad button {
+      pointer-events: auto;
+      position: absolute;
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      font-size: 16px;
+      font-weight: 800;
+      touch-action: none;
+    }
+    .pad button[data-y="-1"] { left: 52px; top: 0; }
+    .pad button[data-x="-1"] { left: 4px; top: 48px; }
+    .pad button[data-x="1"] { left: 100px; top: 48px; }
+    .pad button[data-y="1"] { left: 52px; top: 48px; }
+    .overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 6;
+      background: rgba(255, 255, 255, 0.94);
+      border-radius: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 22px 16px;
+      gap: 8px;
+    }
+    .overlay[hidden] { display: none; }
+    .eyebrow {
+      margin: 0;
+      color: #6d5c93;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+    }
+    .display {
+      margin: 0;
+      font-size: clamp(2.2rem, 8vw, 4rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 0.95;
+    }
+    .role { margin: 0; color: var(--muted); font-weight: 600; }
+    .rules {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      width: min(100%, 520px);
+      margin: 8px 0;
+    }
+    .rules div {
+      background: var(--cloud);
+      border-radius: 16px;
+      padding: 10px 8px;
+      font-weight: 700;
+      font-size: 0.86rem;
+    }
+    .rules b {
+      display: grid;
+      place-items: center;
+      width: 26px;
+      height: 26px;
+      margin: 0 auto 6px;
+      border-radius: 50%;
+      background: var(--butter);
+    }
+    .play {
+      appearance: none;
+      border: 0;
+      background: var(--ink);
+      color: #fff;
+      font: inherit;
+      font-weight: 800;
+      font-size: 1.05rem;
+      padding: 14px 28px;
+      border-radius: 999px;
+      cursor: pointer;
+      margin-top: 6px;
+    }
+    .play:hover { filter: brightness(1.08); }
+    .end-stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+      width: min(100%, 520px);
+      margin-top: 8px;
+    }
+    .end-stats div {
+      background: var(--cloud);
+      border-radius: 14px;
+      padding: 8px;
+    }
+    .end-stats b { display: block; font-size: 1.2rem; }
+    .end-stats span { color: var(--muted); font-size: 0.75rem; font-weight: 700; }
+    #end-line { margin: 0; font-weight: 700; max-width: 36rem; }
+    .bench {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .bench.asleep { opacity: 0.55; pointer-events: none; }
+    .desk {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-align: left;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 8px 10px;
+      min-height: 58px;
+      font: inherit;
+      color: var(--ink);
+      cursor: pointer;
+    }
+    .desk .swatch {
+      width: 14px;
+      height: 36px;
+      border-radius: 99px;
+      background: var(--swatch, var(--mint));
+      flex: 0 0 auto;
+    }
+    .desk .who { display: block; font-weight: 800; letter-spacing: -0.02em; }
+    .desk .job { display: block; color: var(--muted); font-size: 0.82rem; font-weight: 600; }
+    .desk.trap {
+      grid-column: 1 / -1;
+      background: #fff;
+      border-style: dashed;
+    }
+    .desk.trap .swatch { background: transparent; border: 2px solid var(--ink); }
+    .desk.pop { outline: 3px solid var(--mint); }
+    .desk.nope { outline: 3px solid var(--blush); }
+    .floater, .bit { position: absolute; pointer-events: none; z-index: 6; }
+    .floater {
+      transform: translate(-50%, -140%);
+      background: var(--mint);
+      color: var(--ink);
+      font-weight: 800;
+      border-radius: 999px;
+      padding: 4px 10px;
+      animation: rise 0.8s ease forwards;
+    }
+    .bit {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      animation: bit 0.7s ease-out forwards;
+    }
+    @keyframes rise { to { opacity: 0; transform: translate(-50%, -210%); } }
+    @keyframes bit { to { transform: translate(var(--dx), var(--dy)); opacity: 0; } }
+    footer {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+    button:focus-visible, a:focus-visible {
+      outline: 3px solid var(--ink);
+      outline-offset: 3px;
+    }
+    @media (min-width: 900px) {
+      .stage { grid-template-columns: 1.15fr 0.85fr; align-items: start; }
+      .floor-wrap { grid-column: 1; grid-row: 1; }
+      .bench { grid-column: 2; grid-row: 1; grid-template-columns: 1fr 1fr; }
+      .arena { height: 560px; }
+      .hud { grid-template-columns: 1.4fr repeat(3, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .top { padding: 10px 14px; }
+      main { padding: 10px 12px 28px; }
+      .hud { grid-template-columns: 1.15fr repeat(3, minmax(0, 1fr)); gap: 6px; }
+      .stat { padding: 6px 8px; border-radius: 12px; }
+      .stat strong { font-size: 0.95rem; }
+      h1 { font-size: 1rem; }
+      h1 small { font-size: 0.62rem; }
+      .speechbar { min-height: 0; padding: 8px 10px; margin-bottom: 8px; }
+      .mini-god { width: 36px; height: 36px; }
+      #speech { font-size: 0.95rem; }
+      .rules { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .rules div { font-size: 0.72rem; padding: 8px 4px; }
+      .display { font-size: 2.1rem; }
+      .role { font-size: 0.88rem; }
+      .end-stats { grid-template-columns: 1fr 1fr; }
+      .arena { min-height: 340px; height: 46vh; }
+      .overlay { overflow: auto; padding: 12px 10px; }
+      .desk { min-height: 52px; padding: 6px 8px; }
+      .pad { transform: scale(0.88); transform-origin: left bottom; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .floater, .bit, .play { animation: none; transition: none; }
+      .play:hover { filter: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#bremo-gameplay">Skip to the game</a>
+  <header class="top">
+    <a class="logo" href="/">Bremo</a>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/gameplay.html" aria-current="page">Play</a>
+    </nav>
+  </header>
+
+  <main id="bremo-gameplay" data-bremo-page="/gameplay" data-bremo-channel="bremo:gameplay" data-impact-paid="UNKNOWN" data-speaker="bremo-god">
+    <div class="hud">
+      <div class="stat">
+        <h1>Bremo God<small>Supreme overseer · you play this character</small></h1>
+      </div>
+      <div class="stat"><span>Clean handoffs</span><strong id="score">0</strong></div>
+      <div class="stat"><span>Time</span><strong id="clock">1:30</strong></div>
+      <div class="stat"><span>Impact paid</span><strong id="paid">UNKNOWN</strong></div>
+    </div>
+
+    <div class="speechbar">
+      <div class="mini-god" aria-hidden="true"></div>
+      <div>
+        <div class="who">Bremo God</div>
+        <p id="speech" aria-live="polite">Press Play. Walk visitors to the right desk.</p>
+      </div>
+    </div>
+
+    <div class="stage">
+      <div class="floor-wrap">
+        <div class="arena" id="arena">
+          <p class="hint" id="hint">Drag the floor, or use the arrows. Walk into the visitor.</p>
+          <div class="token god" id="god">
+            <div class="crown" aria-hidden="true"></div>
+            <div class="face" aria-hidden="true"><i></i><i></i></div>
+            <b>Bremo God</b>
+          </div>
+          <div class="token visitor" id="visitor" hidden>
+            <div class="patience" id="patience-wrap"><i id="patience"></i></div>
+            <div class="face" aria-hidden="true"><i></i><i></i></div>
+            <b id="visitor-label">Visitor</b>
+          </div>
+          <div class="pad" id="pad">
+            <button type="button" data-x="0" data-y="-1" aria-label="Move Bremo God up">▲</button>
+            <button type="button" data-x="-1" data-y="0" aria-label="Move Bremo God left">◀</button>
+            <button type="button" data-x="1" data-y="0" aria-label="Move Bremo God right">▶</button>
+            <button type="button" data-x="0" data-y="1" aria-label="Move Bremo God down">▼</button>
+          </div>
+        </div>
+
+        <div class="overlay" id="overlay">
+          <p class="eyebrow">Playable shift</p>
+          <p class="display">Bremo God</p>
+          <p class="role">You are the supreme overseer. The crew waits on the desks.</p>
+          <div class="rules">
+            <div><b>1</b>Walk into the visitor</div>
+            <div><b>2</b>Tap the matching desk</div>
+            <div><b>3</b>Impact paid stays UNKNOWN</div>
+          </div>
+          <button type="button" class="play" id="play">Play the shift</button>
+        </div>
+
+        <div class="overlay" id="end" hidden>
+          <p class="eyebrow" id="end-kicker">Shift</p>
+          <p class="display" id="end-title">Shift clear</p>
+          <p id="end-line"></p>
+          <div class="end-stats">
+            <div><b id="end-handoffs">0</b><span>Clean handoffs</span></div>
+            <div><b id="end-drops">0</b><span>Visitors who left</span></div>
+            <div><b id="end-fouls">0</b><span>Paid stamps refused</span></div>
+            <div><b>UNKNOWN</b><span>Impact paid</span></div>
+          </div>
+          <button type="button" class="play" id="again">Play again</button>
+        </div>
+      </div>
+      <div class="bench asleep" id="bench" aria-label="Crew desks"></div>
+    </div>
+
+    <footer>
+      <p>This is a game. A click-out or handoff here is not revenue, a paid conversion, or profit. Impact paid stays UNKNOWN until a real receipt. No money figures are shown because none are known.</p>
+    </footer>
+  </main>
+
+  <script>
+  (function () {
+    var IMPACT_PAID = "UNKNOWN";
+    var GOAL = 5;
+    var SHIFT_SECONDS = 90;
+    var PATIENCE = 16;
+    var SPEED = 340;
+    var PICKUP = 62;
+    var OPENING = "Bremo God speaking. /gameplay is a playable shift. I oversee Growth, Conversion Daily, Analytics, Grok Analytics, Product, Content, Partnerships, Payouts Tracker, Markets, and CEO Allastair. Push the partner handoff. A click-out is not revenue. A handoff is not revenue. Impact paid stays UNKNOWN until a real receipt lands.";
+
+    var NEEDS = [
+      { id: "growth", crew: "Growth", job: "Fill the door", color: "#9FE2C4",
+        visitor: "Fill the door",
+        ask: "Door's empty. Walk them to Growth.",
+        got: "You've got them. Tap Growth.",
+        ok: "Growth has the door. More people, more handoffs.",
+        brief: "Growth owns filling the door for /gameplay." },
+      { id: "conversion-daily", crew: "Conversion Daily", job: "Walk the handoff", color: "#F7C9D5",
+        visitor: "Walk the handoff",
+        ask: "They're ready for the partner. Walk them to Conversion Daily.",
+        got: "You've got them. Tap Conversion Daily.",
+        ok: "Conversion Daily is walking the partner handoff. That is not paid.",
+        brief: "Conversion Daily owns the partner handoff on /gameplay. Do not call it revenue. Impact paid is UNKNOWN." },
+      { id: "analytics", crew: "Analytics", job: "Log the beat", color: "#A8CCF2",
+        visitor: "Log the beat",
+        ask: "This beat needs a log. Walk them to Analytics.",
+        got: "You've got them. Tap Analytics.",
+        ok: "Analytics has the beat. Brief the crew. The page is /gameplay.",
+        brief: "Analytics should log this /gameplay beat and brief the crew." },
+      { id: "grok-analytics", crew: "Grok Analytics", job: "Read the log", color: "#CBB8EA",
+        visitor: "Read the log",
+        ask: "They want the log in plain words. Walk them to Grok Analytics.",
+        got: "You've got them. Tap Grok Analytics.",
+        ok: "Grok Analytics is reading the log. Plain words back to the crew.",
+        brief: "Grok Analytics reads the /gameplay log and briefs the crew in plain words." },
+      { id: "product", crew: "Product", job: "Page works", color: "#F8D0B8",
+        visitor: "Page works",
+        ask: "The page has to work. Walk them to Product.",
+        got: "You've got them. Tap Product.",
+        ok: "Product has them. If the page works, the handoff can happen.",
+        brief: "Product owns whether /gameplay actually works." },
+      { id: "content", crew: "Content", job: "Plain words", color: "#A8CCF2",
+        visitor: "Plain words",
+        ask: "They don't get the words. Walk them to Content.",
+        got: "You've got them. Tap Content.",
+        ok: "Content has them. Plain words keep the handoff moving.",
+        brief: "Content owns plain language on /gameplay." },
+      { id: "partnerships", crew: "Partnerships", job: "Partner path", color: "#F8E9A6",
+        visitor: "Partner path",
+        ask: "Who receives this handoff? Walk them to Partnerships.",
+        got: "You've got them. Tap Partnerships.",
+        ok: "Partnerships has the path. Real money waits on a receipt, not on the handoff.",
+        brief: "Partnerships owns the partner path. A handoff is not revenue. Impact paid is UNKNOWN." },
+      { id: "payouts-tracker", crew: "Payouts Tracker", job: "Receipt check", color: "#9FE2C4",
+        visitor: "Receipt check",
+        ask: "Did a receipt land? Walk them to Payouts Tracker.",
+        got: "You've got them. Tap Payouts Tracker.",
+        ok: "Payouts Tracker checked. No receipt. Impact paid stays UNKNOWN.",
+        brief: "Payouts Tracker: Impact paid is UNKNOWN until a real receipt." },
+      { id: "markets", crew: "Markets", job: "What's live", color: "#F8D0B8",
+        visitor: "What's live",
+        ask: "They want what's live. Walk them to Markets.",
+        got: "You've got them. Tap Markets.",
+        ok: "Markets has them. Only what's live. No guesses.",
+        brief: "Markets owns what is live for /gameplay. No guessed figures." },
+      { id: "ceo-allastair", crew: "CEO Allastair", job: "Make the call", color: "#CBB8EA",
+        visitor: "Make the call",
+        ask: "This one needs a call. Walk them to CEO Allastair.",
+        got: "You've got them. Tap CEO Allastair.",
+        ok: "Allastair made the call. We move. We do not invent a paid number.",
+        brief: "CEO Allastair made the call on /gameplay. No paid number was invented." }
+    ];
+
+    var ROSTER = [{ id: "bremo-god", name: "Bremo God", title: "Bremo God", role: "Supreme overseer" }].concat(
+      NEEDS.map(function (n) { return { id: n.id, name: n.crew, title: n.crew, role: n.job }; })
+    );
+    var ROSTER_IDS = ROSTER.map(function (r) { return r.id; });
+
+    var root = document.getElementById("bremo-gameplay");
+    var arena = document.getElementById("arena");
+    var godEl = document.getElementById("god");
+    var visitorEl = document.getElementById("visitor");
+    var visitorLabel = document.getElementById("visitor-label");
+    var patienceEl = document.getElementById("patience");
+    var patienceWrap = document.getElementById("patience-wrap");
+    var speech = document.getElementById("speech");
+    var hint = document.getElementById("hint");
+    var bench = document.getElementById("bench");
+    var overlay = document.getElementById("overlay");
+    var endEl = document.getElementById("end");
+    var endKicker = document.getElementById("end-kicker");
+    var endTitle = document.getElementById("end-title");
+    var endLine = document.getElementById("end-line");
+    var scoreEl = document.getElementById("score");
+    var clockEl = document.getElementById("clock");
+    var paidEl = document.getElementById("paid");
+
+    var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var mode = "title";
+    var god = { nx: 0.5, ny: 0.58 };
+    var seek = null;
+    var visitor = null;
+    var pad = { x: 0, y: 0 };
+    var held = {};
+    var handoffs = 0;
+    var drops = 0;
+    var fouls = 0;
+    var streak = 0;
+    var timeLeft = SHIFT_SECONDS;
+    var pickupLock = 0;
+    var lastNeed = "";
+    var spawnTimer = 0;
+    var loopOn = false;
+    var lastTs = 0;
+    var shownSecond = -1;
+    var queue = [];
+    var listeners = [];
+    var activePointer = null;
+
+    paidEl.textContent = IMPACT_PAID;
+
+    var sessionId = (function () {
+      try {
+        var key = "bremo_gameplay_session";
+        var old = sessionStorage.getItem(key);
+        if (old) return old;
+        var id = "gameplay-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 8);
+        sessionStorage.setItem(key, id);
+        return id;
+      } catch (e) {
+        return "gameplay-" + Date.now().toString(36);
+      }
+    })();
+
+    function emit(eventName, fields) {
+      var msg = {
+        v: 1,
+        page: "/gameplay",
+        channel: "bremo:gameplay",
+        event: eventName,
+        speaker: { id: "bremo-god", name: "Bremo God", title: "Bremo God" },
+        audience: ROSTER_IDS.filter(function (id) { return id !== "bremo-god"; }),
+        impactPaid: IMPACT_PAID,
+        ts: new Date().toISOString(),
+        lineId: fields.lineId || "",
+        text: fields.text || "",
+        briefing: fields.briefing || fields.text || "",
+        mentions: fields.mentions || [],
+        score: { cleanHandoffs: handoffs, drops: drops, fouls: fouls }
+      };
+      if (fields.roster) msg.roster = fields.roster;
+      queue.push(msg);
+      if (queue.length > 40) queue.shift();
+      try { localStorage.setItem("bremo_gameplay_briefing", JSON.stringify(queue)); } catch (e) {}
+      try { window.dispatchEvent(new CustomEvent("bremo:gameplay", { detail: msg })); } catch (e) {}
+      try {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: "bremo_gameplay",
+          gameplay_event: eventName,
+          line_id: msg.lineId,
+          speaker_id: "bremo-god",
+          page: "/gameplay",
+          impact_paid: IMPACT_PAID
+        });
+      } catch (e) {}
+      root.dataset.lastEvent = eventName;
+      root.dataset.lineId = msg.lineId;
+      listeners.forEach(function (fn) { try { fn(msg); } catch (e) {} });
+      try {
+        fetch("/api/bremo-event.php", {
+          method: "POST",
+          credentials: "same-origin",
+          keepalive: true,
+          referrerPolicy: "no-referrer",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            event: "gameplay_briefing",
+            timestamp: msg.ts,
+            pagePath: "/gameplay",
+            sessionId: sessionId,
+            attribution: {
+              referrer: document.referrer || null,
+              utm_source: "bremo",
+              utm_medium: "gameplay",
+              utm_campaign: "bremo-god-shift",
+              utm_term: msg.lineId || null,
+              utm_content: eventName
+            },
+            gameplay: {
+              event: eventName,
+              lineId: msg.lineId,
+              speakerId: "bremo-god",
+              speaker: "Bremo God",
+              title: "Bremo God",
+              text: msg.text,
+              briefing: msg.briefing,
+              mentions: msg.mentions,
+              impactPaid: IMPACT_PAID,
+              page: "/gameplay"
+            }
+          })
+        }).catch(function () {});
+      } catch (e) {}
+      return msg;
+    }
+
+    window.BremoGameplay = {
+      version: 1,
+      page: "/gameplay",
+      channel: "bremo:gameplay",
+      impactPaid: IMPACT_PAID,
+      roster: ROSTER,
+      queue: queue,
+      onBriefing: function (fn) {
+        listeners.push(fn);
+        return function () {
+          var i = listeners.indexOf(fn);
+          if (i >= 0) listeners.splice(i, 1);
+        };
+      },
+      latest: function () { return queue.length ? queue[queue.length - 1] : null; }
+    };
+
+    function say(text, lineId, mentions, briefing, eventName) {
+      speech.textContent = text;
+      speech.dataset.lineId = lineId;
+      speech.dataset.event = eventName || "dialogue";
+      endLine.textContent = text;
+      emit(eventName || "dialogue", {
+        text: text,
+        lineId: lineId,
+        mentions: mentions || [],
+        briefing: briefing || text
+      });
+    }
+
+    function needById(id) {
+      for (var i = 0; i < NEEDS.length; i++) if (NEEDS[i].id === id) return NEEDS[i];
+      return null;
+    }
+
+    function fmt(seconds) {
+      var s = Math.max(0, Math.ceil(seconds));
+      var m = Math.floor(s / 60);
+      var r = s % 60;
+      return m + ":" + (r < 10 ? "0" : "") + r;
+    }
+
+    function updateHud() {
+      scoreEl.textContent = String(handoffs) + " / " + GOAL;
+      var second = Math.ceil(timeLeft);
+      if (second !== shownSecond) {
+        shownSecond = second;
+        clockEl.textContent = fmt(timeLeft);
+      }
+      paidEl.textContent = IMPACT_PAID;
+      document.getElementById("end-handoffs").textContent = String(handoffs);
+      document.getElementById("end-drops").textContent = String(drops);
+      document.getElementById("end-fouls").textContent = String(fouls);
+    }
+
+    function place(el, nx, ny) {
+      el.style.left = (nx * 100) + "%";
+      el.style.top = (ny * 100) + "%";
+    }
+
+    function renderVisitor() {
+      if (!visitor || visitor.carried) {
+        visitorEl.hidden = true;
+        return;
+      }
+      visitorEl.hidden = false;
+      place(visitorEl, visitor.nx, visitor.ny);
+      visitorLabel.textContent = visitor.need.visitor;
+      var pct = Math.max(0, Math.min(100, visitor.patience / visitor.max * 100));
+      patienceEl.style.width = pct + "%";
+      patienceWrap.classList.toggle("low", pct < 35);
+    }
+
+    function render() {
+      place(godEl, god.nx, god.ny);
+      godEl.classList.toggle("carrying", !!(visitor && visitor.carried));
+      renderVisitor();
+    }
+
+    function axis() {
+      var x = pad.x;
+      var y = pad.y;
+      if (held.ArrowRight || held.d || held.D) x += 1;
+      if (held.ArrowLeft || held.a || held.A) x -= 1;
+      if (held.ArrowDown || held.s || held.S) y += 1;
+      if (held.ArrowUp || held.w || held.W) y -= 1;
+      return { x: x, y: y };
+    }
+
+    function move(dt) {
+      var rect = arena.getBoundingClientRect();
+      if (!rect.width || !rect.height) return;
+      var ax = axis();
+      if (ax.x || ax.y) {
+        seek = null;
+        var len = Math.hypot(ax.x, ax.y) || 1;
+        god.nx += (ax.x / len) * SPEED * dt / rect.width;
+        god.ny += (ax.y / len) * SPEED * dt / rect.height;
+      } else if (seek) {
+        var dx = (seek.nx - god.nx) * rect.width;
+        var dy = (seek.ny - god.ny) * rect.height;
+        var dist = Math.hypot(dx, dy);
+        if (dist < 4) seek = null;
+        else {
+          var step = Math.min(dist, SPEED * dt);
+          god.nx += (dx / dist) * step / rect.width;
+          god.ny += (dy / dist) * step / rect.height;
+        }
+      }
+      god.nx = Math.min(0.9, Math.max(0.1, god.nx));
+      god.ny = Math.min(0.84, Math.max(0.16, god.ny));
+    }
+
+    function pointFromEvent(e) {
+      var rect = arena.getBoundingClientRect();
+      return {
+        nx: Math.min(0.9, Math.max(0.1, (e.clientX - rect.left) / rect.width)),
+        ny: Math.min(0.84, Math.max(0.16, (e.clientY - rect.top) / rect.height))
+      };
+    }
+
+    function pickNeed() {
+      var pool = NEEDS.filter(function (n) { return n.id !== lastNeed; });
+      var need = pool[Math.floor(Math.random() * pool.length)];
+      lastNeed = need.id;
+      return need;
+    }
+
+    function spotAwayFromGod() {
+      var rect = arena.getBoundingClientRect();
+      var nx = 0.5;
+      var ny = 0.4;
+      for (var i = 0; i < 10; i++) {
+        nx = 0.2 + Math.random() * 0.6;
+        ny = 0.22 + Math.random() * 0.5;
+        if (nx < 0.42 && ny > 0.62) continue;
+        var dx = (nx - god.nx) * (rect.width || 400);
+        var dy = (ny - god.ny) * (rect.height || 320);
+        if (Math.hypot(dx, dy) > 130) return { nx: nx, ny: ny };
+      }
+      return { nx: god.nx < 0.5 ? 0.78 : 0.24, ny: 0.3 };
+    }
+
+    function spawnVisitor() {
+      spawnTimer = 0;
+      if (mode !== "play") return;
+      var spot = spotAwayFromGod();
+      var need = pickNeed();
+      var drift = reduceMotion ? 0 : 0.045;
+      visitor = {
+        need: need,
+        nx: spot.nx,
+        ny: spot.ny,
+        vx: (Math.random() < 0.5 ? -1 : 1) * drift,
+        vy: (Math.random() < 0.5 ? -1 : 1) * drift * 0.8,
+        patience: PATIENCE,
+        max: PATIENCE,
+        carried: false
+      };
+      say(need.ask, "bg.need." + need.id, [need.id], need.brief, "visitor_spawn");
+      render();
+    }
+
+    function tryPickup() {
+      if (!visitor || visitor.carried || pickupLock > 0) return;
+      var rect = arena.getBoundingClientRect();
+      var dx = (god.nx - visitor.nx) * rect.width;
+      var dy = (god.ny - visitor.ny) * rect.height;
+      if (Math.hypot(dx, dy) > PICKUP) return;
+      visitor.carried = true;
+      hint.hidden = true;
+      say(visitor.need.got, "bg.pickup." + visitor.need.id, [visitor.need.id], visitor.need.brief, "pickup");
+      render();
+    }
+
+    function driftVisitor(dt) {
+      if (!visitor || visitor.carried) return;
+      visitor.nx += visitor.vx * dt;
+      visitor.ny += visitor.vy * dt;
+      if (visitor.nx < 0.16 || visitor.nx > 0.84) visitor.vx *= -1;
+      if (visitor.ny < 0.18 || visitor.ny > 0.72) visitor.vy *= -1;
+      if (visitor.nx < 0.4 && visitor.ny > 0.64) visitor.vy = -Math.abs(visitor.vy || 0.03);
+    }
+
+    function dropVisitor() {
+      var id = visitor ? visitor.need.id : "unknown";
+      visitor = null;
+      drops += 1;
+      streak = 0;
+      godEl.classList.remove("carrying");
+      updateHud();
+      say("They left. Too slow. Next visitor is coming.", "bg.drop." + id, [id], "A visitor left /gameplay before the handoff.", "visitor_drop");
+      render();
+      spawnTimer = 0.55;
+    }
+
+    function floatText(msg) {
+      var el = document.createElement("div");
+      el.className = "floater";
+      el.textContent = msg;
+      el.style.left = (god.nx * 100) + "%";
+      el.style.top = (god.ny * 100) + "%";
+      arena.appendChild(el);
+      setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 800);
+    }
+
+    function burst() {
+      if (reduceMotion) return;
+      var colors = ["#9FE2C4", "#A8CCF2", "#CBB8EA", "#F7C9D5", "#F8E9A6", "#F8D0B8"];
+      for (var i = 0; i < 8; i++) {
+        var bit = document.createElement("i");
+        bit.className = "bit";
+        bit.style.background = colors[i % colors.length];
+        bit.style.left = (god.nx * 100) + "%";
+        bit.style.top = (god.ny * 100) + "%";
+        bit.style.setProperty("--dx", (Math.random() * 90 - 45) + "px");
+        bit.style.setProperty("--dy", (Math.random() * -80 - 12) + "px");
+        arena.appendChild(bit);
+        (function (el) {
+          setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 700);
+        })(bit);
+      }
+    }
+
+    function flashDesk(id, bad) {
+      var buttons = bench.querySelectorAll("button");
+      for (var i = 0; i < buttons.length; i++) {
+        if (buttons[i].dataset.crew !== id) continue;
+        buttons[i].classList.remove("pop", "nope");
+        void buttons[i].offsetWidth;
+        buttons[i].classList.add(bad ? "nope" : "pop");
+      }
+    }
+
+    function finish(kind) {
+      mode = "end";
+      visitor = null;
+      seek = null;
+      bench.classList.add("asleep");
+      visitorEl.hidden = true;
+      godEl.classList.remove("carrying");
+      updateHud();
+      render();
+      if (kind === "win") {
+        endKicker.textContent = "Shift clear";
+        endTitle.textContent = "Nice shift";
+        say("Clean handoffs are in. Impact paid is still UNKNOWN. Analytics, brief the crew.", "bg.win", ["analytics"], "Shift won on /gameplay. Clean handoffs only. Impact paid is UNKNOWN. Brief the crew.", "shift_win");
+      } else {
+        endKicker.textContent = "Time";
+        endTitle.textContent = "Shift over";
+        say("Time's up. Run it again. Impact paid stays UNKNOWN.", "bg.lose", ["analytics"], "Shift ended on /gameplay before the handoff goal. Impact paid is UNKNOWN.", "shift_lose");
+      }
+      endEl.hidden = false;
+    }
+
+    function deliver(crewId) {
+      if (mode !== "play") return;
+      if (!visitor || !visitor.carried) {
+        say("Pick up the visitor first. Walk into them.", "bg.need_visitor", [], "Bremo God has no visitor in hand yet.", "need_visitor");
+        return;
+      }
+      if (crewId === "paid-stamp") {
+        fouls += 1;
+        streak = 0;
+        visitor.carried = false;
+        pickupLock = 0.85;
+        visitor.nx = god.nx < 0.5 ? Math.min(0.84, god.nx + 0.28) : Math.max(0.16, god.nx - 0.28);
+        visitor.ny = Math.max(0.2, god.ny - 0.12);
+        updateHud();
+        say("Stop. A handoff is not paid. Impact paid stays UNKNOWN until a real receipt.", "bg.foul", ["payouts-tracker"], "Refused a paid stamp on /gameplay. Impact paid remains UNKNOWN. Payouts Tracker still has no receipt.", "foul_paid_stamp");
+        flashDesk("paid-stamp", true);
+        render();
+        return;
+      }
+      var need = visitor.need;
+      if (crewId === need.id) {
+        handoffs += 1;
+        streak += 1;
+        var done = need;
+        visitor = null;
+        flashDesk(crewId, false);
+        floatText(streak >= 2 ? "Streak " + streak : "+1 handoff");
+        burst();
+        updateHud();
+        say(done.ok, "bg.deliver." + done.id, [done.id], done.brief, "deliver_ok");
+        render();
+        if (handoffs >= GOAL) finish("win");
+        else spawnTimer = 0.45;
+        return;
+      }
+      streak = 0;
+      flashDesk(crewId, true);
+      var who = needById(crewId);
+      var name = who ? who.crew : "That desk";
+      updateHud();
+      say("Wrong desk. " + name + " does not do this. Look at the visitor again.", "bg.wrong." + crewId, [need.id, crewId], "Wrong desk on /gameplay. Visitor still needs " + need.crew + ".", "deliver_wrong");
+    }
+
+    function buildBench() {
+      NEEDS.forEach(function (n) {
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "desk";
+        btn.dataset.crew = n.id;
+        btn.style.setProperty("--swatch", n.color);
+        btn.setAttribute("aria-label", n.crew + ". " + n.job);
+        var sw = document.createElement("span");
+        sw.className = "swatch";
+        sw.setAttribute("aria-hidden", "true");
+        var text = document.createElement("span");
+        var who = document.createElement("span");
+        who.className = "who";
+        who.textContent = n.crew;
+        var job = document.createElement("span");
+        job.className = "job";
+        job.textContent = n.job;
+        text.appendChild(who);
+        text.appendChild(job);
+        btn.appendChild(sw);
+        btn.appendChild(text);
+        btn.addEventListener("click", function () { deliver(n.id); });
+        bench.appendChild(btn);
+      });
+      var trap = document.createElement("button");
+      trap.type = "button";
+      trap.className = "desk trap";
+      trap.dataset.crew = "paid-stamp";
+      trap.setAttribute("aria-label", "Stamp it paid. Bremo God refuses this. It is not a desk.");
+      var swatch = document.createElement("span");
+      swatch.className = "swatch";
+      swatch.setAttribute("aria-hidden", "true");
+      var label = document.createElement("span");
+      var whoT = document.createElement("span");
+      whoT.className = "who";
+      whoT.textContent = "Stamp it paid";
+      var jobT = document.createElement("span");
+      jobT.className = "job";
+      jobT.textContent = "Don't. A handoff is not paid.";
+      label.appendChild(whoT);
+      label.appendChild(jobT);
+      trap.appendChild(swatch);
+      trap.appendChild(label);
+      trap.addEventListener("click", function () { deliver("paid-stamp"); });
+      bench.appendChild(trap);
+    }
+
+    function startShift() {
+      mode = "play";
+      handoffs = 0;
+      drops = 0;
+      fouls = 0;
+      streak = 0;
+      timeLeft = SHIFT_SECONDS;
+      shownSecond = -1;
+      visitor = null;
+      seek = null;
+      pickupLock = 0;
+      spawnTimer = 0;
+      god.nx = 0.5;
+      god.ny = 0.62;
+      lastNeed = "";
+      hint.hidden = false;
+      overlay.hidden = true;
+      endEl.hidden = true;
+      bench.classList.remove("asleep");
+      updateHud();
+      render();
+      emit("shift_start", {
+        text: OPENING,
+        lineId: "bg.shift_start",
+        briefing: OPENING,
+        mentions: ROSTER_IDS,
+        roster: ROSTER
+      });
+      speech.textContent = "Shift is live. A visitor is stepping on. A handoff is not paid.";
+      spawnTimer = 0.85;
+      ensureLoop();
+    }
+
+    function step(dt) {
+      if (mode !== "play") return;
+      if (pickupLock > 0) pickupLock -= dt;
+      move(dt);
+      driftVisitor(dt);
+      tryPickup();
+      if (visitor) {
+        visitor.patience -= dt;
+        if (visitor.patience <= 0) {
+          dropVisitor();
+        }
+      }
+      if (spawnTimer > 0) {
+        spawnTimer -= dt;
+        if (spawnTimer <= 0 && mode === "play" && !visitor) spawnVisitor();
+      }
+      if (mode !== "play") return;
+      timeLeft -= dt;
+      if (timeLeft <= 0) {
+        timeLeft = 0;
+        finish("lose");
+        return;
+      }
+      render();
+      updateHud();
+    }
+
+    function frame(ts) {
+      if (!loopOn) return;
+      if (!lastTs) lastTs = ts;
+      var dt = Math.min(0.05, (ts - lastTs) / 1000);
+      lastTs = ts;
+      step(dt);
+      requestAnimationFrame(frame);
+    }
+
+    function ensureLoop() {
+      if (loopOn) return;
+      loopOn = true;
+      lastTs = 0;
+      requestAnimationFrame(frame);
+    }
+
+    buildBench();
+    place(godEl, god.nx, god.ny);
+    updateHud();
+
+    emit("gameplay_ready", {
+      text: OPENING,
+      lineId: "bg.ready",
+      briefing: OPENING,
+      mentions: ROSTER_IDS,
+      roster: ROSTER
+    });
+
+    document.getElementById("play").addEventListener("click", startShift);
+    document.getElementById("again").addEventListener("click", startShift);
+
+    arena.addEventListener("pointerdown", function (e) {
+      if (mode !== "play") return;
+      if (e.target.closest && e.target.closest(".pad")) return;
+      activePointer = e.pointerId;
+      try { arena.setPointerCapture(e.pointerId); } catch (err) {}
+      seek = pointFromEvent(e);
+    });
+    arena.addEventListener("pointermove", function (e) {
+      if (activePointer !== e.pointerId || mode !== "play") return;
+      seek = pointFromEvent(e);
+    });
+    function endPointer(e) {
+      if (activePointer !== e.pointerId) return;
+      activePointer = null;
+      if (mode === "play") seek = pointFromEvent(e);
+    }
+    arena.addEventListener("pointerup", endPointer);
+    arena.addEventListener("pointercancel", endPointer);
+
+    var padButtons = document.querySelectorAll("#pad button");
+    for (var p = 0; p < padButtons.length; p++) {
+      (function (btn) {
+        function down(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          pad.x = Number(btn.dataset.x);
+          pad.y = Number(btn.dataset.y);
+          seek = null;
+        }
+        function up() {
+          if (pad.x === Number(btn.dataset.x) && pad.y === Number(btn.dataset.y)) {
+            pad.x = 0;
+            pad.y = 0;
+          }
+        }
+        btn.addEventListener("pointerdown", down);
+        btn.addEventListener("pointerup", up);
+        btn.addEventListener("pointercancel", up);
+        btn.addEventListener("pointerleave", up);
+      })(padButtons[p]);
+    }
+
+    window.addEventListener("keydown", function (e) {
+      if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", " "].indexOf(e.key) !== -1 && mode === "play") {
+        e.preventDefault();
+      }
+      held[e.key] = true;
+      if ((e.key === "Enter" || e.key === " ") && mode === "title") {
+        if (e.target && e.target.closest && e.target.closest("button")) return;
+        e.preventDefault();
+        startShift();
+      }
+    });
+    window.addEventListener("keyup", function (e) { held[e.key] = false; });
+    window.addEventListener("blur", function () { held = {}; pad.x = 0; pad.y = 0; });
+  })();
+  </script>
+  <noscript>This is a game. Turn on JavaScript to play as Bremo God.</noscript>
+</body>
+</html>
