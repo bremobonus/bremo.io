@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow" />
+  <meta name="bremo-release" content="bremo-empire-20260926-v1" />
+  <meta name="description" content="Bremo Website Empire — live status for every network site." />
+  <title>Bremo Website Empire</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <nav class="top-nav" aria-label="Primary">
+    <div class="nav-left">
+      <a href="https://bremo.io/" class="nav-brand">Bremo.</a>
+      <a href="https://bremo.io/grokanalytics" class="nav-link">Progress</a>
+      <a href="https://bremo.io/company" class="nav-link">Company</a>
+      <a href="https://bremo.io/gameplay" class="nav-link">Gameplay</a>
+      <a href="https://bremo.io/empire" class="nav-link is-active">Empire</a>
+    </div>
+    <a href="https://bremo.website" class="nav-cta">Network directory →</a>
+  </nav>
+
+  <div id="loading-state" class="loading-state">Loading empire status…</div>
+  <div id="error-state" class="error-state hidden"></div>
+
+  <div id="app" class="page hidden">
+    <header class="hero-band">
+      <div class="wrap">
+        <div class="badge-row">
+          <span class="pill badge">Website Empire · live checks</span>
+          <span class="pill soft-pill" id="site-count">—</span>
+          <span class="pill soft-pill">Updated <strong id="updated-at">—</strong></span>
+        </div>
+        <h1>How the network<br />is doing</h1>
+        <p class="hero-lead" id="helper">Live status for every Bremo site — up, speed, and phase.</p>
+        <div class="hero-actions">
+          <a class="btn-primary" href="https://bremo.website">Open directory</a>
+          <a class="btn-ghost" href="./map.html">Cross-link map</a>
+          <a class="btn-ghost" href="https://bremo.io/entity-bremo">Identity map</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <section class="section" aria-labelledby="sec-glance">
+        <div class="section-head">
+          <h2 id="sec-glance">At a glance</h2>
+          <p class="sub">Real HTTP checks · America/Toronto</p>
+        </div>
+        <div class="week-grid" id="summary-grid"></div>
+      </section>
+
+      <section class="section" aria-labelledby="sec-sites">
+        <div class="section-head">
+          <h2 id="sec-sites">Every site</h2>
+          <p class="sub">Click a card to open that property</p>
+        </div>
+        <div class="site-grid" id="site-grid"></div>
+      </section>
+
+      <aside class="truth-banner" role="note">
+        <div class="truth-body">
+          <strong>Soft truth</strong>
+          <span id="truth-note"> These numbers are reachability checks, not visitors or money.</span>
+        </div>
+      </aside>
+    </main>
+  </div>
+</body>
+</html>

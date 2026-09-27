@@ -11,7 +11,22 @@ offers/koho.html              Variant B (treatment) — new landing page
 assets/config.js              Affiliate URL + promo code (single source of truth)
 assets/ab-test.js             50/50 split, persisted per visitor in localStorage
 assets/style.css              Shared styles
+empire/                       Network status board (noindex) — see below
 ```
+
+## Empire board
+
+`empire/index.html` is a cream-and-purple status board for the 12 Bremo network sites. It loads `./data.json` with `cache: "no-store"` and shows name, role, phase, HTTP status, latency, and notes, plus total / up / down / average speed. Those figures are reachability checks, not visitors or revenue.
+
+This repo’s root is the web root, including on DreamHost. Publishing the `empire/` directory serves:
+
+- `https://bremo.io/empire/` from `empire/index.html`
+- `https://bremo.io/empire` via the host’s directory index (Apache on DreamHost redirects the bare path to the trailing-slash URL, so `./data.json` stays inside `empire/`)
+- `https://bremo.io/empire/map.html` from `empire/map.html` (cross-link map: lander, blog, directory — live, staged, remount-blocked)
+
+The board links to the map with `./map.html`. Soft bank, KOHO, and All Bonuses stay locked and are not edited here.
+
+The page sends `noindex,nofollow`, and `robots.txt` disallows `/empire`, same idea as the control offer page. It is not in the sitemap.
 
 ## Attribution
 
