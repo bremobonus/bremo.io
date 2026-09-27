@@ -6,22 +6,22 @@ Static site for Bremo, running a KOHO affiliate offer with an A/B test.
 
 ```
 index.html                    Homepage — routes clicks into the A/B test
-gameplay.html                 Playable /gameplay shift — you play Bremo God
+gameplay.html                 Same playable page as dreamhost/gameplay.html
+gameplay.php                  DreamHost slug file — reads gameplay.html
+dreamhost/                    Drop-in for the live DreamHost docroot
 offers/koho-control.html      Variant A (control) — minimal CTA baseline
 offers/koho.html              Variant B (treatment) — new landing page
 assets/config.js              Affiliate URL + promo code (single source of truth)
 assets/ab-test.js             50/50 split, persisted per visitor in localStorage
 assets/style.css              Shared styles
-GAMEPLAY.md                   How Bremo God briefings reach Analytics
+GAMEPLAY.md                   Pointer to the DreamHost deploy notes
 ```
 
 ## /gameplay
 
-`gameplay.html` is a game, not an article. On bremo.io’s Apache host, extensionless URLs are files: `/about.html` redirects to `/about`, and a trailing slash 404s. The same rule serves this file at `https://bremo.io/gameplay`.
+This repository is not the live DreamHost site. A missing one-word URL on bremo.io returns `Creator page not found.` The playable Bremo God page, brain JSON, and upload steps are in [`dreamhost/README.md`](dreamhost/README.md).
 
-You play **Bremo God** (title: Bremo God). Walk a visitor into range, then tap the crew desk that matches the job. Five clean handoffs win the shift. Impact paid is always the word UNKNOWN. The page never shows a dollar amount.
-
-Character lines are messages. Analytics and the rest of the crew can read them from the `bremo:gameplay` event, `window.BremoGameplay`, the `dataLayer`, and the same `/api/bremo-event.php` pipe the homepage already uses. Details are in `GAMEPLAY.md`.
+You play **Bremo God** (strategy tile `#9F7AEA`, 4:30pm ET). Tap the accountability card he names. Impact paid stays UNKNOWN. Handoffs are not revenue.
 
 ## Attribution
 

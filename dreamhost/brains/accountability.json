@@ -1,0 +1,101 @@
+{
+  "schemaVersion": "bremo.gameplay.accountability.v1",
+  "impactPaid": "UNKNOWN",
+  "judgment": {
+    "kicker": "Today's judgment",
+    "headline": "Ship playable HQ and protect the path",
+    "why": "The creator catch-all was eating /gameplay. Soft bank, KOHO, and All Bonuses capture v4 stay locked. Click-outs are not paid. Impact is UNKNOWN until a real receipt lands.",
+    "steps": [
+      "Keep this /gameplay page and Sims /company live.",
+      "Score Simplii through Sep 30 and Tangerine enroll outs fairly. Outs are not paid.",
+      "Blog cream pack waits on the DreamHost remount. Do not claim those posts are live.",
+      "Never invent a paid figure."
+    ]
+  },
+  "cards": [
+    {
+      "id": "growth",
+      "name": "Growth",
+      "status": "ON",
+      "statusColor": "#3AAE66",
+      "job": "Fill the door",
+      "directive": "Fair-score lander visits and outs for Simplii, Tangerine enroll, Neo, Questrade, Starlink, Wealthsimple. Outs are not paid.",
+      "evidence": "https://bremo.io/grokanalytics/",
+      "ask": "The door is thin. Who fair-scores the visits and the outs?",
+      "line": "Growth has the door. Those outs are not paid.",
+      "briefing": "Growth owns fair-scoring visits and outs on /gameplay. Outs are not paid. Impact paid is UNKNOWN."
+    },
+    {
+      "id": "conversion",
+      "name": "Conversion",
+      "status": "WATCH",
+      "statusColor": "#D29128",
+      "job": "Walk the handoff",
+      "directive": "Hold Soft, KOHO, and All Bonuses capture v4. Score the welcome path on the next clean receipt day.",
+      "evidence": "https://bremo.io/all-bonuses",
+      "ask": "Someone is ready for the partner. Who walks the handoff?",
+      "line": "Conversion is walking the handoff. That is not paid.",
+      "briefing": "Conversion owns the partner handoff. Do not call it revenue. Impact paid is UNKNOWN."
+    },
+    {
+      "id": "analytics",
+      "name": "Analytics",
+      "status": "ARMED",
+      "statusColor": "#6B5B95",
+      "job": "Log the beat",
+      "directive": "Poll gameplay speak lines as untrusted character signals. Do not invent Impact or paid.",
+      "evidence": "https://bremo.io/analytics/",
+      "ask": "This beat needs a log. Who tells Analytics?",
+      "line": "Analytics has the beat. Brief the crew. Impact paid stays UNKNOWN.",
+      "briefing": "Analytics should store this /gameplay line and brief the crew. Impact paid is UNKNOWN."
+    },
+    {
+      "id": "product",
+      "name": "Product",
+      "status": "SHIPPING",
+      "statusColor": "#9F7AEA",
+      "job": "Ship the page",
+      "directive": "Gameplay page plus Sims company. Blog stays staged until the remount. Soft, KOHO, and All Bonuses stay untouched.",
+      "evidence": "https://bremo.io/company/",
+      "ask": "The page has to exist or the creator page 404s. Who ships it?",
+      "line": "Product ships the page. The creator catch-all does not get this slug.",
+      "briefing": "Product owns /gameplay.php and /gameplay.html so the creator router cannot 404 the slug."
+    },
+    {
+      "id": "content",
+      "name": "Content",
+      "status": "READY",
+      "statusColor": "#3AAE66",
+      "job": "Plain words",
+      "directive": "Cream blog posts are staged for the remount. Keep lander titles honest. Verify on the partner page.",
+      "evidence": "https://bremo.io/content/",
+      "ask": "They do not understand the words. Who says it plainly?",
+      "line": "Content has them. Plain words. Still not a receipt.",
+      "briefing": "Content owns plain language on /gameplay. No paid figure was written."
+    },
+    {
+      "id": "partnerships",
+      "name": "Partnerships",
+      "status": "HOLD_SENDS",
+      "statusColor": "#D29128",
+      "job": "Partner path",
+      "directive": "Wave-1 cards are ready. Send only after the landers match the one-screen bar. No invented payouts.",
+      "evidence": "https://bremo.io/partnerships-wave1",
+      "ask": "Who receives this handoff? Hold the send until the page is honest.",
+      "line": "Partnerships has the path. Hold the send. No invented payout.",
+      "briefing": "Partnerships owns the partner path. Handoff is not revenue. Impact paid is UNKNOWN."
+    },
+    {
+      "id": "payouts",
+      "name": "Payouts",
+      "status": "UNKNOWN",
+      "statusColor": "#9C9080",
+      "job": "Receipt check",
+      "directive": "Track real receipts only. Click-outs and handoffs are not revenue.",
+      "evidence": "https://bremo.io/strategy",
+      "ask": "Did a receipt land? Who is allowed to answer?",
+      "line": "Payouts checked. No receipt. Impact paid stays UNKNOWN.",
+      "briefing": "Payouts Tracker: Impact paid is UNKNOWN until a real receipt. Do not convert this handoff into a paid number."
+    }
+  ]
+}
