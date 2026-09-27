@@ -22,6 +22,9 @@ This repo’s root is the web root, including on DreamHost. Publishing the `empi
 
 - `https://bremo.io/empire/` from `empire/index.html`
 - `https://bremo.io/empire` via the host’s directory index (Apache on DreamHost redirects the bare path to the trailing-slash URL, so `./data.json` stays inside `empire/`)
+- `https://bremo.io/empire/map.html` from `empire/map.html` (cross-link map: lander, blog, directory — live, staged, remount-blocked)
+
+The board links to the map with `./map.html`. Soft bank, KOHO, and All Bonuses stay locked and are not edited here.
 
 The page sends `noindex,nofollow`, and `robots.txt` disallows `/empire`, same idea as the control offer page. It is not in the sitemap.
 
