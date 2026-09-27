@@ -23,6 +23,10 @@ This repository is not the live DreamHost site. A missing one-word URL on bremo.
 
 You play **Bremo God** (strategy tile `#9F7AEA`, 4:30pm ET). Tap the accountability card he names. Impact paid stays UNKNOWN. Handoffs are not revenue.
 
+## /company
+
+`dreamhost/company/` is a full-screen office. Eleven people walk, type, carry, and meet. Tap one, then walk them or give an order. Rally is Bremo God’s button. Upload notes are in [`dreamhost/company/README.md`](dreamhost/company/README.md).
+
 ## Attribution
 
 Attribution runs through the **promo code `BREMO2026`** entered during KOHO sign-up. CTAs send visitors to `https://www.koho.ca/` and auto-copy the promo code to their clipboard on click, so pasting it at sign-up is one tap.

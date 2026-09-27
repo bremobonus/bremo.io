@@ -103,3 +103,7 @@ Do not map `deliver_ok` or `gameplay_ready` to revenue or to Impact paid. Paid s
 2. Start the round, tap the card he names, and the clean-handoff count moves.
 3. “Call this handoff revenue” gets a refusal. Impact paid still reads UNKNOWN.
 4. The network panel shows `POST /api/gameplay-speak.php` with `characterId` `4885dc27` and no dollar amount in the message.
+
+## /company
+
+`company/` is the full-screen office. Upload that folder over `public_html/company/` so `https://bremo.io/company/` is the game, not the old side panel. Steps are in `company/README.md`.
