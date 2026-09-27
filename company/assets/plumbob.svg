@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Plumbob">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#d8ff8a"/>
+      <stop offset="0.45" stop-color="#3dcb4a"/>
+      <stop offset="1" stop-color="#0f6e24"/>
+    </linearGradient>
+  </defs>
+  <path d="M32 2 L54 32 L32 62 L10 32 Z" fill="url(#g)" stroke="#145c22" stroke-width="2"/>
+  <path d="M32 8 L46 32 L32 56 L32 8Z" fill="rgba(255,255,255,.35)"/>
+</svg>
