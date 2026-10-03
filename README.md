@@ -11,6 +11,7 @@ offers/koho.html              Variant B (treatment) — new landing page
 assets/config.js              Affiliate URL + promo code (single source of truth)
 assets/ab-test.js             50/50 split, persisted per visitor in localStorage
 assets/style.css              Shared styles
+flock/index.html              Flock camera map (self-contained; source of truth: bremobonus/artistsonly site/public/flock.html)
 ```
 
 ## Attribution
