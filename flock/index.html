@@ -483,25 +483,54 @@ function tick() {
   if (!curCam) return;
   const url = frameIdx > 0 && curCam.prev[frameIdx - 1] ? curCam.prev[frameIdx - 1] : curCam.img;
   const img = $("#v-img"), pre = new Image();
-  pre.onload = () => { img.src = pre.src; $("#v-stamp").textContent = (frameIdx ? `−${frameIdx} · ` : "") + new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" }); $("#v-live").textContent = frameIdx ? "history" : "live"; };
+  pre.onload = () => { img.src = pre.src; if (videoOn) return; $("#v-stamp").textContent = (frameIdx ? `−${frameIdx} · ` : "") + new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" }); $("#v-live").textContent = frameIdx ? "history" : "live"; };
   pre.onerror = () => { $("#v-stamp").textContent = "frame unavailable"; $("#v-live").textContent = "offline"; };
   pre.src = url + (url.includes("?") ? "&" : "?") + "t=" + Date.now();
 }
-function schedule() { clearInterval(refreshT); if ($("#v-play").getAttribute("aria-pressed") === "true" && curCam && frameIdx === 0 && !document.hidden) refreshT = setInterval(tick, Math.max(2, curCam.every) * 1000); }
+function schedule() { clearInterval(refreshT); if (videoOn) return; if ($("#v-play").getAttribute("aria-pressed") === "true" && curCam && frameIdx === 0 && !document.hidden) refreshT = setInterval(tick, Math.max(2, curCam.every) * 1000); }
 document.addEventListener("visibilitychange", schedule);
-function stopVideo() { if (hls) { hls.destroy(); hls = null; } const v = $("#v-vid"); v.onplaying = v.onerror = null; v.pause(); v.removeAttribute("src"); v.load(); videoOn = false; }
+function stopVideo() { clearInterval(watchT); if (hls) { hls.destroy(); hls = null; } const v = $("#v-vid"); v.onplaying = v.onerror = v.ontimeupdate = null; v.pause(); v.removeAttribute("src"); v.load(); videoOn = false; }
 function closeCam() { $("#viewer").classList.remove("on"); clearInterval(refreshT); clearTimeout(videoT); stopVideo(); curCam = null; renderTcs(); writeHash(); }
-let videoOn = false, videoT = null;
+let videoOn = false, videoT = null, watchT = null;
 function playVideo(auto) {
   if (!curCam || !curCam.stream) return;
   const cam = curCam, v = $("#v-vid"); stopVideo(); clearTimeout(videoT);
-  const fail = () => { if (curCam !== cam) return; stopVideo(); v.hidden = true; $("#v-img").hidden = false; $("#v-live").textContent = "live"; $("#v-video").hidden = true; videoOn = false; schedule(); if (!auto) toast("no video stream; showing live stills"); };
-  const ok = () => { if (curCam !== cam) return; clearTimeout(videoT); $("#v-img").hidden = true; v.hidden = false; $("#v-live").textContent = "video"; $("#v-video").textContent = "stills"; videoOn = true; clearInterval(refreshT); };
-  v.onplaying = ok; v.onerror = fail;
-  videoT = setTimeout(fail, 8000); // stills keep showing until the stream actually plays
-  if (v.canPlayType("application/vnd.apple.mpegurl")) { v.src = cam.stream; v.play().catch(fail); return; }
-  const go = () => { if (!window.Hls || !Hls.isSupported()) return fail(); hls = new Hls({ maxBufferLength: 10 }); hls.loadSource(cam.stream); hls.attachMedia(v); hls.on(Hls.Events.MANIFEST_PARSED, () => v.play().catch(() => {})); hls.on(Hls.Events.ERROR, (_, d) => { if (d.fatal) fail(); }); };
-  if (window.Hls) go(); else { const s = document.createElement("script"); s.src = "https://cdnjs.cloudflare.com/ajax/libs/hls.js/1.5.13/hls.light.min.js"; s.onload = go; s.onerror = fail; document.head.appendChild(s); }
+  let recoveries = 0, lastT = -1, frozen = 0;
+  const fail = why => { if (curCam !== cam) return; clearTimeout(videoT); stopVideo(); v.hidden = true; $("#v-img").hidden = false; $("#v-live").textContent = "live"; $("#v-video").hidden = !cam.stream; $("#v-video").textContent = "video"; videoOn = false; schedule(); tick(); if (!auto || why) toast(why || "no video stream; showing live stills"); };
+  // camera clock: the frame on screen is (now − stream latency); updating it every timeupdate shows playback is moving
+  const clock = () => { const lat = hls && isFinite(hls.latency) ? hls.latency : 0; $("#v-stamp").textContent = "▶ " + new Date(Date.now() - lat * 1000).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" }) + (lat ? ` · ${Math.round(lat)}s behind` : ""); };
+  const ok = () => { if (curCam !== cam || videoOn) return; clearTimeout(videoT); clearInterval(refreshT); $("#v-img").hidden = true; v.hidden = false; $("#v-live").textContent = "video"; $("#v-video").hidden = false; $("#v-video").textContent = "stills"; videoOn = true; clock(); };
+  v.onplaying = ok; v.ontimeupdate = () => { if (videoOn) clock(); }; v.onerror = () => fail();
+  videoT = setTimeout(() => fail(auto ? "" : "video did not start; showing live stills"), 12000); // stills keep showing until the stream really plays
+  // watchdog: if playback stops advancing for ~6s, jump back to the live edge; give up after 3 tries
+  watchT = setInterval(() => {
+    if (curCam !== cam || !videoOn || document.hidden) return;
+    if (v.paused) v.play().catch(() => {});
+    if (v.currentTime !== lastT) { lastT = v.currentTime; frozen = 0; return; }
+    if (++frozen < 3) return;
+    frozen = 0;
+    if (++recoveries > 3) return fail("video stalled; showing live stills");
+    if (hls) { hls.startLoad(); if (hls.liveSyncPosition) v.currentTime = hls.liveSyncPosition; }
+    else { const src = v.currentSrc || cam.stream; v.src = src; }
+    v.play().catch(() => {});
+  }, 2000);
+  const go = () => {
+    if (curCam !== cam) return;
+    if (!window.Hls || !Hls.isSupported()) return native();
+    hls = new Hls({ liveSyncDurationCount: 2, liveMaxLatencyDurationCount: 5, maxBufferLength: 30, backBufferLength: 20, manifestLoadingMaxRetry: 4, levelLoadingMaxRetry: 6, fragLoadingMaxRetry: 6 });
+    hls.loadSource(cam.stream); hls.attachMedia(v);
+    hls.on(Hls.Events.MANIFEST_PARSED, () => v.play().catch(() => {}));
+    hls.on(Hls.Events.ERROR, (_, d) => {
+      if (!d.fatal) return;
+      if (d.type === Hls.ErrorTypes.NETWORK_ERROR && recoveries++ < 3) hls.startLoad();
+      else if (d.type === Hls.ErrorTypes.MEDIA_ERROR && recoveries++ < 3) hls.recoverMediaError();
+      else fail(auto ? "" : "video stream unavailable; showing live stills");
+    });
+  };
+  const native = () => { if (v.canPlayType("application/vnd.apple.mpegurl")) { v.src = cam.stream; v.play().catch(() => fail()); } else fail(); };
+  // prefer hls.js wherever Media Source Extensions exist (Chrome, Brave, Edge, Firefox, desktop Safari); built-in HLS only as fallback (iPhone)
+  if (!window.MediaSource && !window.ManagedMediaSource) return native();
+  if (window.Hls) go(); else { const sc = document.createElement("script"); sc.src = "https://cdnjs.cloudflare.com/ajax/libs/hls.js/1.5.13/hls.light.min.js"; sc.onload = go; sc.onerror = native; document.head.appendChild(sc); }
 }
 
 /* ============================== panel ============================== */
