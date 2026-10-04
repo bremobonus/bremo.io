@@ -2,182 +2,182 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>FLOCK // surveillance grid</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#000" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#fff" media="(prefers-color-scheme: light)">
+<title>Flock Safety Camera Map 2026: Where the License Plate Readers Are | FLOCK // GRID</title>
 <link rel="canonical" href="https://bremo.io/flock/">
-<meta name="description" content="An interactive terminal-styled map of Flock Safety license plate reader cameras across the United States, the 2026 backlash and the leaked device map.">
+<meta name="description" content="Fast black-and-white map of Flock Safety ALPR license plate reader cameras across the United States, with live public traffic cameras you can watch, the 2026 backlash, and the towns that cancelled Flock. Works on phones.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Bremo">
+<meta property="og:title" content="Flock Safety Camera Map 2026: Where the License Plate Readers Are">
+<meta property="og:description" content="Map of Flock Safety ALPR cameras across the United States, with live public traffic cameras, the 2026 backlash and cancelled contracts.">
+<meta property="og:url" content="https://bremo.io/flock/">
+<meta property="og:image" content="https://bremo.io/flock/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Flock Safety Camera Map 2026">
+<meta name="twitter:description" content="Map of Flock Safety ALPR cameras across the United States, with live public traffic cameras, the 2026 backlash and cancelled contracts.">
+<meta name="twitter:image" content="https://bremo.io/flock/og.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://bremo.io/flock/","url":"https://bremo.io/flock/","name":"Flock Safety Camera Map 2026: Where the License Plate Readers Are","description":"Map of Flock Safety ALPR cameras across the United States, with live public traffic cameras, the 2026 backlash and cancelled contracts.","inLanguage":"en","datePublished":"2026-10-03","dateModified":"2026-10-03","isPartOf":{"@type":"WebSite","name":"Bremo","url":"https://bremo.io/"},"about":[{"@type":"Thing","name":"Flock Safety"},{"@type":"Thing","name":"Automatic license plate recognition"}]},{"@type":"WebApplication","name":"FLOCK // GRID","url":"https://bremo.io/flock/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"featureList":["Flock Safety ALPR camera map","Live public traffic camera viewer","Nearest camera finder","Contract cancellation tracker","CSV export"]},{"@type":"Dataset","name":"Flock Safety camera locations (volunteer-mapped)","description":"Geocoded ALPR camera locations across the United States from OpenStreetMap and DeFlock state tallies.","url":"https://bremo.io/flock/","license":"https://opendatacommons.org/licenses/odbl/","spatialCoverage":"United States","keywords":["Flock Safety","ALPR","license plate reader","surveillance cameras","Flock camera map","deflock","traffic cameras"]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is there a Flock camera near me?","acceptedAnswer":{"@type":"Answer","text":"Tap near me or search your city. Every square is an ALPR location mapped by volunteers in OpenStreetMap, and the list shows the closest ones with distances."}},{"@type":"Question","name":"Can I watch a Flock camera?","acceptedAnswer":{"@type":"Answer","text":"No. Flock feeds are private. This page plugs in public traffic cameras from state and city transportation departments so you can see the road around an ALPR location."}},{"@type":"Question","name":"Which cities cancelled Flock in 2026?","acceptedAnswer":{"@type":"Answer","text":"The exits tab lists towns that paused or cancelled Flock contracts in 2026 with dates, reasons and sources."}}]}]}</script>
+<link rel="preconnect" href="https://tile.openstreetmap.org">
+<link rel="preconnect" href="https://cwwp2.dot.ca.gov">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" crossorigin="">
 <style>
-:root{
-  --bg:#020402; --bg2:#051005; --panel:rgba(2,12,4,.86); --line:#0f3d18;
-  --g:#00ff41; --g2:#00b82e; --g3:#0a5c1c; --dim:#4f8a5b; --red:#ff3355; --amber:#ffb000; --cyan:#27e1ff;
-  --mono:"JetBrains Mono","Fira Code","SF Mono",ui-monospace,Menlo,Consolas,monospace;
+:root{--bg:#fff;--bg2:#f3f3f3;--fg:#000;--dim:#666;--line:#ddd;--inv:#fff;--mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;--sheet:70dvh}
+:root:not([data-theme="light"]){color-scheme:dark}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#000;--bg2:#111;--fg:#fff;--dim:#8a8a8a;--line:#2a2a2a;--inv:#000}}
+:root[data-theme="dark"]{--bg:#000;--bg2:#111;--fg:#fff;--dim:#8a8a8a;--line:#2a2a2a;--inv:#000;color-scheme:dark}
+:root[data-theme="light"]{color-scheme:light}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--fg);font:14px/1.45 var(--mono);overscroll-behavior:none}
+body{position:fixed;inset:0;overflow:hidden}
+a{color:inherit}
+button,input{font:inherit;color:inherit}
+button{background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:8px 14px;cursor:pointer;min-height:40px;transition:background .15s,color .15s}
+button[aria-pressed="true"],button.on{background:var(--fg);color:var(--inv);border-color:var(--fg)}
+@media (hover:hover){button:hover{border-color:var(--fg)}}
+button:focus-visible,input:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+#map{position:absolute;inset:0;background:var(--bg2)}
+.leaflet-container{font:inherit;background:var(--bg2)}
+.leaflet-tile{filter:grayscale(1) contrast(1.1)}
+:root[data-theme="dark"] .leaflet-tile{filter:grayscale(1) invert(1) contrast(1.15) brightness(.8)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .leaflet-tile{filter:grayscale(1) invert(1) contrast(1.15) brightness(.8)}}
+.leaflet-bar{border:1px solid var(--line)!important;border-radius:12px!important;box-shadow:0 2px 10px rgba(0,0,0,.15)!important;overflow:hidden}
+.leaflet-control-zoom a{background:var(--bg)!important;color:var(--fg)!important;border:0!important;border-bottom:1px solid var(--line)!important;width:40px!important;height:40px!important;line-height:40px!important;font-size:20px!important;font-weight:400!important}
+.leaflet-control-zoom a:last-child{border-bottom:0!important}
+.leaflet-control-zoom a.leaflet-disabled{opacity:.35}
+.leaflet-bottom.leaflet-right{bottom:calc(104px + env(safe-area-inset-bottom))}
+@media (min-width:900px){.leaflet-bottom.leaflet-right{bottom:24px}}
+.leaflet-control-zoom{margin-right:10px!important;margin-bottom:10px!important}
+.thumb{width:72px;height:54px;border:2px solid var(--fg);border-radius:6px;overflow:hidden;background:var(--bg2);box-shadow:0 2px 8px rgba(0,0,0,.35);cursor:pointer;transform:translate(-36px,-27px)}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(1) contrast(1.1)}
+.thumb.on{outline:3px solid var(--fg);outline-offset:1px}
+.thumb::after{content:"";position:absolute;right:5px;top:5px;width:6px;height:6px;border-radius:50%;background:#fff;box-shadow:0 0 0 1px #000;animation:blink 1.2s steps(2) infinite}
+.leaflet-control-attribution{background:transparent!important;color:var(--dim)!important;font-size:10px!important;padding:2px 6px!important}
+.leaflet-control-attribution a{color:var(--dim)!important}
+.leaflet-tooltip{background:var(--bg);color:var(--fg);border:1px solid var(--fg);border-radius:6px;box-shadow:none;font:12px/1.4 var(--mono);padding:4px 8px}
+.leaflet-tooltip::before{display:none}
+
+.top{position:absolute;top:0;left:0;right:0;z-index:1000;display:flex;gap:8px;align-items:center;padding:calc(8px + env(safe-area-inset-top)) 10px 0;pointer-events:none}
+.top>*{pointer-events:auto}
+.brand .short{display:none}@media (max-width:480px){.brand .full{display:none}.brand .short{display:inline}}
+.brand{background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:0 14px;height:40px;display:flex;align-items:center;font-weight:700;letter-spacing:.04em;white-space:nowrap;text-decoration:none}
+.search{flex:1;display:flex;background:var(--bg);border:1px solid var(--line);border-radius:999px;height:40px;overflow:hidden;min-width:0}
+.search input{flex:1;min-width:0;border:0;background:transparent;padding:0 14px;outline:0}
+.search input::placeholder{color:var(--dim)}
+.search button{border:0;border-radius:0;padding:0 14px;min-height:0}
+.ico{width:40px;padding:0;display:grid;place-items:center;flex:none}
+.ico svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+.layers{position:absolute;z-index:1000;left:10px;top:calc(58px + env(safe-area-inset-top));display:flex;gap:6px;flex-wrap:wrap;max-width:calc(100% - 20px)}
+.layers button{padding:5px 11px;min-height:32px;font-size:12px}
+
+.sheet{position:absolute;z-index:1100;left:0;right:0;bottom:0;height:var(--sheet);background:var(--bg);border-top:1px solid var(--line);border-radius:16px 16px 0 0;transform:translateY(calc(var(--sheet) - 92px));transition:transform .28s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column;touch-action:none;will-change:transform;box-shadow:0 -8px 30px rgba(0,0,0,.12)}
+.sheet.half{transform:translateY(calc(var(--sheet) * .45))}
+.sheet.full{transform:translateY(0)}
+.sheet.drag{transition:none}
+.handle{height:22px;display:grid;place-items:center;cursor:grab;flex:none}
+.handle::before{content:"";width:40px;height:4px;border-radius:2px;background:var(--line)}
+.tabs{display:flex;gap:6px;padding:2px 12px 10px;overflow-x:auto;scrollbar-width:none;flex:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{padding:5px 12px;min-height:32px;font-size:12px;white-space:nowrap}
+.status{padding:0 14px 8px;font-size:12px;color:var(--dim);flex:none;min-height:18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.list{flex:1;overflow:auto;overscroll-behavior:contain;touch-action:pan-y;padding-bottom:env(safe-area-inset-bottom);-webkit-overflow-scrolling:touch}
+.row{display:flex;gap:10px;align-items:center;padding:10px 14px;border-top:1px solid var(--line);cursor:pointer;min-height:44px}
+.row .n{color:var(--dim);width:22px;flex:none;font-size:12px}
+.row .t{flex:1;min-width:0}
+.row .t small{display:block;color:var(--dim);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row .v{color:var(--dim);font-variant-numeric:tabular-nums;flex:none;font-size:12px}
+.row .bar{height:3px;background:var(--line);margin-top:5px;border-radius:2px;overflow:hidden}
+.row .bar i{display:block;height:100%;background:var(--fg)}
+@media (hover:hover){.row:hover{background:var(--bg2)}}
+.row:active{background:var(--bg2)}
+.note{padding:14px;color:var(--dim);font-size:13px;border-top:1px solid var(--line)}
+.note b{color:var(--fg)}
+.card{padding:12px 14px;border-top:1px solid var(--line)}
+.card h2{margin:0 0 4px;font-size:15px}
+.card p{margin:4px 0;color:var(--dim);font-size:13px}
+.card .acts{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.card .acts button{padding:5px 12px;min-height:32px;font-size:12px}
+.news .row{align-items:flex-start}
+.news .row .n{width:76px}
+
+.viewer{position:absolute;z-index:1200;left:0;right:0;bottom:0;background:var(--bg);border-top:1px solid var(--fg);border-radius:16px 16px 0 0;transform:translateY(110%);transition:transform .28s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column;max-height:85dvh;padding-bottom:env(safe-area-inset-bottom)}
+.viewer.on{transform:none}
+.vh{display:flex;align-items:center;gap:8px;padding:10px 12px 8px}
+.vh b{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:13px}
+.frame{position:relative;background:var(--bg2);aspect-ratio:4/3;max-height:42dvh;overflow:hidden}
+.frame img,.frame video{width:100%;height:100%;object-fit:contain;display:block;filter:grayscale(1) contrast(1.1)}
+.frame .stamp{position:absolute;left:8px;bottom:8px;background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-size:11px}
+.frame .live{position:absolute;right:8px;top:8px;background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-size:11px}
+.frame .live::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:currentColor;margin-right:6px;animation:blink 1.2s steps(2) infinite}
+@keyframes blink{to{opacity:0}}
+.vc{display:flex;gap:6px;padding:8px 12px;align-items:center;flex-wrap:wrap}
+.vc button{padding:5px 12px;min-height:32px;font-size:12px}
+.vc input[type=range]{flex:1;min-width:90px;accent-color:var(--fg)}
+.vn{padding:0 12px 10px;font-size:12px;color:var(--dim);max-height:120px;overflow:auto}
+.vn .row{padding:7px 0;min-height:0;border-top:1px solid var(--line)}
+.vn .row .t{color:var(--fg)}
+
+.toast{position:fixed;left:50%;bottom:calc(110px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--fg);color:var(--inv);padding:8px 14px;border-radius:999px;z-index:2000;opacity:0;transition:opacity .2s;pointer-events:none;font-size:13px;white-space:nowrap}
+.toast.on{opacity:1}
+.me{width:14px;height:14px;border-radius:50%;background:var(--fg);border:3px solid var(--inv);box-shadow:0 0 0 1px var(--fg)}
+
+@media (min-width:900px){
+  :root{--sheet:100dvh}
+  .top{right:auto;width:360px;padding-right:0}
+  .layers{left:380px;top:calc(10px + env(safe-area-inset-top));max-width:calc(100% - 400px)}
+  .sheet{top:calc(64px + env(safe-area-inset-top));left:10px;right:auto;bottom:10px;width:360px;height:auto;transform:none!important;border:1px solid var(--line);border-radius:16px;box-shadow:none}
+  .handle{display:none}
+  .tabs{padding-top:12px}
+  .viewer{left:auto;right:10px;bottom:10px;width:420px;border:1px solid var(--fg);border-radius:16px;max-height:calc(100dvh - 80px)}
+  .toast{bottom:28px}
 }
-*{box-sizing:border-box}
-html,body{margin:0;background:var(--bg);color:var(--g);font-family:var(--mono);font-size:13px;height:100%}
-a{color:var(--cyan)}
-#rain{position:fixed;inset:0;z-index:0;opacity:.18;pointer-events:none}
-.scan::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:50;
-  background:repeating-linear-gradient(0deg,rgba(0,0,0,.18) 0 1px,transparent 1px 3px)}
-header{position:relative;z-index:2;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 18px;padding:12px 16px;border-bottom:1px solid var(--line)}
-h1{margin:0;font-size:22px;letter-spacing:.12em;text-shadow:0 0 8px var(--g)}
-h1 .cur{animation:blink 1s steps(1) infinite}
-@keyframes blink{50%{opacity:0}}
-.sub{color:var(--dim)}
-.kpis{position:relative;z-index:2;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border-bottom:1px solid var(--line)}
-.kpi{background:var(--bg);padding:10px 14px}
-.kpi b{display:block;font-size:22px;text-shadow:0 0 6px var(--g2)}
-.kpi span{color:var(--dim);font-size:11px;text-transform:uppercase;letter-spacing:.08em}
-.kpi.red b{color:var(--red);text-shadow:0 0 6px var(--red)}
-.kpi.amb b{color:var(--amber);text-shadow:none}
-main{position:relative;z-index:2;display:grid;grid-template-columns:320px 1fr 360px;height:calc(100dvh - 128px);min-height:560px}
-aside,section.term{background:var(--panel);overflow:auto;border-right:1px solid var(--line)}
-section.term{border-right:0;border-left:1px solid var(--line);display:flex;flex-direction:column}
-#map{height:100%;background:#000}
-.leaflet-container{background:#000;font-family:var(--mono)}
-.leaflet-tile-pane{filter:invert(1) grayscale(1) brightness(.55) contrast(1.4) sepia(1) hue-rotate(75deg) saturate(3.5)}
-.leaflet-popup-content-wrapper,.leaflet-popup-tip{background:#010a03;color:var(--g);border:1px solid var(--g3);border-radius:2px;box-shadow:0 0 16px rgba(0,255,65,.25)}
-.leaflet-popup-content{font-size:12px;line-height:1.5;margin:10px 12px}
-.leaflet-control-zoom a,.leaflet-control-layers{background:#010a03 !important;color:var(--g) !important;border-color:var(--g3) !important}
-.leaflet-control-layers-expanded{color:var(--g)}
-.leaflet-control-attribution{background:rgba(0,0,0,.7) !important;color:var(--dim) !important}
-.leaflet-control-attribution a{color:var(--dim) !important}
-.pane-h{position:sticky;top:0;background:#010a03;border-bottom:1px solid var(--line);padding:8px 12px;font-size:11px;letter-spacing:.12em;color:var(--dim);display:flex;justify-content:space-between;gap:8px;z-index:1}
-.tabs button{background:none;border:1px solid var(--g3);color:var(--dim);font:inherit;font-size:11px;padding:2px 6px;cursor:pointer}
-.tabs button[aria-pressed=true]{color:#000;background:var(--g)}
-.row{display:grid;grid-template-columns:22px 1fr auto;gap:8px;align-items:center;padding:4px 12px;cursor:pointer;border-bottom:1px dashed #08260f}
-.row:hover,.row:focus{background:#062511;outline:none}
-.row .bar{grid-column:2/4;height:3px;background:var(--g3)}
-.row .bar i{display:block;height:100%;background:var(--g);box-shadow:0 0 6px var(--g)}
-.row .n{color:var(--dim)}
-.row.cx .bar i{background:var(--red);box-shadow:0 0 6px var(--red)}
-.cxrow{padding:6px 12px;border-bottom:1px dashed #08260f;cursor:pointer}
-.cxrow:hover{background:#1a0509}
-.cxrow b{color:var(--red)}
-.cxrow small{display:block;color:var(--dim)}
-#log{flex:1;overflow:auto;padding:10px 12px;white-space:pre-wrap;word-break:break-word;line-height:1.5}
-#log .t{color:var(--dim)}
-#log .r{color:var(--red)}
-#log .a{color:var(--amber)}
-#log .c{color:var(--cyan)}
-#log a{color:var(--cyan)}
-form.cmd{display:flex;border-top:1px solid var(--line);background:#010a03}
-form.cmd label{padding:10px 0 10px 12px;color:var(--g)}
-form.cmd input{flex:1;background:none;border:0;color:var(--g);font:inherit;font-size:14px;padding:10px;outline:none;caret-color:var(--g)}
-.chips{display:flex;flex-wrap:wrap;gap:4px;padding:6px 12px;border-top:1px solid var(--line)}
-.chips button{background:none;border:1px solid var(--g3);color:var(--g);font:inherit;font-size:11px;padding:3px 7px;cursor:pointer}
-.chips button:hover{background:var(--g);color:#000}
-.hud{position:absolute;z-index:500;left:10px;bottom:24px;background:rgba(0,8,2,.85);border:1px solid var(--g3);padding:6px 9px;font-size:11px;color:var(--dim);pointer-events:none}
-.hud b{color:var(--g)}
-.mapwrap{position:relative;height:100%;overflow:hidden}
-#globe{position:absolute;inset:0;z-index:400;background:radial-gradient(ellipse at 50% 45%,#03210c 0%,#010602 55%,#000 100%)}
-#globe canvas{outline:none}
-.mapwrap.street #globe{display:none}
-.mapwrap.globe #map,.mapwrap.globe .hud,.mapwrap.globe .wall{visibility:hidden}
-.modes{position:absolute;z-index:600;left:10px;top:10px;display:flex;border:1px solid var(--g3);background:rgba(0,8,2,.85)}
-.modes button{background:none;border:0;color:var(--dim);font:inherit;font-size:11px;letter-spacing:.12em;padding:6px 10px;cursor:pointer}
-.modes button[aria-pressed=true]{background:var(--g);color:#000}
-.target{position:absolute;z-index:600;left:10px;top:48px;width:min(300px,calc(100% - 20px));background:rgba(0,8,2,.88);border:1px solid var(--g3);padding:10px 12px;font-size:12px;line-height:1.6;display:none}
-.target.on{display:block}
-.target h3{margin:0 0 4px;font-size:15px;letter-spacing:.06em;text-shadow:0 0 6px var(--g2)}
-.target .meter{height:4px;background:var(--g3);margin:6px 0}
-.target .meter i{display:block;height:100%;background:var(--g);box-shadow:0 0 8px var(--g)}
-.target button{margin-top:8px;width:100%;background:var(--g);color:#000;border:0;font:inherit;font-weight:700;letter-spacing:.1em;padding:7px;cursor:pointer}
-.target button:hover{box-shadow:0 0 14px var(--g)}
-.target .x{position:absolute;right:6px;top:2px;width:auto;margin:0;background:none;color:var(--dim);padding:2px 6px}
-.leaflet-tooltip.ltip{background:none;border:0;box-shadow:none;padding:0}
-.leaflet-tooltip.ltip::before{display:none}
-.gtip{font-family:var(--mono);font-size:12px;background:rgba(0,8,2,.92);border:1px solid var(--g);color:var(--g);padding:6px 9px;line-height:1.5}
-.gtip b{font-size:13px}
-.gtip .r{color:#ff3355}
-.wall{position:absolute;z-index:500;left:0;right:0;bottom:0;display:none;gap:6px;overflow-x:auto;padding:8px 10px;background:linear-gradient(0deg,rgba(0,6,2,.95),rgba(0,6,2,.75));border-top:1px solid var(--g3)}
-.mapwrap.has-wall .wall{display:flex}
-.mapwrap.has-wall.street .hud,.mapwrap.has-wall.street .legend{bottom:96px}
-.tile{flex:0 0 150px;height:64px;border:1px solid var(--g3);background:#010a03;padding:5px 7px;font-size:10px;line-height:1.45;cursor:pointer;position:relative;overflow:hidden;text-align:left;color:var(--g);font-family:var(--mono)}
-.tile:hover,.tile:focus{border-color:var(--g);box-shadow:0 0 10px rgba(0,255,65,.4);outline:none}
-.tile b{display:block;font-size:11px}
-.tile span{color:var(--dim)}
-.tile::after{content:"";position:absolute;right:6px;top:6px;width:6px;height:6px;border-radius:50%;background:#ff3355;animation:pulse 2s infinite}
-.search{display:flex;margin-left:auto;border:1px solid var(--g3);background:#010a03}
-.search input{background:none;border:0;color:var(--g);font:inherit;padding:6px 8px;width:220px;outline:none}
-.search button{background:none;border:0;border-left:1px solid var(--g3);color:var(--g);font:inherit;padding:0 10px;cursor:pointer}
-@media (max-width:700px){.search{margin-left:0;width:100%}.search input{flex:1;width:auto}}
-.legend{position:absolute;z-index:500;right:10px;bottom:24px;background:rgba(0,8,2,.85);border:1px solid var(--g3);padding:6px 9px;font-size:11px;line-height:1.7}
-.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:-1px}
-.cam-ico{width:10px;height:10px;border-radius:50%;background:var(--g);box-shadow:0 0 8px 2px var(--g);border:1px solid #bfffcf}
-.cx-ico{width:12px;height:12px;background:var(--red);box-shadow:0 0 10px 2px var(--red);transform:rotate(45deg)}
-.pulse{animation:pulse 2s infinite}
-@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,51,85,.7)}70%{box-shadow:0 0 0 12px rgba(255,51,85,0)}100%{box-shadow:0 0 0 0 rgba(255,51,85,0)}}
-.fov{fill:var(--g);}
-footer{position:relative;z-index:2;padding:6px 16px;color:var(--dim);font-size:11px;border-top:1px solid var(--line)}
-@media (max-width:1100px){
-  main{grid-template-columns:1fr;height:auto}
-  .mapwrap{height:62dvh;order:-1}
-  aside{max-height:320px;border-right:0;border-top:1px solid var(--line)}
-  section.term{height:420px;border-left:0;border-top:1px solid var(--line)}
-}
-@media (max-width:600px){.kpi:last-child{grid-column:1/-1}.hud{display:none}.legend{display:none}}
-@media (prefers-reduced-motion:reduce){#rain{display:none}h1 .cur,.pulse{animation:none}}
+@media (prefers-reduced-motion:reduce){.sheet,.viewer{transition:none}.frame .live::before{animation:none}}
 </style>
 </head>
-<body class="scan">
-<canvas id="rain" aria-hidden="true"></canvas>
+<body>
+<div id="map" role="application" aria-label="Map of ALPR and traffic cameras"></div>
 
-<header>
-  <h1>&gt; FLOCK://GRID<span class="cur">_</span></h1>
-  <span class="sub">license plate readers · united states · the 2026 backlash</span>
-  <span class="sub" id="clock"></span>
-  <form class="search" id="search" role="search"><input id="q" placeholder="search a city, county, address…" aria-label="Search a place"><button aria-label="Search">⌕</button></form>
-</header>
-
-<div class="kpis" role="list">
-  <div class="kpi" role="listitem"><b data-count="142944">0</b><span>ALPRs mapped by volunteers (DeFlock)</span></div>
-  <div class="kpi amb" role="listitem"><b data-count="335701">0</b><span>device locations in leaked Flock data</span></div>
-  <div class="kpi" role="listitem"><b data-count="120000" data-suffix="+">0</b><span>cameras Flock says it runs, 49 states</span></div>
-  <div class="kpi red" role="listitem"><b data-count="200" data-suffix="+">0</b><span>cities &amp; counties dropped ALPR contracts in 2026</span></div>
-  <div class="kpi red" role="listitem"><b data-count="4000" data-suffix="+">0</b><span>lookups run for federal immigration asks (404 Media)</span></div>
+<div class="top">
+  <a class="brand" href="/flock/" aria-label="Flock Grid home"><span class="full">FLOCK://GRID</span><span class="short">F://G</span></a>
+  <form class="search" id="search" role="search"><input id="q" type="search" placeholder="city, address, or camera name" aria-label="Search" autocomplete="off" enterkeyhint="search"><button type="submit" aria-label="Search">go</button></form>
+  <button class="ico" id="btn-near" aria-label="Near me" title="Near me"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="8"/></svg></button>
+  <button class="ico" id="btn-theme" aria-label="Toggle dark or light" title="Theme"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v18A9 9 0 0 0 12 3z" fill="currentColor" stroke="none"/></svg></button>
 </div>
 
-<main>
-  <aside aria-label="Index">
-    <div class="pane-h"><span id="idx-title">STATES // MAPPED CAMERAS</span>
-      <span class="tabs"><button id="tab-states" aria-pressed="true">states</button> <button id="tab-cx" aria-pressed="false">exits</button></span></div>
-    <div id="idx"></div>
-  </aside>
+<div class="layers" role="group" aria-label="Layers">
+  <button id="l-alpr" aria-pressed="true">alpr</button>
+  <button id="l-flock" aria-pressed="false">flock only</button>
+  <button id="l-tc" aria-pressed="true">traffic cams</button>
+  <button id="l-exits" aria-pressed="true">exits</button>
+</div>
 
-  <div class="mapwrap globe" id="mapwrap">
-    <div id="map" role="application" aria-label="Street-level map of Flock cameras"></div>
-    <div id="globe" role="application" aria-label="Globe of US states shaded by camera count"></div>
-    <div class="modes" role="group" aria-label="View"><button id="m-globe" aria-pressed="true">◉ GLOBE</button><button id="m-street" aria-pressed="false">▦ STREET</button></div>
-    <div class="target" id="target" aria-live="polite"></div>
-    <div class="wall" id="wall" aria-label="Camera wall: nodes loaded in this view"></div>
-    <div class="hud" id="hud">lat <b>--</b> lon <b>--</b> z <b>--</b></div>
-    <div class="legend">
-      <div><span class="dot" style="background:#00ff41;box-shadow:0 0 6px #00ff41;border-radius:0"></span>state shaded by mapped cameras</div>
-      <div><span class="dot" style="background:#bfffcf;box-shadow:0 0 6px #00ff41"></span>camera (live OpenStreetMap, zoom ≥ 11)</div>
-      <div><span class="dot" style="background:#ff3355"></span>contract cancelled / paused</div>
-    </div>
+<section class="sheet" id="sheet" aria-label="Panel">
+  <div class="handle" id="handle" aria-hidden="true"></div>
+  <div class="tabs" role="tablist">
+    <button role="tab" data-tab="states" aria-pressed="true">states</button>
+    <button role="tab" data-tab="view" aria-pressed="false">in view</button>
+    <button role="tab" data-tab="tc" aria-pressed="false">traffic</button>
+    <button role="tab" data-tab="exits" aria-pressed="false">exits</button>
+    <button role="tab" data-tab="news" aria-pressed="false">2026</button>
+    <button role="tab" data-tab="about" aria-pressed="false">about</button>
   </div>
+  <div class="status" id="status" aria-live="polite">142,944 ALPRs mapped by volunteers · 200+ cities dropped Flock in 2026</div>
+  <div class="list" id="list"></div>
+</section>
 
-  <section class="term" aria-label="Terminal">
-    <div class="pane-h"><span>TERMINAL // flock@grid</span><span id="net">idle</span></div>
-    <div id="log" aria-live="polite"></div>
-    <div class="chips">
-      <button data-c="globe">globe</button><button data-c="news">news</button><button data-c="scan">scan view</button><button data-c="near">near me</button>
-      <button data-c="goto Atlanta">goto Atlanta</button><button data-c="top 10">top 10</button><button data-c="exits">exits</button><button data-c="help">help</button>
-    </div>
-    <form class="cmd" id="cmd" autocomplete="off"><label for="in">$</label><input id="in" placeholder="type help" spellcheck="false" aria-label="Command"></form>
-  </section>
-</main>
+<section class="viewer" id="viewer" aria-label="Traffic camera viewer" aria-live="polite">
+  <div class="vh"><b id="v-name">camera</b><button class="ico" id="v-close" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="frame"><img id="v-img" alt="Live traffic camera frame" decoding="async"><video id="v-vid" muted playsinline hidden></video><span class="live" id="v-live">live</span><span class="stamp" id="v-stamp">—</span></div>
+  <div class="vc"><button id="v-play" aria-pressed="true">auto</button><button id="v-prev">history</button><button id="v-video" hidden>stills</button><button id="v-open">source</button><input type="range" id="v-range" min="0" max="12" value="0" aria-label="Frame history" hidden></div>
+  <div class="vn" id="v-near"></div>
+</section>
+<div class="toast" id="toast" role="status"></div>
 
-<footer>
-  Counts are from public reporting and volunteer mapping, not from Flock; they differ by source and date (see <code>sources</code>). Live camera points come from OpenStreetMap
-  (<code>surveillance:type=ALPR</code>) via the Overpass API. Last compiled 2026-09-29.
-</footer>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" crossorigin=""></script>
-<script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js" crossorigin=""></script>
-<script src="https://cdn.jsdelivr.net/npm/globe.gl@2.46.2/dist/globe.gl.min.js" crossorigin=""></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" crossorigin="" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js" crossorigin="" defer></script>
 <script>
 "use strict";
 /* ============================== data ============================== */
@@ -264,390 +264,371 @@ const SRC = {
   osm:["DeFlock / OpenStreetMap","https://maps.deflock.org/"]
 };
 
-/* ============================== matrix rain ============================== */
-(() => {
-  const c = document.getElementById("rain"), x = c.getContext("2d");
-  const glyphs = "ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉ0123456789ABCDEFALPRFLOCK#$%&*";
-  let cols = [], fs = 14;
-  const size = () => { c.width = innerWidth; c.height = innerHeight; cols = Array(Math.ceil(c.width / fs)).fill(0).map(() => Math.random() * c.height / fs); };
-  size(); addEventListener("resize", size);
-  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  setInterval(() => {
-    x.fillStyle = "rgba(2,4,2,.08)"; x.fillRect(0, 0, c.width, c.height);
-    x.fillStyle = "#00ff41"; x.font = fs + "px monospace";
-    cols.forEach((y, i) => {
-      x.fillText(glyphs[(Math.random() * glyphs.length) | 0], i * fs, y * fs);
-      cols[i] = y * fs > c.height && Math.random() > .975 ? 0 : y + 1;
-    });
-  }, 55);
-})();
+
+/* ============================== public traffic camera feeds ============================== */
+// Approximate district bounding boxes so only the districts in view are fetched.
+const CA_BOX = { 1: [38.7, -124.5, 42.1, -122.4], 2: [39.3, -123.1, 42.1, -119.9], 3: [38.0, -122.6, 40.5, -119.9], 4: [36.8, -123.1, 38.9, -121.2], 5: [34.3, -122.1, 37.2, -119.4], 6: [34.7, -121.0, 37.7, -117.6], 7: [33.6, -119.6, 35.0, -117.6], 8: [33.3, -118.1, 35.9, -114.0], 9: [35.5, -119.0, 38.5, -116.5], 10: [36.9, -121.6, 38.9, -118.9], 11: [32.4, -117.7, 33.6, -114.3], 12: [33.3, -118.2, 34.0, -117.4] };
+const FEEDS = [
+  ...Object.keys(CA_BOX).map(d => ({
+    id: "ca" + d, name: "Caltrans D" + d, group: "Caltrans (California)", bbox: CA_BOX[d],
+    async load() {
+      const j = await (await fetch(`https://cwwp2.dot.ca.gov/data/d${d}/cctv/cctvStatusD${String(d).padStart(2, "0")}.json`)).json();
+      return j.data.map(x => x.cctv).filter(c => c.inService === "true" && c.imageData?.static?.currentImageURL).map(c => {
+        const s = c.imageData.static;
+        return { id: `ca${d}-${c.index}`, feed: this.id, name: c.location.locationName.replace(/^TV\w*\s*--\s*/, ""), place: c.location.nearbyPlace, lat: +c.location.latitude, lon: +c.location.longitude,
+          img: s.currentImageURL, stream: c.imageData.streamingVideoURL || "", src: "https://cwwp2.dot.ca.gov/", every: +s.currentImageUpdateFrequency || 5,
+          prev: Object.keys(s).filter(k => /^referenceImage\d+/.test(k)).sort((a, b) => parseInt(a.match(/\d+/)) - parseInt(b.match(/\d+/))).map(k => s[k]) };
+      });
+    }
+  })),
+  { id: "nyc", name: "NYC DOT", group: "NYC DOT (New York City)", bbox: [40.49, -74.27, 40.92, -73.68],
+    async load() {
+      const j = await (await fetch("https://webcams.nyctmc.org/api/cameras")).json();
+      return j.filter(c => c.isOnline === "true" || c.isOnline === true).map(c => ({ id: "nyc-" + c.id, feed: this.id, name: c.name, place: c.area || "New York", lat: +c.latitude, lon: +c.longitude, img: c.imageUrl || `https://webcams.nyctmc.org/api/cameras/${c.id}/image`, stream: "", src: "https://webcams.nyctmc.org/", every: 2, prev: [] }));
+    } }
+];
 
 /* ============================== helpers ============================== */
 const $ = s => document.querySelector(s);
 const fmt = n => n.toLocaleString("en-US");
-const esc = s => String(s).replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[ch]));
-const logEl = $("#log");
-const queue = []; let typing = false;
-function print(html, cls = "", instant = false) {
-  queue.push({ html, cls, instant }); if (!typing) drain();
-}
-function drain() {
-  const job = queue.shift(); if (!job) { typing = false; return; }
-  typing = true;
-  const line = document.createElement("div"); if (job.cls) line.className = job.cls; logEl.appendChild(line);
-  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (job.instant || reduced || job.html.includes("<")) { line.innerHTML = job.html; logEl.scrollTop = logEl.scrollHeight; setTimeout(drain, 10); return; }
-  let i = 0; const t = job.html;
-  const step = () => { i += 3; line.textContent = t.slice(0, i); logEl.scrollTop = logEl.scrollHeight; i < t.length ? setTimeout(step, 8) : drain(); };
-  step();
-}
-function srcLink(k) { const s = SRC[k]; return s ? `<a href="${s[1]}" target="_blank" rel="noopener">[${esc(s[0])}]</a>` : ""; }
-setInterval(() => { $("#clock").textContent = new Date().toISOString().replace("T", " ").slice(0, 19) + "Z"; }, 1000);
-
-// count-up KPIs
-document.querySelectorAll("[data-count]").forEach(el => {
-  const end = +el.dataset.count, suf = el.dataset.suffix || ""; let t0 = null;
-  const f = ts => { t0 ??= ts; const p = Math.min(1, (ts - t0) / 1600); el.textContent = fmt(Math.round(end * (1 - Math.pow(1 - p, 3)))) + (p === 1 ? suf : ""); if (p < 1) requestAnimationFrame(f); };
-  requestAnimationFrame(f);
-});
-
-/* ============================== map ============================== */
-const map = L.map("map", { zoomControl: false, worldCopyJump: true, preferCanvas: true }).setView([38.5, -96], 4);
-L.control.zoom({ position: "topright" }).addTo(map);
-L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-  maxZoom: 19,
-  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors · cameras: <a href="https://deflock.org">DeFlock</a>/OSM'
-}).addTo(map);
-
-const stateLayer = L.layerGroup().addTo(map);
-const exitLayer = L.layerGroup().addTo(map);
-const camLayer = L.layerGroup().addTo(map);
-L.control.layers(null, { "state density": stateLayer, "contract exits": exitLayer, "live cameras (OSM)": camLayer }, { collapsed: true, position: "topright" }).addTo(map);
-
-const maxC = STATES[0][2];
-const byName = Object.fromEntries(STATES.map(s => [s[0], s]));
-const byAb = Object.fromEntries(STATES.map(s => [s[1], s]));
+const esc = s => String(s).replace(/[&<>"']/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]));
+const km = (a, b, c, d) => { const R = 6371, p = Math.PI / 180, x = (c - a) * p, y = (d - b) * p, h = Math.sin(x / 2) ** 2 + Math.cos(a * p) * Math.cos(c * p) * Math.sin(y / 2) ** 2; return 2 * R * Math.asin(Math.sqrt(h)); };
+const dist = k => k < 1 ? Math.round(k * 1000) + " m" : k.toFixed(k < 10 ? 1 : 0) + " km";
+const maxC = STATES[0][2], byAb = Object.fromEntries(STATES.map(s => [s[1], s]));
 const rankOf = ab => STATES.findIndex(s => s[1] === ab) + 1;
-const heat = n => Math.sqrt(n / maxC);            // 0..1, sqrt so small states stay visible
-function stateTip(st) {
-  const ex = EXITS.filter(e => e[1] === st[1]);
-  return `<b>${esc(st[0])}</b> [${st[1]}]<br>${fmt(st[2])} mapped ALPRs · rank #${rankOf(st[1])}<br>${(100 * st[2] / TOTAL).toFixed(1)}% of US total` +
-    (ex.length ? `<br><span class="r">✕ ${ex.length} contract exit${ex.length > 1 ? "s" : ""}: ${ex.map(e => esc(e[0])).join(", ")}</span>` : "");
+const heat = n => Math.log1p(n) / Math.log1p(maxC);
+const src = k => SRC[k] ? `<a href="${SRC[k][1]}" target="_blank" rel="noopener">${esc(SRC[k][0])}</a>` : "";
+const fetchT = (url, opt = {}, ms = 20000) => { const ac = new AbortController(); const t = setTimeout(() => ac.abort(), ms); return fetch(url, { ...opt, signal: ac.signal }).finally(() => clearTimeout(t)); };
+let toastT; const toast = m => { const t = $("#toast"); t.textContent = m; t.classList.add("on"); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove("on"), 1800); };
+const status = m => { $("#status").textContent = m; };
+const viewBounds = pad => { const s = map.getSize(); return s.x && s.y ? map.getBounds().pad(pad) : null; };
+const cssVar = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const isDesktop = () => matchMedia("(min-width:900px)").matches;
+
+/* ============================== theme ============================== */
+const root = document.documentElement;
+function setTheme(t, quiet) {
+  if (t) root.dataset.theme = t; else delete root.dataset.theme;
+  try { t ? localStorage.setItem("flock-theme", t) : localStorage.removeItem("flock-theme"); } catch (_) {}
+  restyle(); if (!quiet) toast(isDark() ? "dark" : "light"); writeHash();
 }
-// US state shapes (us-atlas, Census cartographic boundaries) shared by the globe and the street map.
-let STATE_SHAPES = [];
-const stateLayers = {};
-const shapesReady = fetch("https://cdn.jsdelivr.net/npm/us-atlas@3.0.1/states-10m.json")
-  .then(r => r.json())
-  .then(topo => {
-    STATE_SHAPES = topojson.feature(topo, topo.objects.states).features
-      .map(f => { f.st = byName[f.properties.name]; return f; })
-      .filter(f => f.st);
-    L.geoJSON({ type: "FeatureCollection", features: STATE_SHAPES }, {
-      style: f => ({ color: "#00ff41", weight: 1, opacity: .7, fillColor: "#00ff41", fillOpacity: .04 + .5 * heat(f.st[2]) }),
-      onEachFeature: (f, layer) => {
-        stateLayers[f.st[1]] = layer;
-        layer.bindTooltip(`<div class="gtip">${stateTip(f.st)}</div>`, { sticky: true, opacity: 1, className: "ltip" });
-        layer.on("mouseover", () => layer.setStyle({ weight: 2.5, fillOpacity: .15 + .6 * heat(f.st[2]) }));
-        layer.on("mouseout", () => layer.setStyle({ weight: 1, fillOpacity: .04 + .5 * heat(f.st[2]) }));
-        layer.on("click", () => { map.fitBounds(layer.getBounds(), { maxZoom: 8 }); print(`&gt; ${esc(f.st[0])}: ${fmt(f.st[2])} mapped cameras, rank #${rankOf(f.st[1])}/${STATES.length}`, "", true); });
-      }
-    }).addTo(stateLayer);
-    return STATE_SHAPES;
-  })
-  .catch(() => { print("! state shapes unreachable; showing state markers instead", "a"); return []; });
+const isDark = () => root.dataset.theme === "dark" || (!root.dataset.theme && matchMedia("(prefers-color-scheme:dark)").matches);
+$("#btn-theme").onclick = () => setTheme(isDark() ? "light" : "dark");
+matchMedia("(prefers-color-scheme:dark)").addEventListener("change", () => { if (!root.dataset.theme) restyle(); });
 
-const cxIcon = L.divIcon({ className: "", html: '<div class="cx-ico pulse"></div>', iconSize: [12, 12] });
-EXITS.forEach(([p, st, d, a, why, lat, lon, s]) => {
-  L.marker([lat, lon], { icon: cxIcon, title: p })
-    .bindPopup(`<b style="color:#ff3355">${esc(p)}, ${st}</b><br>${esc(a.toUpperCase())} · ${esc(d)}<br>${esc(why)}<br>${srcLink(s)}`)
-    .addTo(exitLayer);
-});
+document.addEventListener("DOMContentLoaded", init);
+let map, stateLayer, alprLayer, tcLayer, exitLayer, meMarker;
+const alprs = new Map(), tcams = new Map(), feedState = {};
+let flockOnly = false, busy = false, curTab = "states", curCam = null, refreshT = null, hls = null, frameIdx = 0, hashLock = true, lastScanKey = "";
 
-map.on("mousemove", e => { $("#hud").innerHTML = `lat <b>${e.latlng.lat.toFixed(4)}</b> lon <b>${e.latlng.lng.toFixed(4)}</b> z <b>${map.getZoom()}</b> cams <b>${camCount}</b>`; });
+function init() {
+  /* ---------- map ---------- */
+  map = L.map("map", { zoomControl: false, preferCanvas: true, worldCopyJump: true, attributionControl: true, zoomSnap: 0, zoomDelta: 1, wheelPxPerZoomLevel: 120, wheelDebounceTime: 20, inertia: true, inertiaDeceleration: 2600, zoomAnimationThreshold: 8, tapHold: false }).setView([38.5, -96], isDesktop() ? 4.5 : 3.5);
+  L.control.zoom({ position: "bottomright", zoomInTitle: "Zoom in", zoomOutTitle: "Zoom out" }).addTo(map);
+  // keep the map sized correctly when opened in a background tab or when the layout changes
+  new ResizeObserver(() => { map.invalidateSize({ pan: false }); renderAlprs(); renderTcs(); }).observe($("#map"));
+  document.addEventListener("visibilitychange", () => { if (!document.hidden) { map.invalidateSize({ pan: false }); renderAlprs(); renderTcs(); } });
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19, updateWhenIdle: true, keepBuffer: 2, attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> · ALPR: <a href="https://deflock.org">DeFlock</a> · cams: Caltrans, NYC DOT' }).addTo(map);
+  alprLayer = L.layerGroup().addTo(map); tcLayer = L.layerGroup().addTo(map); exitLayer = L.layerGroup().addTo(map);
+  EXITS.forEach(x => L.circleMarker([x[5], x[6]], { radius: 6, weight: 1.5, fillOpacity: 1 }).addTo(exitLayer)
+    .bindTooltip(`<b>✕ ${esc(x[0])}, ${x[1]}</b><br>${esc(x[3])} · ${esc(x[2])}`, { direction: "top", offset: [0, -6] })
+    .on("click", () => showCard(`<h2>✕ ${esc(x[0])}, ${x[1]}</h2><p>${esc(x[3])} · ${esc(x[2])}</p><p>${esc(x[4])}</p><p>${src(x[7])}</p>`)));
+  fetchT("https://cdn.jsdelivr.net/npm/us-atlas@3.0.1/states-10m.json", {}, 30000).then(r => r.json()).then(topo => {
+    const geo = topojson.feature(topo, topo.objects.states); const nameToAb = Object.fromEntries(STATES.map(s => [s[0], s[1]]));
+    geo.features.forEach(f => { f.st = byAb[nameToAb[f.properties.name]] || [f.properties.name, "??", 0]; });
+    stateLayer = L.geoJSON(geo, { style: f => ({ weight: .7, fillOpacity: .04 + .4 * heat(f.st[2]) }), onEachFeature: (f, l) => { l.bindTooltip(`<b>${esc(f.st[0])}</b> ${fmt(f.st[2])} ALPRs · #${rankOf(f.st[1])}`, { sticky: true }); l.on("click", () => focusState(f.st[1])); } }).addTo(map);
+    stateLayer.bringToBack(); restyle(); stateZoom();
+  }).catch(() => {});
+  map.on("zoomend", () => { stateZoom(); renderTcs(); renderAlprs(); });
+  let t; map.on("moveend", () => { clearTimeout(t); writeHash(); t = setTimeout(onMove, 350); });
+  restyle();
 
-/* ---------- live cameras from OpenStreetMap (Overpass) ---------- */
-const OVERPASS = ["https://overpass-api.de/api/interpreter", "https://overpass.kumi.systems/api/interpreter", "https://maps.mail.ru/osm/tools/overpass/api/interpreter"];
-const seen = new Set(); let camCount = 0, busy = false, auto = true;
-const camMarkers = new Map(); const wallItems = [];
-function addToWall(el) {
-  const tg = el.tags || {};
-  wallItems.unshift(el); if (wallItems.length > 24) wallItems.pop();
-  const wall = $("#wall");
-  wall.innerHTML = wallItems.map(e => {
-    const t = e.tags || {}, dir = t["camera:direction"] || t.direction;
-    return `<button class="tile" data-id="${e.id}"><b>NODE ${e.id}</b>${esc(t.manufacturer || t.brand || "ALPR")}${t.operator ? " · " + esc(t.operator) : ""}<br><span>${e.lat.toFixed(4)}, ${e.lon.toFixed(4)}${dir ? " · " + esc(dir) + "°" : ""}</span></button>`;
-  }).join("");
-  $("#mapwrap").classList.add("has-wall");
+  /* ---------- panel / sheet ---------- */
+  document.querySelectorAll(".tabs [data-tab]").forEach(b => b.onclick = () => { setTab(b.dataset.tab); openSheet("half"); });
+  $("#list").addEventListener("click", onListClick);
+  $("#list").addEventListener("keydown", e => { if (e.key === "Enter") e.target.click(); });
+  sheetDrag();
+  setTab("states");
+
+  /* ---------- controls ---------- */
+  const toggle = (id, fn) => { const b = $(id); b.onclick = () => { const on = b.getAttribute("aria-pressed") !== "true"; b.setAttribute("aria-pressed", on); fn(on); writeHash(); }; };
+  toggle("#l-alpr", renderAlprs);
+  toggle("#l-flock", v => { flockOnly = v; renderAlprs(); if (curTab === "view") setTab("view"); });
+  toggle("#l-tc", v => { renderTcs(); if (v) loadFeedsInView(); else closeCam(); });
+  toggle("#l-exits", v => v ? exitLayer.addTo(map) : map.removeLayer(exitLayer));
+  $("#search").onsubmit = e => { e.preventDefault(); const v = $("#q").value.trim(); if (v) search(v); $("#q").blur(); };
+  $("#btn-near").onclick = near;
+  $("#v-close").onclick = closeCam;
+  $("#v-play").onclick = () => { const b = $("#v-play"); b.setAttribute("aria-pressed", b.getAttribute("aria-pressed") !== "true"); schedule(); };
+  $("#v-prev").onclick = () => { const r = $("#v-range"); r.hidden = !r.hidden; if (r.hidden) { frameIdx = 0; r.value = 0; tick(); schedule(); } };
+  $("#v-range").oninput = e => { frameIdx = +e.target.value; tick(); schedule(); };
+  $("#v-open").onclick = () => curCam && window.open(curCam.stream || curCam.img, "_blank", "noopener");
+  $("#v-video").onclick = () => { if (videoOn) { stopVideo(); $("#v-vid").hidden = true; $("#v-img").hidden = false; $("#v-live").textContent = "live"; $("#v-video").textContent = "video"; videoOn = false; schedule(); } else playVideo(false); };
+  $("#v-near").addEventListener("click", e => { const r = e.target.closest("[data-alpr]"); if (!r) return; const a = alprs.get(+r.dataset.alpr); if (a) { map.flyTo([a.lat, a.lon], 17); showAlpr(a); } });
+  document.addEventListener("keydown", e => { if (e.target.matches("input")) { if (e.key === "Escape") e.target.blur(); return; } if (e.key === "/") { e.preventDefault(); $("#q").focus(); } else if (e.key === "Escape") closeCam(); });
+  try { const s = localStorage.getItem("flock-theme"); if (s === "dark" || s === "light") setTheme(s, true); else localStorage.removeItem("flock-theme"); } catch (_) {}
+  readHash();
 }
-$("#wall").addEventListener("click", e => {
-  const t = e.target.closest(".tile"); if (!t) return;
-  const m = camMarkers.get(+t.dataset.id); if (!m) return;
-  map.setView(m.getLatLng(), Math.max(map.getZoom(), 16)); m.openPopup();
-});
-const camIcon = L.divIcon({ className: "", html: '<div class="cam-ico"></div>', iconSize: [10, 10] });
-
-function fovWedge(lat, lon, deg) {
-  const pts = [[lat, lon]], R = 0.0009;
-  for (let a = deg - 30; a <= deg + 30; a += 10) {
-    const r = a * Math.PI / 180;
-    pts.push([lat + R * Math.cos(r), lon + R * Math.sin(r) / Math.cos(lat * Math.PI / 180)]);
-  }
-  return L.polygon(pts, { color: "#00ff41", weight: 0, fillOpacity: .18, interactive: false });
+function stateZoom() { if (!stateLayer) return; const far = map.getZoom() < 9; stateLayer.eachLayer(l => l.setStyle({ opacity: far ? 1 : 0, fillOpacity: far ? .04 + .4 * heat(l.feature.st[2]) : 0, interactive: far })); }
+function restyle() {
+  if (!map) return; const fg = cssVar("--fg"), inv = cssVar("--inv");
+  if (stateLayer) stateLayer.setStyle({ color: fg, fillColor: fg });
+  exitLayer.eachLayer(l => l.setStyle({ color: fg, fillColor: inv }));
+  renderAlprs(); renderTcs();
 }
 
-async function scan(manual) {
+/* ============================== movement ============================== */
+function onMove() {
+  const z = map.getZoom();
+  if (curTab === "view") setTab("view"); if (curTab === "tc") setTab("tc");
+  if (z >= 7) loadFeedsInView();
+  if (z >= 12) scan(); else if (z < 9) status(z < 6 ? "zoom into a city to load ALPR points and traffic cams" : "keep zooming: ALPRs load at street level");
+}
+
+/* ============================== ALPR nodes (OpenStreetMap) ============================== */
+const OVERPASS = ["https://overpass-api.de/api/interpreter", "https://overpass.kumi.systems/api/interpreter", "https://overpass.private.coffee/api/interpreter", "https://maps.mail.ru/osm/tools/overpass/api/interpreter"];
+const isFlock = tg => /flock/i.test((tg.manufacturer || "") + (tg.brand || "") + (tg.operator || "") + (tg.name || ""));
+async function scan(force) {
   if (busy) return;
-  if (map.getZoom() < 10) { if (manual) print("! zoom in to city level (z ≥ 10) before scanning. try: goto <city>", "a"); return; }
-  const b = map.getBounds();
-  const bbox = [b.getSouth(), b.getWest(), b.getNorth(), b.getEast()].map(v => v.toFixed(4)).join(",");
-  const q = `[out:json][timeout:25];(node["surveillance:type"="ALPR"](${bbox}););out body 2000;`;
-  busy = true; $("#net").textContent = "overpass: querying…";
-  if (manual) print(`$ overpass --bbox ${bbox} --tag surveillance:type=ALPR`, "t", true);
+  const b = map.getBounds().pad(.15); const key = [b.getSouth(), b.getWest(), b.getNorth(), b.getEast()].map(v => v.toFixed(2)).join(",");
+  if (key === lastScanKey && !force) return; lastScanKey = key;
+  const q = `[out:json][timeout:20];node["surveillance:type"="ALPR"](${key});out body 3000;`;
+  busy = true; status("loading ALPR points from OpenStreetMap…");
   let data = null;
-  for (const url of OVERPASS) {
-    try {
-      const r = await fetch(url, { method: "POST", body: "data=" + encodeURIComponent(q), headers: { "Content-Type": "application/x-www-form-urlencoded" } });
-      if (r.ok) { data = await r.json(); break; }
-    } catch (_) { /* try next mirror */ }
-  }
+  for (const url of OVERPASS) { try { const r = await fetchT(url, { method: "POST", body: "data=" + encodeURIComponent(q), headers: { "Content-Type": "application/x-www-form-urlencoded" } }, 15000); if (r.ok) { data = await r.json(); break; } } catch (_) {} }
   busy = false;
-  if (!data) { $("#net").textContent = "overpass: offline"; print("! overpass mirrors unreachable. retry in a moment.", "r"); return; }
+  if (!data) { lastScanKey = ""; status("OpenStreetMap is slow right now; traffic cams still work. pan to retry."); return; }
   let added = 0, flock = 0;
-  for (const el of data.elements) {
-    const tg = el.tags || {};
-    if (/flock/i.test((tg.manufacturer || "") + (tg.brand || "") + (tg.operator || ""))) flock++;
-    if (seen.has(el.id)) continue; seen.add(el.id); added++; camCount++;
-    const dir = parseFloat(tg["camera:direction"] || tg.direction);
-    if (!isNaN(dir)) fovWedge(el.lat, el.lon, dir).addTo(camLayer);
-    const rows = Object.entries(tg).map(([k, v]) => `<span style="color:#4f8a5b">${esc(k)}</span>=${esc(v)}`).join("<br>");
-    const mk = L.marker([el.lat, el.lon], { icon: camIcon });
-    camMarkers.set(el.id, mk); addToWall(el);
-    mk.bindPopup(`<b>ALPR node/${el.id}</b><br>${el.lat.toFixed(5)}, ${el.lon.toFixed(5)}<br>${rows}<br><a href="https://www.openstreetmap.org/node/${el.id}" target="_blank" rel="noopener">view on OSM ↗</a>`)
-      .addTo(camLayer);
-  }
-  $("#net").textContent = `overpass: ${data.elements.length} in view`;
-  print(`+ ${data.elements.length} ALPRs in view (${flock} tagged Flock), ${added} new. total on grid: ${camCount}`, data.elements.length ? "" : "a", true);
+  for (const el of data.elements) { const tg = el.tags || {}; const fl = isFlock(tg); if (fl) flock++; if (alprs.has(el.id)) continue; added++; alprs.set(el.id, { id: el.id, lat: el.lat, lon: el.lon, tags: tg, flock: fl }); }
+  renderAlprs();
+  status(`${data.elements.length} ALPRs here · ${flock} tagged Flock · ${alprs.size} loaded`);
+  if (curTab === "view") setTab("view");
 }
-let t; map.on("moveend", () => { clearTimeout(t); if (auto && map.getZoom() >= 11) t = setTimeout(() => scan(false), 600); });
+function renderAlprs() {
+  alprLayer.clearLayers();
+  if ($("#l-alpr").getAttribute("aria-pressed") !== "true") return;
+  const fg = cssVar("--fg"), inv = cssVar("--inv"), b = viewBounds(.3), z = map.getZoom();
+  const r = z >= 15 ? 6 : z >= 13 ? 5 : 4;
+  alprs.forEach(a => {
+    if ((b && !b.contains([a.lat, a.lon])) || (flockOnly && !a.flock)) return;
+    L.circleMarker([a.lat, a.lon], { radius: r, weight: a.flock ? 2 : 1, color: fg, fillColor: a.flock ? inv : fg, fillOpacity: 1 }).addTo(alprLayer).on("click", () => showAlpr(a));
+  });
+}
+function showAlpr(a) {
+  const tg = a.tags; const nc = nearestCams(a.lat, a.lon, 1)[0];
+  showCard(`<h2>${a.flock ? "Flock " : ""}ALPR · node ${a.id}</h2><p>${a.lat.toFixed(5)}, ${a.lon.toFixed(5)}</p>` +
+    Object.entries(tg).filter(([k]) => k !== "surveillance:type").slice(0, 8).map(([k, v]) => `<p>${esc(k)} = ${esc(v)}</p>`).join("") +
+    `<div class="acts"><button data-act="osm" data-id="${a.id}">open in OSM</button>${nc ? `<button data-act="cam" data-id="${nc.c.id}">nearest traffic cam · ${dist(nc.d)}</button>` : `<button data-act="findcam" data-ll="${a.lat},${a.lon}">find a traffic cam</button>`}</div>`);
+}
 
-/* ============================== side index ============================== */
-function showStates(list = STATES) {
-  $("#idx-title").textContent = "STATES // MAPPED CAMERAS";
-  $("#idx").innerHTML = list.map(([name, ab, n], i) => `
-    <div class="row" tabindex="0" data-ab="${ab}">
-      <span class="n">${String(STATES.findIndex(s => s[1] === ab) + 1).padStart(2, "0")}</span><span>${esc(name)}</span><span>${fmt(n)}</span>
-      <div class="bar"><i style="width:${(100 * n / maxC).toFixed(1)}%"></i></div>
-    </div>`).join("");
-}
-function showExits() {
-  $("#idx-title").textContent = `CONTRACT EXITS // ${EXITS.length} PLOTTED`;
-  $("#idx").innerHTML = EXITS.map(([p, st, d, a, why], i) => `
-    <div class="cxrow" tabindex="0" data-i="${i}"><b>${esc(p)}, ${st}</b> · ${esc(a)}<small>${esc(d)} — ${esc(why)}</small></div>`).join("");
-}
-$("#idx").addEventListener("click", e => {
-  const r = e.target.closest("[data-ab],[data-i]"); if (!r) return;
-  if (r.dataset.ab) { focusState(r.dataset.ab); }
-  else { const x = EXITS[+r.dataset.i]; if (mode === "globe") flyGlobe(x[5], x[6], .35); else map.flyTo([x[5], x[6]], 12); print(`&gt; ${esc(x[0])}, ${x[1]}: ${esc(x[3])} (${esc(x[2])}). ${esc(x[4])} ${srcLink(x[7])}`, "r", true); }
-});
-$("#idx").addEventListener("keydown", e => { if (e.key === "Enter") e.target.click(); });
-$("#tab-states").onclick = () => { $("#tab-states").setAttribute("aria-pressed", "true"); $("#tab-cx").setAttribute("aria-pressed", "false"); showStates(); };
-$("#tab-cx").onclick = () => { $("#tab-cx").setAttribute("aria-pressed", "true"); $("#tab-states").setAttribute("aria-pressed", "false"); showExits(); };
-showStates();
-
-/* ============================== globe ============================== */
-let mode = "globe", G = null, hoverF = null, selAb = null;
-const wrap = $("#mapwrap");
-function setMode(m) {
-  if (m === mode) return;
-  mode = m;
-  wrap.classList.toggle("globe", m === "globe"); wrap.classList.toggle("street", m === "street");
-  $("#m-globe").setAttribute("aria-pressed", m === "globe"); $("#m-street").setAttribute("aria-pressed", m === "street");
-  $("#target").classList.toggle("on", m === "globe" && !!selAb);
-  if (m === "street") setTimeout(() => map.invalidateSize(), 30);
-  else if (G) G.width(wrap.clientWidth).height(wrap.clientHeight);
-}
-$("#m-globe").onclick = () => setMode("globe");
-$("#m-street").onclick = () => setMode("street");
-function flyGlobe(lat, lng, alt = .55) { if (G) { G.controls().autoRotate = false; G.pointOfView({ lat, lng, altitude: alt }, 1400); } }
-const gAlt = f => .006 + .11 * heat(f.st[2]);
-const gCap = f => { const h = heat(f.st[2]); return `rgba(0,${Math.round(90 + 165 * h)},${Math.round(40 + 25 * h)},${(.28 + .6 * h).toFixed(2)})`; };
-function paintGlobe() {
-  if (!G) return;
-  G.polygonAltitude(f => f.st[1] === selAb ? gAlt(f) + .05 : f === hoverF ? gAlt(f) + .025 : gAlt(f))
-   .polygonCapColor(f => f.st[1] === selAb ? "rgba(190,255,205,.95)" : f === hoverF ? "rgba(0,255,65,.92)" : gCap(f));
-}
-function focusState(ab, quiet) {
-  const st = byAb[ab]; if (!st) return;
-  selAb = ab;
-  if (mode === "globe") { flyGlobe(st[3], st[4], ["DC", "RI", "DE", "CT", "NJ"].includes(ab) ? .35 : ["TX", "CA", "AK", "MT"].includes(ab) ? 1.05 : .7); paintGlobe(); }
-  else if (stateLayers[ab]) map.fitBounds(stateLayers[ab].getBounds(), { maxZoom: 8 });
-  else map.flyTo([st[3], st[4]], 6);
-  const ex = EXITS.filter(e => e[1] === ab);
-  $("#target").innerHTML = `<button class="x" aria-label="Close">✕</button><h3>◎ ${esc(st[0].toUpperCase())} [${ab}]</h3>
-    ${fmt(st[2])} mapped ALPRs · rank #${rankOf(ab)}/${STATES.length}<div class="meter"><i style="width:${(100 * st[2] / maxC).toFixed(1)}%"></i></div>
-    ${(100 * st[2] / TOTAL).toFixed(2)}% of the US total` +
-    (ex.length ? `<br><span style="color:#ff3355">✕ exits: ${ex.map(e => esc(e[0])).join(", ")}</span>` : "") +
-    `<button class="dive">DIVE ▸ STREET LEVEL</button>`;
-  $("#target").classList.toggle("on", mode === "globe");
-  $("#target .x").onclick = () => { $("#target").classList.remove("on"); selAb = null; paintGlobe(); };
-  $("#target .dive").onclick = () => { $("#target").classList.remove("on"); setMode("street"); setTimeout(() => focusState(ab, true), 60); print(`▦ diving into ${esc(st[0])}: zoom to a city and live camera nodes load`, "c", true); };
-  if (!quiet) print(`&gt; target ${esc(st[0])}: ${fmt(st[2])} mapped cameras, rank #${rankOf(ab)}/${STATES.length}`, "", true);
-}
-(async () => {
-  const el = $("#globe");
+/* ============================== traffic cams ============================== */
+const feedJobs = {};
+function loadFeed(f) { return feedJobs[f.id] || (feedJobs[f.id] = loadFeedNow(f)); }
+async function loadFeedNow(f) {
+  feedState[f.id] = "loading"; status(`loading ${f.name} cameras…`);
   try {
-    if (typeof Globe !== "function") throw new Error("globe.gl missing");
-    G = Globe()(el)
-      .width(wrap.clientWidth).height(wrap.clientHeight)
-      .backgroundColor("rgba(0,0,0,0)")
-      .globeImageUrl("https://cdn.jsdelivr.net/npm/three-globe@2.45.3/example/img/earth-dark.jpg")
-      .bumpImageUrl("https://cdn.jsdelivr.net/npm/three-globe@2.45.3/example/img/earth-topology.png")
-      .showAtmosphere(true).atmosphereColor("#00ff41").atmosphereAltitude(.16)
-      .pointOfView({ lat: 37, lng: -97, altitude: 1.9 })
-      .polygonSideColor(() => "rgba(0,255,65,.18)")
-      .polygonStrokeColor(() => "#00ff41")
-      .polygonLabel(f => `<div class="gtip">${stateTip(f.st)}<br><span style="color:#4f8a5b">click to target</span></div>`)
-      .onPolygonHover(f => { hoverF = f; el.style.cursor = f ? "pointer" : "grab"; paintGlobe(); })
-      .onPolygonClick(f => focusState(f.st[1]))
-      .polygonsTransitionDuration(300)
-      .pointsData(EXITS.map(e => ({ e })))
-      .pointLat(d => d.e[5]).pointLng(d => d.e[6]).pointColor(() => "#ff3355").pointAltitude(.02).pointRadius(.22)
-      .pointLabel(d => `<div class="gtip"><b class="r">${esc(d.e[0])}, ${d.e[1]}</b><br>${esc(d.e[3])} · ${esc(d.e[2])}<br>${esc(d.e[4])}</div>`)
-      .onPointClick(d => { focusState(d.e[1], true); print(`&gt; ${esc(d.e[0])}, ${d.e[1]}: ${esc(d.e[3])} (${esc(d.e[2])}). ${esc(d.e[4])} ${srcLink(d.e[7])}`, "r", true); })
-      .ringsData(EXITS.map(e => ({ lat: e[5], lng: e[6] })))
-      .ringColor(() => t => `rgba(255,51,85,${(1 - t).toFixed(2)})`).ringMaxRadius(1.6).ringPropagationSpeed(1.2).ringRepeatPeriod(1600)
-      .labelsData(STATES.slice(0, 8)).labelLat(s => s[3]).labelLng(s => s[4]).labelText(s => `${s[1]} ${fmt(s[2])}`)
-      .labelSize(.9).labelDotRadius(.3).labelColor(() => "rgba(200,255,210,.9)").labelResolution(2).labelAltitude(.13);
-    const c = G.controls(); c.autoRotate = true; c.autoRotateSpeed = .35;
-    c.addEventListener("start", () => { c.autoRotate = false; });
-    new ResizeObserver(() => { if (mode === "globe") G.width(wrap.clientWidth).height(wrap.clientHeight); }).observe(wrap);
-    const shapes = await shapesReady;
-    G.polygonsData(shapes); paintGlobe();
-  } catch (err) {
-    print("! 3D globe needs WebGL; switching to the street map", "a");
-    mode = "globe"; setMode("street");
+    const cams = await Promise.race([f.load(), new Promise((_, rej) => setTimeout(() => rej(new Error("timeout")), 25000))]);
+    cams.forEach(c => { if (isFinite(c.lat) && isFinite(c.lon)) tcams.set(c.id, c); });
+    feedState[f.id] = "ok"; status(`${f.name}: ${cams.length} public cameras`); renderTcs(); if (curTab === "tc") setTab("tc");
+  } catch (e) { feedState[f.id] = "fail"; delete feedJobs[f.id]; status(`${f.name} unavailable`); }
+}
+const feedsFor = (S, W, N, E) => FEEDS.filter(f => !(f.bbox[2] < S || f.bbox[0] > N || f.bbox[3] < W || f.bbox[1] > E));
+function loadFeedsInView() { if ($("#l-tc").getAttribute("aria-pressed") !== "true") return; const b = map.getBounds(); feedsFor(b.getSouth(), b.getWest(), b.getNorth(), b.getEast()).forEach(loadFeed); }
+const THUMB_ZOOM = 13, THUMB_MAX = 40; let thumbT = null; const thumbImgs = new Map();
+function renderTcs() {
+  tcLayer.clearLayers(); thumbImgs.clear(); clearInterval(thumbT);
+  if ($("#l-tc").getAttribute("aria-pressed") !== "true" || map.getZoom() < 7) return;
+  const fg = cssVar("--fg"), inv = cssVar("--inv"), b = viewBounds(.2), z = map.getZoom(), ctr = map.getCenter();
+  const vis = [...tcams.values()].filter(c => !b || b.contains([c.lat, c.lon]));
+  // at street zoom the nearest cameras show a live preview thumbnail; the rest stay as rings
+  const thumbs = new Set(z >= THUMB_ZOOM ? vis.map(c => ({ c, d: km(ctr.lat, ctr.lng, c.lat, c.lon) })).sort((x, y) => x.d - y.d).slice(0, THUMB_MAX).map(x => x.c.id) : []);
+  vis.forEach(c => {
+    const on = curCam && curCam.id === c.id;
+    if (thumbs.has(c.id)) {
+      const m = L.marker([c.lat, c.lon], { icon: L.divIcon({ className: "", html: `<div class="thumb${on ? " on" : ""}" title="${esc(c.name)}"><img alt="" loading="lazy" decoding="async" src="${esc(c.img)}"></div>`, iconSize: [0, 0] }), keyboard: false, zIndexOffset: on ? 1000 : 0 }).addTo(tcLayer).on("click", () => openCam(c.id));
+      m.on("add", () => { const img = m.getElement()?.querySelector("img"); if (img) thumbImgs.set(c.id, img); });
+      const img = m.getElement()?.querySelector("img"); if (img) thumbImgs.set(c.id, img);
+    } else {
+      L.circleMarker([c.lat, c.lon], { radius: on ? 9 : z >= 11 ? 7 : 5, weight: 2, color: fg, fillColor: on ? fg : inv, fillOpacity: 1 }).addTo(tcLayer).on("click", () => openCam(c.id));
+    }
+  });
+  if (thumbs.size) thumbT = setInterval(() => { if (document.hidden) return; thumbImgs.forEach((img, id) => { const c = tcams.get(id); if (c && img.isConnected) img.src = c.img + (c.img.includes("?") ? "&" : "?") + "t=" + Date.now(); }); }, 10000);
+}
+const camsInView = () => { const b = map.getBounds(); return [...tcams.values()].filter(c => b.contains([c.lat, c.lon])); };
+const nearestCams = (lat, lon, n = 5) => [...tcams.values()].map(c => ({ c, d: km(lat, lon, c.lat, c.lon) })).sort((a, b) => a.d - b.d).slice(0, n);
+const nearestAlprs = (lat, lon, n = 5) => [...alprs.values()].filter(a => !flockOnly || a.flock).map(a => ({ a, d: km(lat, lon, a.lat, a.lon) })).sort((a, b) => a.d - b.d).slice(0, n);
+async function findCam(lat, lon) {
+  const fs = feedsFor(lat - .6, lon - .6, lat + .6, lon + .6);
+  if (!fs.length) return toast("no public traffic feed here yet (California + NYC)");
+  await Promise.all(fs.map(loadFeed)); const n = nearestCams(lat, lon, 1)[0];
+  if (!n) return toast("no cameras in that feed");
+  map.flyTo([n.c.lat, n.c.lon], Math.max(map.getZoom(), 14)); openCam(n.c.id);
+}
+
+/* ---------- viewer ---------- */
+function openCam(id) {
+  const c = tcams.get(id); if (!c) return; curCam = c; frameIdx = 0;
+  $("#viewer").classList.add("on"); if (!isDesktop()) openSheet("peek");
+  $("#v-name").textContent = c.name + (c.place ? " · " + c.place : "");
+  $("#v-prev").hidden = !(c.prev && c.prev.length); $("#v-range").hidden = true; $("#v-range").max = c.prev ? c.prev.length : 0; $("#v-range").value = 0;
+  $("#v-video").hidden = !c.stream; stopVideo(); $("#v-img").hidden = false; $("#v-vid").hidden = true;
+  tick(); schedule(); renderTcs();
+  if (c.stream) playVideo(true);
+  const na = nearestAlprs(c.lat, c.lon);
+  $("#v-near").innerHTML = (na.length ? `nearest mapped ALPRs` + na.map(({ a, d }) => `<div class="row" tabindex="0" data-alpr="${a.id}"><span class="t">${a.flock ? "Flock " : ""}node ${a.id}<small>${esc(a.tags.operator || a.tags.manufacturer || a.tags.brand || "ALPR")}</small></span><span class="v">${dist(d)}</span></div>`).join("")
+    : `no ALPR points loaded nearby yet; zoom in to street level and they load.`) + `<div style="margin-top:6px">${esc(c.feed)} · every ${c.every}s · <a href="${c.src}" target="_blank" rel="noopener">source</a></div>`;
+  writeHash();
+}
+function tick() {
+  if (!curCam) return;
+  const url = frameIdx > 0 && curCam.prev[frameIdx - 1] ? curCam.prev[frameIdx - 1] : curCam.img;
+  const img = $("#v-img"), pre = new Image();
+  pre.onload = () => { img.src = pre.src; $("#v-stamp").textContent = (frameIdx ? `−${frameIdx} · ` : "") + new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" }); $("#v-live").textContent = frameIdx ? "history" : "live"; };
+  pre.onerror = () => { $("#v-stamp").textContent = "frame unavailable"; $("#v-live").textContent = "offline"; };
+  pre.src = url + (url.includes("?") ? "&" : "?") + "t=" + Date.now();
+}
+function schedule() { clearInterval(refreshT); if ($("#v-play").getAttribute("aria-pressed") === "true" && curCam && frameIdx === 0 && !document.hidden) refreshT = setInterval(tick, Math.max(2, curCam.every) * 1000); }
+document.addEventListener("visibilitychange", schedule);
+function stopVideo() { if (hls) { hls.destroy(); hls = null; } const v = $("#v-vid"); v.onplaying = v.onerror = null; v.pause(); v.removeAttribute("src"); v.load(); videoOn = false; }
+function closeCam() { $("#viewer").classList.remove("on"); clearInterval(refreshT); clearTimeout(videoT); stopVideo(); curCam = null; renderTcs(); writeHash(); }
+let videoOn = false, videoT = null;
+function playVideo(auto) {
+  if (!curCam || !curCam.stream) return;
+  const cam = curCam, v = $("#v-vid"); stopVideo(); clearTimeout(videoT);
+  const fail = () => { if (curCam !== cam) return; stopVideo(); v.hidden = true; $("#v-img").hidden = false; $("#v-live").textContent = "live"; $("#v-video").hidden = true; videoOn = false; schedule(); if (!auto) toast("no video stream; showing live stills"); };
+  const ok = () => { if (curCam !== cam) return; clearTimeout(videoT); $("#v-img").hidden = true; v.hidden = false; $("#v-live").textContent = "video"; $("#v-video").textContent = "stills"; videoOn = true; clearInterval(refreshT); };
+  v.onplaying = ok; v.onerror = fail;
+  videoT = setTimeout(fail, 8000); // stills keep showing until the stream actually plays
+  if (v.canPlayType("application/vnd.apple.mpegurl")) { v.src = cam.stream; v.play().catch(fail); return; }
+  const go = () => { if (!window.Hls || !Hls.isSupported()) return fail(); hls = new Hls({ maxBufferLength: 10 }); hls.loadSource(cam.stream); hls.attachMedia(v); hls.on(Hls.Events.MANIFEST_PARSED, () => v.play().catch(() => {})); hls.on(Hls.Events.ERROR, (_, d) => { if (d.fatal) fail(); }); };
+  if (window.Hls) go(); else { const s = document.createElement("script"); s.src = "https://cdnjs.cloudflare.com/ajax/libs/hls.js/1.5.13/hls.light.min.js"; s.onload = go; s.onerror = fail; document.head.appendChild(s); }
+}
+
+/* ============================== panel ============================== */
+function setTab(t) {
+  curTab = t; document.querySelectorAll(".tabs [data-tab]").forEach(b => b.setAttribute("aria-pressed", b.dataset.tab === t));
+  const L_ = $("#list"); L_.className = "list" + (t === "news" ? " news" : "");
+  if (t === "states") L_.innerHTML = STATES.map(([name, ab, n]) => `<div class="row" tabindex="0" data-ab="${ab}"><span class="n">${rankOf(ab)}</span><span class="t">${esc(name)}<div class="bar"><i style="width:${(100 * n / maxC).toFixed(1)}%"></i></div></span><span class="v">${fmt(n)}</span></div>`).join("");
+  else if (t === "exits") L_.innerHTML = EXITS.map((x, i) => `<div class="row" tabindex="0" data-exit="${i}"><span class="t">✕ ${esc(x[0])}, ${x[1]}<small>${esc(x[3])} · ${esc(x[2])} · ${esc(x[4])}</small></span></div>`).join("") + `<div class="note">Trackers count 200+ city and county exits in 2026, 93 in August alone. ${src("findingflock")}.</div>`;
+  else if (t === "news") L_.innerHTML = NEWS.slice().reverse().map(([d, c, s, k]) => `<div class="row"><span class="n">${d}</span><span class="t">${esc(s)}<small>${src(k)}</small></span></div>`).join("");
+  else if (t === "about") L_.innerHTML = `<div class="note"><b>What this is.</b> A map of automatic license plate readers (ALPRs), most of them sold by Flock Safety, which photograph every passing car and log the plate into a searchable network. Squares are ALPR points volunteers have mapped in OpenStreetMap; hollow squares are tagged Flock. Rings are public traffic cameras from state and city transportation departments: Caltrans (3,000+ across California) and NYC DOT. Flock's own feeds are private and are not shown; the rings let you see the road around a reader. ✕ marks towns that cancelled or paused Flock in 2026.</div><div class="note"><b>Tips.</b> Search a city or a camera name. Tap <b>near me</b> for the closest readers and cameras; your location never leaves the browser. Share copies a link to the exact view. Export downloads the ALPRs in view as CSV.<div class="acts" style="margin-top:8px"><button data-act="share">share this view</button><button data-act="export">export csv</button></div></div><div class="note"><b>Sources.</b> ${Object.keys(SRC).map(src).join(" · ")} · <a href="https://cwwp2.dot.ca.gov/" target="_blank" rel="noopener">Caltrans CWWP2</a> · <a href="https://webcams.nyctmc.org/" target="_blank" rel="noopener">NYC DOT</a>. Counts come from public reporting and volunteer mapping, not from Flock, and differ by source and date. Compiled 2026-10-03.</div>`;
+  else if (t === "view") {
+    const c = map.getCenter(), b = map.getBounds();
+    const list = [...alprs.values()].filter(a => b.contains([a.lat, a.lon]) && (!flockOnly || a.flock)).map(a => ({ a, d: km(c.lat, c.lng, a.lat, a.lon) })).sort((x, y) => x.d - y.d).slice(0, 150);
+    L_.innerHTML = list.length ? list.map(({ a, d }) => `<div class="row" tabindex="0" data-alpr="${a.id}"><span class="t">${a.flock ? "Flock " : ""}node ${a.id}<small>${esc(a.tags.operator || a.tags.manufacturer || a.tags.brand || "ALPR")}${a.tags["camera:direction"] ? " · facing " + esc(a.tags["camera:direction"]) + "°" : ""}</small></span><span class="v">${dist(d)}</span></div>`).join("") + `<div class="note"><button data-act="export" style="min-height:32px;padding:5px 12px;font-size:12px">export these ${list.length} as csv</button></div>`
+      : `<div class="note">no ALPR points loaded in this view. zoom to street level (z ≥ 12) and they load from OpenStreetMap. distances are from the map centre.</div>`;
+  } else if (t === "tc") {
+    const c = map.getCenter();
+    const list = camsInView().map(x => ({ c: x, d: km(c.lat, c.lng, x.lat, x.lon) })).sort((x, y) => x.d - y.d).slice(0, 150);
+    const groups = [...new Set(FEEDS.map(f => f.group))].map(g => { const st = FEEDS.filter(f => f.group === g).map(f => feedState[f.id]); return `${g}: ${st.includes("ok") ? "on" : st.includes("loading") ? "loading" : st.includes("fail") ? "unavailable" : "idle"}`; }).join(" · ");
+    L_.innerHTML = `<div class="note">${groups}</div>` + (list.length ? list.map(({ c, d }) => `<div class="row" tabindex="0" data-cam="${c.id}"><span class="t">${esc(c.name)}<small>${esc(c.place || "")}</small></span><span class="v">${dist(d)}</span></div>`).join("")
+      : `<div class="note">no public traffic cameras in this view. feeds plugged in: California (Caltrans) and New York City (NYC DOT). pan there at z ≥ 9, or search a camera name like <b>bay bridge</b>.</div>`);
   }
-})();
-$("#search").addEventListener("submit", e => { e.preventDefault(); const v = $("#q").value.trim(); if (v) run("goto " + v); });
-
-/* ============================== terminal ============================== */
-async function geocode(q) {
-  const r = await fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=us,pr&q=${encodeURIComponent(q)}`);
-  const j = await r.json(); return j[0];
+  L_.scrollTop = 0;
 }
-const CMDS = {
-  help() {
-    print([
-      "commands:",
-      "  news              timeline of the 2026 Flock story",
-      "  top [n]           states ranked by mapped cameras",
-      "  state <name|XX>   stats for one state and fly there",
-      "  globe | street    switch between the 3D globe and the street map",
-      "  goto <place>      fly to a city / address (OSM geocoder)",
-      "  scan              pull live ALPR points for the current view",
-      "  near              locate you and scan around you",
-      "  exits             cities that cancelled / paused contracts",
-      "  leak              what the leaked Flock device map showed",
-      "  ice               federal immigration lookups",
-      "  auto on|off       auto-scan when zoomed in (now: " + (auto ? "on" : "off") + ")",
-      "  sources           every source used",
-      "  clear             clear the terminal"
-    ].join("\n"), "c");
-  },
-  news() { NEWS.forEach(([d, c, s, k]) => print(`[${d}] ${esc(s)} ${srcLink(k)}`, c === "r" ? "r" : c === "a" ? "a" : "", true)); },
-  top(n) {
-    n = Math.max(1, Math.min(52, parseInt(n) || 10));
-    STATES.slice(0, n).forEach(([name, ab, c], i) => {
-      const bar = "█".repeat(Math.max(1, Math.round(28 * c / maxC)));
-      print(`${String(i + 1).padStart(2)} ${ab} ${bar} ${fmt(c)}`, "", true);
-    });
-  },
-  state(...a) {
-    const q = a.join(" ").toLowerCase(); if (!q) return print("usage: state <name|XX>", "a");
-    const s = STATES.find(s => s[1].toLowerCase() === q || s[0].toLowerCase() === q) || STATES.find(s => s[0].toLowerCase().startsWith(q));
-    if (!s) return print(`! no state matching "${esc(q)}"`, "r");
-    const ex = EXITS.filter(e => e[1] === s[1]);
-    print(`${esc(s[0])} [${s[1]}] · ${fmt(s[2])} mapped ALPRs · ${(100 * s[2] / TOTAL).toFixed(2)}% of US · rank #${STATES.indexOf(s) + 1}` + (ex.length ? `\n  exits plotted: ${ex.map(e => esc(e[0])).join(", ")}` : ""), "", true);
-    focusState(s[1], true);
-  },
-  async goto(...a) {
-    const q = a.join(" "); if (!q) return print("usage: goto <place>", "a");
-    print(`$ geocode "${esc(q)}"`, "t", true);
-    setMode("street");
-    try {
-      const g = await geocode(q); if (!g) return print("! not found", "r");
-      print(`→ ${esc(g.display_name)}`, "", true);
-      const bb = g.boundingbox.map(Number);
-      map.flyToBounds([[bb[0], bb[2]], [bb[1], bb[3]]], { maxZoom: 13 });
-      map.once("moveend", () => { if (map.getZoom() < 11) map.setZoom(11); });
-    } catch { print("! geocoder unreachable", "r"); }
-  },
-  scan() { setMode("street"); return scan(true); },
-  globe() { setMode("globe"); print("◉ globe view: drag to spin, click a state, then DIVE to street level", "c", true); },
-  street() { setMode("street"); print("▦ street view: zoom into a city to load live camera nodes", "c", true); },
-  near() {
-    if (!navigator.geolocation) return print("! geolocation not available", "r");
-    print("$ locate --self (your position stays in this browser)", "t", true);
-    setMode("street");
-    navigator.geolocation.getCurrentPosition(p => { map.setView([p.coords.latitude, p.coords.longitude], 13); setTimeout(() => scan(true), 700); },
-      () => print("! location permission denied", "r"));
-  },
-  exits() {
-    $("#tab-cx").click();
-    print(`${EXITS.length} exits plotted in red. Trackers count 200+ city/county exits in 2026, 93 in August alone.`, "r", true);
-    EXITS.slice(0, 10).forEach(e => print(`  ✕ ${esc(e[0])}, ${e[1]} · ${esc(e[3])} · ${esc(e[2])}`, "r", true));
-    print("  … click a row in the left panel to fly there", "t", true);
-  },
-  leak() {
-    print([
-      "LEAK // reported by The Intercept, 2026-09-24",
-      "  2025-11  researcher Joshua Michael finds a Flock server handing out an access token with no login",
-      "           that token queried Flock's ArcGIS layer of device locations",
-      "  2025-11-13  first of three notices to Flock",
-      "  2026-01  Flock: \"Flock has never been hacked, and there has not been a leak\"",
-      "  result   170,000+ cameras + 130,000+ other devices ≈ 300,000 (Tom's Hardware counts 335,701)",
-      "           incl. 27,000 acoustic (gunshot) sensors, 860 devices around Chicago O'Hare",
-      "  2026-09  Flock files a trademark complaint to take the map down"
-    ].join("\n"), "a");
-    print(`${srcLink("intercept")} ${srcLink("toms")}`, "", true);
-  },
-  ice() {
-    print("ICE has no Flock contract. Per 404 Media's review, local and state police ran 4,000+ Flock searches at federal immigration request. Illinois and California audits documented federal access contrary to state law.", "r", true);
-    print(`${srcLink("ice")} ${srcLink("findingflock")}`, "", true);
-  },
-  auto(v) { auto = v !== "off"; print(`auto-scan ${auto ? "on" : "off"}`, "", true); },
-  sources() { Object.keys(SRC).forEach(k => print(`  ${srcLink(k)}`, "", true)); },
-  clear() { logEl.innerHTML = ""; }
-};
-const hist = []; let hi = 0;
-async function run(line) {
-  line = line.trim(); if (!line) return;
-  hist.push(line); hi = hist.length;
-  print(`flock@grid:~$ ${esc(line)}`, "c", true);
-  const [c, ...a] = line.split(/\s+/);
-  const f = CMDS[c.toLowerCase()];
-  if (f) await f(...a); else print(`command not found: ${esc(c)} · type help`, "r", true);
+function showCard(html) { $("#list").innerHTML = `<div class="card">${html}</div>`; document.querySelectorAll(".tabs [data-tab]").forEach(b => b.setAttribute("aria-pressed", false)); curTab = "card"; openSheet("half"); }
+function onListClick(e) {
+  const r = e.target.closest("[data-ab],[data-exit],[data-alpr],[data-cam],[data-act]"); if (!r) return;
+  const d = r.dataset;
+  if (d.ab) focusState(d.ab);
+  else if (d.exit) { const x = EXITS[+d.exit]; map.flyTo([x[5], x[6]], 12); showCard(`<h2>✕ ${esc(x[0])}, ${x[1]}</h2><p>${esc(x[3])} · ${esc(x[2])}</p><p>${esc(x[4])}</p><p>${src(x[7])}</p>`); }
+  else if (d.alpr) { const a = alprs.get(+d.alpr); map.flyTo([a.lat, a.lon], 17); showAlpr(a); if (!isDesktop()) openSheet("peek"); }
+  else if (d.cam) { const c = tcams.get(d.cam); map.flyTo([c.lat, c.lon], Math.max(map.getZoom(), 14)); openCam(c.id); }
+  else if (d.act === "osm") window.open("https://www.openstreetmap.org/node/" + d.id, "_blank", "noopener");
+  else if (d.act === "cam") { const c = tcams.get(d.id); map.flyTo([c.lat, c.lon], Math.max(map.getZoom(), 14)); openCam(c.id); }
+  else if (d.act === "findcam") { const [la, lo] = d.ll.split(",").map(Number); findCam(la, lo); }
+  else if (d.act === "share") share();
+  else if (d.act === "export") exportCsv();
 }
-$("#cmd").addEventListener("submit", e => { e.preventDefault(); const v = $("#in").value; $("#in").value = ""; run(v); });
-$("#in").addEventListener("keydown", e => {
-  if (e.key === "ArrowUp" && hi > 0) { $("#in").value = hist[--hi]; e.preventDefault(); }
-  if (e.key === "ArrowDown") { hi = Math.min(hist.length, hi + 1); $("#in").value = hist[hi] || ""; e.preventDefault(); }
-});
-document.querySelectorAll(".chips button").forEach(b => b.onclick = () => run(b.dataset.c));
+function focusState(ab) {
+  const st = byAb[ab]; if (!st) return;
+  const ex = EXITS.filter(e => e[1] === ab), feeds = FEEDS.some(f => f.id.startsWith(ab === "CA" ? "ca" : ab === "NY" ? "nyc" : "~"));
+  if (stateLayer) { const l = stateLayer.getLayers().find(l => l.feature.st[1] === ab); if (l) map.flyToBounds(l.getBounds(), { maxZoom: 8, padding: [20, 20] }); }
+  showCard(`<h2>${esc(st[0])}</h2><p>${fmt(st[2])} mapped ALPRs · rank ${rankOf(ab)} of ${STATES.length} · ${(100 * st[2] / TOTAL).toFixed(1)}% of the US total</p>` +
+    (ex.length ? `<p>✕ exits: ${ex.map(e => esc(e[0])).join(", ")}</p>` : "") + (feeds ? `<p>◉ public traffic cameras are plugged in for this state</p>` : "") +
+    `<p>zoom into a city to load the individual readers.</p>`);
+  if (!isDesktop()) openSheet("peek");
+}
 
-// boot
-[
-  "FLOCK://GRID v1.0 · booting…",
-  "loading 52 state tallies (DeFlock, 2026-09-28) …… ok",
-  `loading ${EXITS.length} contract exits …… ok`,
-  "linking overpass-api.de (OpenStreetMap) …… ready",
-  "",
-  "Flock Safety sells cameras that photograph every passing car and log its plate into a searchable network.",
-  "In 2026 the backlash went national: a leaked map of ~300k devices, a Florida highway ban, and 200+ cities walking away.",
-  ""
-].forEach((l, i) => print(l, i < 4 ? "t" : ""));
-print("drag the <b>globe</b>, click a state, then <b>DIVE ▸ STREET LEVEL</b>. Or type <b>help</b>, or search a city above.", "c");
+/* ---------- bottom sheet ---------- */
+let sheetPos = "peek";
+function openSheet(p) { sheetPos = p; const s = $("#sheet"); s.classList.remove("half", "full"); if (p !== "peek") s.classList.add(p); }
+function sheetDrag() {
+  const s = $("#sheet"), h = $("#handle"); let y0 = 0, p0 = 0, dragging = false;
+  const start = e => { dragging = true; y0 = e.touches ? e.touches[0].clientY : e.clientY; p0 = s.getBoundingClientRect().top; s.classList.add("drag"); };
+  const move = e => { if (!dragging) return; const y = e.touches ? e.touches[0].clientY : e.clientY; const top = Math.max(innerHeight - s.offsetHeight, p0 + (y - y0)); s.style.transform = `translateY(${top - (innerHeight - s.offsetHeight)}px)`; };
+  const end = e => { if (!dragging) return; dragging = false; s.classList.remove("drag"); s.style.transform = ""; const y = (e.changedTouches ? e.changedTouches[0].clientY : e.clientY), dy = y - y0; if (Math.abs(dy) < 8) { openSheet(sheetPos === "peek" ? "half" : "peek"); return; } openSheet(dy < 0 ? (sheetPos === "peek" ? "half" : "full") : (sheetPos === "full" ? "half" : "peek")); };
+  [h, $("#sheet .tabs")].forEach(el => { el.addEventListener("touchstart", start, { passive: true }); el.addEventListener("mousedown", start); });
+  addEventListener("touchmove", move, { passive: true }); addEventListener("mousemove", move);
+  addEventListener("touchend", end); addEventListener("mouseup", end);
+}
+
+/* ============================== actions ============================== */
+async function search(q) {
+  const ql = q.toLowerCase();
+  if (tcams.size) { const hit = [...tcams.values()].find(c => (c.name + " " + (c.place || "")).toLowerCase().includes(ql)); if (hit && !/^\d/.test(ql) && ql.length > 3 && !/,|\b(st|ave|rd|blvd|street|avenue|road)\b/.test(ql) && !STATES.some(s => s[0].toLowerCase() === ql)) { map.flyTo([hit.lat, hit.lon], 14); openCam(hit.id); return; } }
+  const st = STATES.find(s => s[0].toLowerCase() === ql || s[1].toLowerCase() === ql); if (st) return focusState(st[1]);
+  status(`searching "${q}"…`);
+  try {
+    const j = await (await fetchT(`https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=us,pr&q=${encodeURIComponent(q)}`)).json();
+    if (!j[0]) { // maybe a camera name in a feed not loaded yet
+      await Promise.all(FEEDS.map(loadFeed)); const hit = [...tcams.values()].find(c => (c.name + " " + (c.place || "")).toLowerCase().includes(ql));
+      if (hit) { map.flyTo([hit.lat, hit.lon], 14); openCam(hit.id); return; }
+      return status(`nothing found for "${q}"`);
+    }
+    const bb = j[0].boundingbox.map(Number);
+    map.flyToBounds([[bb[0], bb[2]], [bb[1], bb[3]]], { maxZoom: 13 });
+    map.once("moveend", () => { if (map.getZoom() < 12) map.setZoom(12); });
+    status(j[0].display_name.split(",").slice(0, 3).join(","));
+    if (!isDesktop()) openSheet("peek");
+  } catch { status("search is unreachable right now"); }
+}
+function near() {
+  if (!navigator.geolocation) return toast("no location on this device");
+  status("locating… your position stays in this browser");
+  navigator.geolocation.getCurrentPosition(p => {
+    const la = p.coords.latitude, lo = p.coords.longitude;
+    if (meMarker) meMarker.remove(); meMarker = L.marker([la, lo], { icon: L.divIcon({ className: "", html: '<div class="me"></div>', iconSize: [14, 14] }), interactive: false }).addTo(map);
+    map.setView([la, lo], 14);
+    setTimeout(async () => {
+      await Promise.all([scan(true), ...feedsFor(la - .4, lo - .4, la + .4, lo + .4).map(loadFeed)]);
+      const na = nearestAlprs(la, lo), nc = nearestCams(la, lo, 3);
+      showCard(`<h2>near you</h2>` + (na.length ? na.map(({ a, d }) => `<div class="row" tabindex="0" data-alpr="${a.id}" style="padding:7px 0"><span class="t">${a.flock ? "Flock " : ""}node ${a.id}<small>${esc(a.tags.operator || a.tags.manufacturer || "ALPR")}</small></span><span class="v">${dist(d)}</span></div>`).join("") : `<p>no mapped ALPRs loaded within this view${busy ? "" : " (or OpenStreetMap is slow right now)"}.</p>`) +
+        (nc.length ? `<p style="margin-top:8px">public traffic cams</p>` + nc.map(({ c, d }) => `<div class="row" tabindex="0" data-cam="${c.id}" style="padding:7px 0"><span class="t">${esc(c.name)}<small>${esc(c.place || "")}</small></span><span class="v">${dist(d)}</span></div>`).join("") : `<p>no public traffic feed is plugged in here yet (California and NYC so far).</p>`));
+      openSheet("half");
+    }, 500);
+  }, () => toast("location permission denied; search your city instead"), { enableHighAccuracy: false, timeout: 10000, maximumAge: 60000 });
+}
+function exportCsv() {
+  const b = map.getBounds(); const rows = [...alprs.values()].filter(a => b.contains([a.lat, a.lon]) && (!flockOnly || a.flock));
+  if (!rows.length) return toast("no ALPR points in view to export");
+  const cols = ["osm_id", "lat", "lon", "flock", "operator", "manufacturer", "direction", "osm_url"];
+  const csv = [cols.join(",")].concat(rows.map(a => [a.id, a.lat, a.lon, a.flock, a.tags.operator || "", a.tags.manufacturer || a.tags.brand || "", a.tags["camera:direction"] || a.tags.direction || "", "https://www.openstreetmap.org/node/" + a.id].map(v => `"${String(v).replace(/"/g, '""')}"`).join(","))).join("\n");
+  const u = URL.createObjectURL(new Blob([csv], { type: "text/csv" })); const l = document.createElement("a"); l.href = u; l.download = `alpr-in-view-${Date.now()}.csv`; l.click(); setTimeout(() => URL.revokeObjectURL(u), 2000);
+  toast(`exported ${rows.length} rows`);
+}
+async function share() { writeHash(); const url = location.href; if (navigator.share && !isDesktop()) { try { await navigator.share({ title: "Flock camera map", url }); return; } catch (_) {} } try { await navigator.clipboard.writeText(url); toast("link copied"); } catch { prompt("copy this link", url); } }
+
+/* ============================== url state ============================== */
+function writeHash() {
+  if (hashLock || !map) return;
+  const c = map.getCenter(); const p = new URLSearchParams({ ll: `${c.lat.toFixed(4)},${c.lng.toFixed(4)}`, z: map.getZoom() });
+  if (root.dataset.theme) p.set("t", root.dataset.theme);
+  if (curCam) p.set("cam", curCam.id); if (flockOnly) p.set("flock", "1");
+  if ($("#l-tc").getAttribute("aria-pressed") !== "true") p.set("tc", "0");
+  history.replaceState(null, "", "#" + p);
+}
+async function readHash() {
+  const p = new URLSearchParams(location.hash.slice(1));
+  if (p.get("t") === "dark" || p.get("t") === "light") setTheme(p.get("t"), true);
+  if (p.get("flock") === "1") { flockOnly = true; $("#l-flock").setAttribute("aria-pressed", "true"); }
+  if (p.get("tc") === "0") $("#l-tc").setAttribute("aria-pressed", "false");
+  const ll = (p.get("ll") || "").split(",").map(Number), z = +p.get("z");
+  if (ll.length === 2 && ll.every(isFinite) && z) map.setView(ll, z);
+  hashLock = false; writeHash(); onMove();
+  const cam = p.get("cam");
+  if (cam) { const f = FEEDS.find(f => cam.startsWith(f.id + "-")); if (f) { await loadFeed(f); if (tcams.has(cam)) openCam(cam); } }
+}
 </script>
 </body>
 </html>
