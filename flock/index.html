@@ -137,6 +137,7 @@ button:focus-visible,input:focus-visible,[tabindex]:focus-visible{outline:2px so
 @media (prefers-reduced-motion:reduce){.sheet,.viewer{transition:none}.frame .live::before{animation:none}}
 .fx{width:10px;height:10px;transform:rotate(45deg);background:#f5f5f5;border:2px solid #111;box-shadow:0 0 0 1px #f5f5f5}
 .fx.rl{background:#e5484d}
+#v-img:not([src]){visibility:hidden}
 </style>
 </head>
 <body>
@@ -482,6 +483,7 @@ function openCam(id) {
   $("#v-name").textContent = c.name + (c.place ? " · " + c.place : "");
   $("#v-prev").hidden = !(c.prev && c.prev.length); $("#v-range").hidden = true; $("#v-range").max = c.prev ? c.prev.length : 0; $("#v-range").value = 0;
   $("#v-video").hidden = !c.stream; stopVideo(); $("#v-img").hidden = false; $("#v-vid").hidden = true;
+  $("#v-img").removeAttribute("src"); $("#v-stamp").textContent = "loading…"; $("#v-live").textContent = "live";
   tick(); schedule(); renderTcs();
   if (c.stream) playVideo(true);
   const na = nearestAlprs(c.lat, c.lon);
